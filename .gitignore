@@ -13,6 +13,7 @@ sources/out/
 
 # IDE
 sources/.idea/
+sources/**/*.iml
 
 # Miscellaneous
 *.lock
