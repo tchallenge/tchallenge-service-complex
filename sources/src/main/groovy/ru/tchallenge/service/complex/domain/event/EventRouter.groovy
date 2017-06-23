@@ -4,26 +4,28 @@ import groovy.transform.CompileStatic
 
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+
+import ru.tchallenge.service.complex.behavior.component.Router
+import ru.tchallenge.service.complex.convention.component.RouterComponent
+import ru.tchallenge.service.complex.convention.routing.RouteGet
+import ru.tchallenge.service.complex.convention.routing.RoutePost
+import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
-@RestController
-@RequestMapping(path = "/events")
-class EventRouter {
+@RouterComponent("/events")
+class EventRouter implements Router {
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RoutePost
     def create(@RequestBody EventInvoice invoice) {
         return new EventInfo(textcode: invoice.textcode)
     }
 
-    @RequestMapping(path = "/{textcode}", method = RequestMethod.GET)
+    @RouteGet("/{textcode}")
     def getByTextcode(@PathVariable("textcode") String textcode) {
         return new EventInfo(textcode: textcode)
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RouteGet()
     def search(EventSearchInvoice invoice) {
         return [
                 new EventInfo(),
@@ -32,7 +34,7 @@ class EventRouter {
         ]
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RoutePut
     def update(@RequestBody EventInvoice invoice) {
         return new EventInfo(textcode: invoice.textcode)
     }
