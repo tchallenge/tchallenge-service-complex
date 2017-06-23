@@ -1,0 +1,33 @@
+logging:
+
+  level:
+
+    org: ${log-framework:ERROR}
+
+    ru:
+      tchallenge: ${log:INFO}
+
+server:
+
+  error:
+    whitelabel:
+      enabled: 'false'
+
+  port: ${port:3000}
+
+spring:
+
+  mail:
+    host: ${mail-host:localhost}
+    port: ${mail-port:25}
+    username: ${mail-username:}
+    password: ${mail-password:}
+
+  main:
+    banner-mode: 'off'
+
+  mvc:
+    throw-exception-if-no-handler-found: 'true'
+
+  resources:
+    add-mappings: 'false'
