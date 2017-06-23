@@ -14,7 +14,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
 @RouterComponent("/tasks")
-class TaskRouter implements Router {
+class TaskRouter extends Router {
 
     @RoutePost
     def create(@RequestBody TaskInvoice invoice) {

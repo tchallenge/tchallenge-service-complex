@@ -7,7 +7,7 @@ import ru.tchallenge.service.complex.convention.component.ContextComponent
 
 @CompileStatic
 @ContextComponent
-class AuthenticationContext implements Context {
+class AuthenticationContext extends Context {
 
     AuthenticationInfo authentication
 }

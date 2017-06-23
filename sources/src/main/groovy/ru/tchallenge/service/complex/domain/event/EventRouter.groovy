@@ -14,7 +14,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
 @RouterComponent("/events")
-class EventRouter implements Router {
+class EventRouter extends Router {
 
     @RoutePost
     def create(@RequestBody EventInvoice invoice) {
