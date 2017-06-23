@@ -25,7 +25,7 @@ class EventRouter implements Router {
         return new EventInfo(textcode: textcode)
     }
 
-    @RouteGet()
+    @RouteGet
     def search(EventSearchInvoice invoice) {
         return [
                 new EventInfo(),
