@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.behavior.component.Router
+import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePost
@@ -26,7 +27,7 @@ class TaskRouter implements Router {
     }
 
     @RouteGet
-    def search(TaskSearchInvoice invoice) {
+    def search(SearchInvoice<TaskInvoice> invoice) {
         return [
                 new TaskInfoComplete(),
                 new TaskInfoComplete(),

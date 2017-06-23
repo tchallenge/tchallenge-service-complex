@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
+import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePost
@@ -28,7 +29,7 @@ class AccountRouter {
     }
 
     @RouteGet
-    def search(AccountSearchInvoice invoice) {
+    def search(SearchInvoice<AccountInvoice> invoice) {
         return [
                 new AccountInfo(),
                 new AccountInfo(),
