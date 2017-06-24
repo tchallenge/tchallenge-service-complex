@@ -11,6 +11,19 @@ class AccountRealmBootstrap extends GenericEnumeratedBootstrap<AccountRealm> {
 
     @Override
     protected Collection<AccountRealm> enumeratedEntities() {
-        return []
+        return [
+                new AccountRealm(
+                        textcode: "CANDIDATE",
+                        title: "Кандидат/соискатель"
+                ),
+                new AccountRealm(
+                        textcode: "EMPLOYEE",
+                        title: "Сотрудник компании"
+                ),
+                new AccountRealm(
+                        textcode: "ROBOT",
+                        title: "Сторонний сервис"
+                )
+        ]
     }
 }
