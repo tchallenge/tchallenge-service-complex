@@ -11,7 +11,7 @@ import javax.persistence.Table
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.ordinal.GenericPrimaryEntity
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealm
@@ -25,7 +25,7 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 @CompileStatic
 @Entity
 @Table(name = "account")
-class Account extends GenericPrimaryEntity {
+class Account extends GenericOrdinalEntity {
 
     @Column(name = "email")
     String email

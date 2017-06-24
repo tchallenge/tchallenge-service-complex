@@ -10,14 +10,14 @@ import javax.persistence.Table
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.ordinal.GenericSecondaryEntity
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.robot.role.RobotRole
 
 @CompileStatic
 @Entity
 @Table(name = "robot")
-class Robot extends GenericSecondaryEntity {
+class Robot extends GenericOrdinalEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
