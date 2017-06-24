@@ -1,9 +1,11 @@
-package ru.tchallenge.service.complex.behavior.entity
+package ru.tchallenge.service.complex.common.enumerated
 
 import javax.persistence.Column
 import javax.persistence.MappedSuperclass
 
 import groovy.transform.CompileStatic
+
+import ru.tchallenge.service.complex.common.GenericEntity
 
 @CompileStatic
 @MappedSuperclass

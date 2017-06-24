@@ -1,12 +1,10 @@
-package ru.tchallenge.service.complex.behavior.component
+package ru.tchallenge.service.complex.common
 
 import javax.annotation.PostConstruct
 
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
-
-import ru.tchallenge.service.complex.behavior.entity.GenericEntity
 
 @CompileStatic
 abstract class GenericBootstrap<E extends GenericEntity, ID extends Serializable> {

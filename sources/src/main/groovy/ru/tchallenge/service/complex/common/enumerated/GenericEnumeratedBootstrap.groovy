@@ -1,8 +1,8 @@
-package ru.tchallenge.service.complex.behavior.component
+package ru.tchallenge.service.complex.common.enumerated
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.entity.GenericEnumeratedEntity
+import ru.tchallenge.service.complex.common.GenericBootstrap
 
 @CompileStatic
 abstract class GenericEnumeratedBootstrap<E extends GenericEnumeratedEntity> extends GenericBootstrap<E, String> {

@@ -1,10 +1,10 @@
-package ru.tchallenge.service.complex.behavior.component
+package ru.tchallenge.service.complex.common.enumerated
 
 import groovy.transform.CompileStatic
 
 import org.springframework.data.repository.NoRepositoryBean
 
-import ru.tchallenge.service.complex.behavior.entity.GenericEnumeratedEntity
+import ru.tchallenge.service.complex.common.GenericRepository
 
 @CompileStatic
 @NoRepositoryBean

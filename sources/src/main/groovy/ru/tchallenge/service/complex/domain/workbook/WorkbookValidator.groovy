@@ -2,8 +2,8 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.component.GenericValidator
-import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
+import ru.tchallenge.service.complex.common.GenericValidator
+import ru.tchallenge.service.complex.common.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.ValidatorComponent
 
 @CompileStatic

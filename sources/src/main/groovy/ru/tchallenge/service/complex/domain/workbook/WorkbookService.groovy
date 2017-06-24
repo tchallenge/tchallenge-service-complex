@@ -7,10 +7,10 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 
-import ru.tchallenge.service.complex.behavior.component.GenericService
-import ru.tchallenge.service.complex.behavior.value.EnumeratedInfo
-import ru.tchallenge.service.complex.behavior.value.search.SearchInfo
-import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
+import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
+import ru.tchallenge.service.complex.common.search.SearchInfo
+import ru.tchallenge.service.complex.common.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusRepository
 

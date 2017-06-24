@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.behavior.entity
+package ru.tchallenge.service.complex.common
 
 import javax.persistence.Column
 import javax.persistence.Id

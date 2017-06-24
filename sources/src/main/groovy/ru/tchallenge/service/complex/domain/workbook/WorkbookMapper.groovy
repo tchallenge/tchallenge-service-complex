@@ -2,7 +2,7 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.component.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapper
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 
 @CompileStatic

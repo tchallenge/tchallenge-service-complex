@@ -1,11 +1,12 @@
-package ru.tchallenge.service.complex.behavior.component
+package ru.tchallenge.service.complex.common
 
 import java.util.stream.Collectors
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.entity.GenericEnumeratedEntity
-import ru.tchallenge.service.complex.behavior.value.EnumeratedInfo
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedRepository
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 
 @CompileStatic
 abstract class GenericService {

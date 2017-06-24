@@ -4,10 +4,10 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.behavior.component.GenericFacade
-import ru.tchallenge.service.complex.behavior.value.EnumeratedInfo
-import ru.tchallenge.service.complex.behavior.value.search.SearchInfo
-import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
+import ru.tchallenge.service.complex.common.GenericFacade
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
+import ru.tchallenge.service.complex.common.search.SearchInfo
+import ru.tchallenge.service.complex.common.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
 @CompileStatic

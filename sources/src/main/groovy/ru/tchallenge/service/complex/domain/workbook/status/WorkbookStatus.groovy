@@ -5,7 +5,7 @@ import javax.persistence.Table
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.entity.GenericEnumeratedEntity
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 
 @CompileStatic
 @Entity

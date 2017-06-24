@@ -2,11 +2,9 @@ package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.value.GenericInfoValue
-import ru.tchallenge.service.complex.convention.value.Value
+import ru.tchallenge.service.complex.common.GenericInfoValue
 
 @CompileStatic
-@Value
 class AccountInfo extends GenericInfoValue {
 
     String id

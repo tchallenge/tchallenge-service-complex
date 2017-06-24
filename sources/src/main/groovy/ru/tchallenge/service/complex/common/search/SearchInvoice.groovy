@@ -1,8 +1,8 @@
-package ru.tchallenge.service.complex.behavior.value.search
+package ru.tchallenge.service.complex.common.search
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.behavior.value.GenericInvoiceValue
+import ru.tchallenge.service.complex.common.GenericInvoiceValue
 
 @CompileStatic
 class SearchInvoice<T> extends GenericInvoiceValue {

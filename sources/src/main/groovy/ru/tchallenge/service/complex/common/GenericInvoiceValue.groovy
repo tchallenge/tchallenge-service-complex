@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.behavior.value
+package ru.tchallenge.service.complex.common
 
 import groovy.transform.CompileStatic
 
