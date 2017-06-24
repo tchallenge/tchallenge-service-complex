@@ -24,6 +24,9 @@ class WorkbookService extends GenericService {
     @Autowired
     protected WorkbookRepository workbookRepository
 
+    @Autowired
+    protected WorkbookStatusRepository workbookStatusRepository
+
     WorkbookInfo create(WorkbookInvoice invoice) {
         def entity = workbookMapper.asEntity(invoice)
         workbookRepository.save(entity)
@@ -48,6 +51,10 @@ class WorkbookService extends GenericService {
         def entity = workbookById(invoice.id)
         workbookRepository.save(entity)
         return workbookMapper.asInfoComplete(entity)
+    }
+
+    Collection<EnumeratedInfo> getStatuses() {
+        return enumerated(workbookStatusRepository)
     }
 
     private WorkbookEntity workbookById(String id) {

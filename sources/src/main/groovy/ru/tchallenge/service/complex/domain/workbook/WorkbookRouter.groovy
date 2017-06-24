@@ -30,6 +30,11 @@ class WorkbookRouter extends Router {
         return workbookFacade.get(id)
     }
 
+    @RouteGet("/statuses")
+    def getStatuses() {
+        return workbookFacade.statuses
+    }
+
     @RouteGet
     def search(SearchInvoice<WorkbookInvoice> invoice) {
         return workbookFacade.search(invoice)
