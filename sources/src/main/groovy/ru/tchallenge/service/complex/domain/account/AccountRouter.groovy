@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-import ru.tchallenge.service.complex.behavior.component.Router
+import ru.tchallenge.service.complex.behavior.component.GenericRouter
 import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
@@ -14,7 +14,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
 @RouterComponent("/accounts")
-class AccountRouter extends Router {
+class AccountRouter extends GenericRouter {
 
     @RoutePost
     def create(@RequestBody AccountInvoice invoice) {

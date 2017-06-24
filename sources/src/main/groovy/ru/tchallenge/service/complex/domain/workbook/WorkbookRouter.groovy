@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-import ru.tchallenge.service.complex.behavior.component.Router
+import ru.tchallenge.service.complex.behavior.component.GenericRouter
 import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
@@ -15,7 +15,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
 @RouterComponent("/workbooks")
-class WorkbookRouter extends Router {
+class WorkbookRouter extends GenericRouter {
 
     @Autowired
     protected WorkbookFacade workbookFacade
