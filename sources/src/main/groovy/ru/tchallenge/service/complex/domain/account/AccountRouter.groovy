@@ -2,10 +2,12 @@ package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.common.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
@@ -16,8 +18,11 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 @RouterComponent("/accounts")
 class AccountRouter extends GenericRouter {
 
+    @Autowired
+    protected AccountFacade accountFacade
+
     @RoutePost
-    def create(@RequestBody AccountInvoice invoice) {
+    AccountInfo create(@RequestBody AccountInvoice invoice) {
         return new AccountInfo(
                 id: invoice.id,
                 login: invoice.login
@@ -25,21 +30,17 @@ class AccountRouter extends GenericRouter {
     }
 
     @RouteGet("/{id}")
-    def getByTextcode(@PathVariable("id") String id) {
+    AccountInfo getByTextcode(@PathVariable("id") String id) {
         return new AccountInfo(id: id)
     }
 
     @RouteGet
-    def search(SearchInvoice<AccountInvoice> invoice) {
-        return [
-                new AccountInfo(),
-                new AccountInfo(),
-                new AccountInfo()
-        ]
+    SearchInfo<AccountInfo> search(SearchInvoice<AccountInvoice> invoice) {
+        return accountFacade.search(invoice)
     }
 
     @RoutePut
-    def update(@RequestBody AccountInvoice invoice) {
+    AccountInfo update(@RequestBody AccountInvoice invoice) {
         return new AccountInfo(
                 id: invoice.id,
                 login: invoice.login
