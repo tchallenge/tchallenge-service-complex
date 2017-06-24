@@ -10,9 +10,7 @@ import ru.tchallenge.service.complex.convention.component.MapperComponent
 class WorkbookMapper extends GenericMapper {
 
     static Workbook asEntity(WorkbookInvoice invoice) {
-        return new Workbook(
-                id: invoice.id as Long
-        )
+        return new Workbook()
     }
 
     static WorkbookInfo asInfoComplete(Workbook entity) {
