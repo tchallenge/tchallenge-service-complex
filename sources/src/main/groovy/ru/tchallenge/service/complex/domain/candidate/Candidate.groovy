@@ -1,5 +1,6 @@
 package ru.tchallenge.service.complex.domain.candidate
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
@@ -18,4 +19,7 @@ class Candidate extends GenericSecondaryEntity {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account
+
+    @Column(name = "github")
+    String github
 }
