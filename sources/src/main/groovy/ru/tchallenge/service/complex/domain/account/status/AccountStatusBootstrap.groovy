@@ -11,6 +11,23 @@ class AccountStatusBootstrap extends GenericEnumeratedBootstrap<AccountStatus> {
 
     @Override
     protected Collection<AccountStatus> enumeratedEntities() {
-        return []
+        return [
+                new AccountStatus(
+                        textcode: "CREATED",
+                        title: "Создан"
+                ),
+                new AccountStatus(
+                        textcode: "APPROVED",
+                        title: "Подтвержден"
+                ),
+                new AccountStatus(
+                        textcode: "SUSPENDED",
+                        title: "Приостановлен"
+                ),
+                new AccountStatus(
+                        textcode: "DELETED",
+                        title: "Удален"
+                )
+        ]
     }
 }
