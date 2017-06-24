@@ -1,8 +1,11 @@
 package ru.tchallenge.service.complex.domain.candidate
 
+import groovy.transform.CompileStatic
+
 import ru.tchallenge.service.complex.common.GenericMapper
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 
+@CompileStatic
 @MapperComponent
 class CandidateMapper extends GenericMapper {
 
