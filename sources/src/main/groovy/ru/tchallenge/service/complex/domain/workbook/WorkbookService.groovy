@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.common.search.SearchInvoice
@@ -54,7 +55,7 @@ class WorkbookService extends GenericService {
     }
 
     Collection<EnumeratedInfo> getStatuses() {
-        return enumerated(workbookStatusRepository)
+        return EnumeratedHelper.all(workbookStatusRepository)
     }
 
     private WorkbookEntity workbookById(String id) {
