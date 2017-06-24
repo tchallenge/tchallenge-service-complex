@@ -31,6 +31,15 @@ class EnumeratedHelper {
                 .collect(Collectors.toList())
     }
 
+    static <E extends GenericEnumeratedEntity> Collection<E> many(GenericEnumeratedRepository<E> repository,
+                                                                  String... textcodes) {
+        return textcodes
+                .toList()
+                .stream()
+                .map { String textcode -> repository.findByTextcode(textcode) }
+                .collect(Collectors.toList())
+    }
+
     static EnumeratedInfo one(GenericEnumeratedEntity entity) {
         return new EnumeratedInfo(
                 textcode: entity.textcode,
