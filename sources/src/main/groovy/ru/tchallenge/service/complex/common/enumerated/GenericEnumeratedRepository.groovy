@@ -11,4 +11,6 @@ import ru.tchallenge.service.complex.common.GenericRepository
 interface GenericEnumeratedRepository<E extends GenericEnumeratedEntity> extends GenericRepository<E, String> {
 
     Collection<E> findAll()
+
+    E findByTextcode(String textcode)
 }
