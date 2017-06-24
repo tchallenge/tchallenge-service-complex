@@ -9,6 +9,7 @@ import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
+import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmBootstrap
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusBootstrap
@@ -86,6 +87,13 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 lastname: "Сидоров",
                 quickname: "Vano"
         )
+        account.passwords = [
+                new AccountPassword(
+                        account: account,
+                        active: 1,
+                        hash: "test-hash"
+                )
+        ]
         return account
     }
 
