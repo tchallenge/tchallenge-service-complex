@@ -9,7 +9,7 @@ import ru.tchallenge.service.complex.behavior.entity.GenericEntity
 
 @CompileStatic
 @NoRepositoryBean
-interface GenericRepository<E extends GenericEntity<ID>, ID extends Serializable> extends Repository<E, ID> {
+interface GenericRepository<E extends GenericEntity, ID extends Serializable> extends Repository<E, ID> {
 
     E findById(ID id)
 
