@@ -18,7 +18,7 @@ class Person extends GenericOrdinalEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account account
+    Account account
 
     @Column(name = "firstname")
     String firstname

@@ -18,7 +18,7 @@ class Candidate extends GenericOrdinalEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account account
+    Account account
 
     @Column(name = "github")
     String github

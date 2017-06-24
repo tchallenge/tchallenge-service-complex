@@ -66,25 +66,27 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
     }
 
     private Account sidorov() {
-        def id = nextId()
-        return new Account(
-                id: id,
+        def account = new Account(
+                id: nextId(),
                 email: "ivan.sidorov@somemail.net",
                 login: "ivan.sidorov",
-                employee: new Employee(
-                        id: id,
-                        roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
-                ),
-                person: new Person(
-                        id: id,
-                        firstname: "Иван",
-                        lastname: "Сидоров",
-                        quickname: "Vano"
-                ),
                 realm: accountRealmRepository.findById("EMPLOYEE"),
                 status: accountStatusRepository.findById("APPROVED"),
                 verification: accountVerificationRepository.findById("PASSWORD")
         )
+        account.employee = new Employee(
+                id: account.id,
+                account: account,
+                roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
+        )
+        account.person = new Person(
+                id: account.id,
+                account: account,
+                firstname: "Иван",
+                lastname: "Сидоров",
+                quickname: "Vano"
+        )
+        return account
     }
 
     private Long nextId() {

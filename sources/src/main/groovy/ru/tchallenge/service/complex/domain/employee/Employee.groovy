@@ -20,7 +20,7 @@ class Employee extends GenericOrdinalEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account account
+    Account account
 
     @ManyToMany
     @JoinTable(name = "employee_role_to_employee_map", joinColumns = @JoinColumn(name = "employee_id"))

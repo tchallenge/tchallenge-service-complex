@@ -21,7 +21,7 @@ class Robot extends GenericOrdinalEntity {
 
     @OneToOne
     @JoinColumn(name = "account_id")
-    private Account account
+    Account account
 
     @Column(name = "title")
     String title
