@@ -7,7 +7,7 @@ import ru.tchallenge.service.complex.convention.value.Value
 
 @CompileStatic
 @Value
-class WorkbookInfoComplete extends InfoValue {
+class WorkbookInfo extends InfoValue {
 
     String id
 }

@@ -2,7 +2,10 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
+import org.springframework.beans.factory.annotation.Autowired
+
 import ru.tchallenge.service.complex.behavior.component.Facade
+import ru.tchallenge.service.complex.behavior.value.search.SearchInfo
 import ru.tchallenge.service.complex.behavior.value.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
@@ -10,23 +13,29 @@ import ru.tchallenge.service.complex.convention.component.FacadeComponent
 @FacadeComponent
 class WorkbookFacade extends Facade {
 
-    def create(WorkbookInvoice invoice) {
-        return new WorkbookInfoComplete(id: invoice.id)
+    @Autowired
+    protected WorkbookService workbookService
+
+    @Autowired
+    protected WorkbookValidator workbookValidator
+
+    WorkbookInfo create(WorkbookInvoice invoice) {
+        workbookValidator.ensureForCreation(invoice)
+        return workbookService.create(invoice)
     }
 
-    def get(String id) {
-        return new WorkbookInfoComplete(id: id)
+    WorkbookInfo get(String id) {
+        workbookValidator.ensureForGet(id)
+        return workbookService.get(id)
     }
 
-    def search(SearchInvoice<WorkbookInvoice> invoice) {
-        return [
-                new WorkbookInfoComplete(),
-                new WorkbookInfoComplete(),
-                new WorkbookInfoComplete()
-        ]
+    SearchInfo<WorkbookInfo> search(SearchInvoice<WorkbookInvoice> invoice) {
+        workbookValidator.ensureForSearch(invoice)
+        return workbookService.search(invoice)
     }
 
-    def update(WorkbookInvoice invoice) {
-        return new WorkbookInfoComplete(id: invoice.id)
+    WorkbookInfo update(WorkbookInvoice invoice) {
+        workbookValidator.ensureForUpdate(invoice)
+        return workbookService.update(invoice)
     }
 }
