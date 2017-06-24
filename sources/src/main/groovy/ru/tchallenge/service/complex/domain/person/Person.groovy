@@ -1,5 +1,6 @@
 package ru.tchallenge.service.complex.domain.person
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
@@ -18,4 +19,13 @@ class Person extends GenericSecondaryEntity {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account
+
+    @Column(name = "firstname")
+    String firstname
+
+    @Column(name = "lastname")
+    String lastname
+
+    @Column(name = "quickname")
+    String quickname
 }
