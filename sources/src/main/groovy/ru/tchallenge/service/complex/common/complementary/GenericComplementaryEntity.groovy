@@ -15,4 +15,10 @@ abstract class GenericComplementaryEntity extends GenericEntity<String> {
     @Id
     @Column(name = "id")
     String id
+
+    @Override
+    protected void onInsert() {
+        super.onInsert()
+        id = UUID.randomUUID().toString()
+    }
 }

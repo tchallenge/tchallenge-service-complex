@@ -43,6 +43,7 @@ class AccountCertificate extends GenericComplementaryEntity {
 
     @Override
     protected void onInsert() {
+        super.onInsert()
         createdAt = Instant.now()
     }
 }
