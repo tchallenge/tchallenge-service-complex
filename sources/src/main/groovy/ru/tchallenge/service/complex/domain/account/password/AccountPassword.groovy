@@ -19,7 +19,7 @@ class AccountPassword extends GenericComplementaryEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private Account account
+    Account account
 
     @Column
     Integer active
