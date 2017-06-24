@@ -8,12 +8,12 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.Repository
 
 @CompileStatic
-interface WorkbookRepository extends Repository<WorkbookEntity, Long> {
+interface WorkbookRepository extends Repository<Workbook, Long> {
 
-    WorkbookEntity findById(Long id)
+    Workbook findById(Long id)
 
-    @Query("SELECT w FROM WorkbookEntity AS w")
-    Page<WorkbookEntity> findPage(Pageable pageable)
+    @Query("SELECT w FROM Workbook AS w")
+    Page<Workbook> findPage(Pageable pageable)
 
-    WorkbookEntity save(WorkbookEntity entity)
+    Workbook save(Workbook entity)
 }

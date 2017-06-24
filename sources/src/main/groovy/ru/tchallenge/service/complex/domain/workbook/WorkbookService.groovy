@@ -58,7 +58,7 @@ class WorkbookService extends GenericService {
         return EnumeratedHelper.all(workbookStatusRepository)
     }
 
-    private WorkbookEntity workbookById(String id) {
+    private Workbook workbookById(String id) {
         def result = workbookRepository.findById(id as Long)
         if (!result) {
             throw new RuntimeException("no such workbook")

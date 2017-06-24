@@ -8,7 +8,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "workbooks")
-class WorkbookEntity {
+class Workbook {
 
     @Id
     @GeneratedValue
