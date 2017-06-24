@@ -9,7 +9,7 @@ import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 
 @CompileStatic
 @Entity
-@Table(name = "account_status")
+@Table(name = "workbook_status")
 class WorkbookStatus extends GenericEnumeratedEntity {
 
 }
