@@ -11,6 +11,10 @@ import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalRepository
 @CompileStatic
 interface AccountRepository extends GenericOrdinalRepository<Account> {
 
+    Account findByEmail(String email)
+
+    Account findByLogin(String login)
+
     @Query("SELECT a FROM Account AS a")
     Page<Account> findPage(Pageable pageable)
 }
