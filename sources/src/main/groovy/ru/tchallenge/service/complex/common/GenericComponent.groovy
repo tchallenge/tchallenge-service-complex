@@ -7,11 +7,11 @@ import groovy.transform.CompileStatic
 @CompileStatic
 abstract class GenericComponent {
 
-    static Instant now() {
+    protected static Instant now() {
         return Instant.now()
     }
 
-    static String uuid() {
+    protected String uuid() {
         return UUID.randomUUID().toString()
     }
 }
