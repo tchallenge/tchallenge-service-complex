@@ -18,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 
+import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
+
 @CompileStatic
 @Configuration
 @EnableWebMvc
@@ -58,6 +60,7 @@ class WebConfigurator extends WebMvcConfigurerAdapter {
                 .failOnEmptyBeans(false)
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
                 .serializationInclusion(JsonInclude.Include.NON_EMPTY)
+                .serializers(new InstantSerializer())
                 .build()
     }
 }
