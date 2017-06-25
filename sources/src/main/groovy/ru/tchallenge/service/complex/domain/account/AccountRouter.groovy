@@ -31,7 +31,7 @@ class AccountRouter extends GenericRouter {
 
     @RouteGet("/{id}")
     AccountInfo getByTextcode(@PathVariable("id") String id) {
-        return new AccountInfo(id: id)
+        return accountFacade.get(id)
     }
 
     @RouteGet

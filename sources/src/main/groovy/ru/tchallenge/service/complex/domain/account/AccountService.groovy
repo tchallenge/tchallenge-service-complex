@@ -22,6 +22,14 @@ class AccountService extends GenericService {
     @Autowired
     protected AccountRepository accountRepository
 
+    AccountInfo getById(String id) {
+        def account = accountRepository.findById(id as Long)
+        if (!account) {
+            throw new RuntimeException("referenced account does not exist")
+        }
+        return accountMapper.asInfo(account)
+    }
+
     SearchInfo<AccountInfo> search(SearchInvoice<AccountInvoice> invoice) {
         def page = accountRepository.findPage(new PageRequest(0, 100))
         return new SearchInfo<AccountInfo>(
