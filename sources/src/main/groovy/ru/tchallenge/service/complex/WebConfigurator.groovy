@@ -2,6 +2,7 @@ package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,18 +13,30 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 
+import ru.tchallenge.service.complex.security.SecurityInterceptor
 import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
 
 @CompileStatic
 @Configuration
 @EnableWebMvc
 class WebConfigurator extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    SecurityInterceptor securityInterceptor
+
+    @Override
+    void addInterceptors(InterceptorRegistry registry) {
+        registry
+                .addInterceptor(securityInterceptor)
+                .addPathPatterns("/**")
+    }
 
     @Bean
     FilterRegistrationBean corsFilter() {
