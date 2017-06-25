@@ -21,6 +21,7 @@ import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleBootstrap
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
 import ru.tchallenge.service.complex.domain.robot.role.RobotRoleBootstrap
+import ru.tchallenge.service.complex.utility.serialization.EncryptionService
 
 @CompileStatic
 @BootstrapComponent
@@ -57,6 +58,9 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
     protected EmployeeRoleRepository employeeRoleRepository
 
     @Autowired
+    protected EncryptionService encryptionService
+
+    @Autowired
     protected OrdinalSequenceService ordinalSequenceService
 
     @Override
@@ -91,7 +95,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 new AccountPassword(
                         account: account,
                         active: 1,
-                        hash: "test-hash"
+                        hash: encryptionService.passwordHash("test")
                 )
         ]
         return account
