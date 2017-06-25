@@ -26,7 +26,6 @@ class TokenService extends GenericService {
         def now = now()
         def token = new TokenInfo(
                 id: uuid(),
-                accountId: accountId,
                 payload: payloadService.fromAccountId(accountId),
                 deactivationInMinutes: deactivationInMinutes,
                 createdAt: now,

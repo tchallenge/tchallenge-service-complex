@@ -8,6 +8,7 @@ import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.account.AccountMapper
 import ru.tchallenge.service.complex.domain.account.AccountRepository
+import ru.tchallenge.service.complex.security.token.TokenPayloadService
 import ru.tchallenge.service.complex.security.token.TokenService
 import ru.tchallenge.service.complex.utility.serialization.EncryptionService
 
@@ -26,6 +27,9 @@ class AuthenticationService extends GenericService {
 
     @Autowired
     protected TokenService tokenService
+
+    @Autowired
+    protected TokenPayloadService tokenPayloadService
 
     AuthenticationInfo createFromLoginAndPassword(String login, String password) {
         def account = accountRepository.findByLogin(login)
@@ -52,7 +56,8 @@ class AuthenticationService extends GenericService {
 
     AuthenticationInfo createFromTokenPayload(String payload) {
         def token = tokenService.get(payload)
-        def account = accountRepository.findById(token.accountId as Long)
+        def accountId = tokenPayloadService.restoreAccountId(token.payload)
+        def account = accountRepository.findById(accountId as Long)
         if (!account) {
             throw unknownAccount()
         }

@@ -13,7 +13,6 @@ import ru.tchallenge.service.complex.common.GenericInfoValue
 class TokenInfo extends GenericInfoValue {
 
     String id
-    String accountId
     String payload
     Integer deactivationInMinutes
     Instant createdAt
@@ -31,7 +30,6 @@ class TokenInfo extends GenericInfoValue {
     TokenInfo copyWithUpdatedLastUsage() {
         return new TokenInfo(
                 id: id,
-                accountId: accountId,
                 payload: payload,
                 deactivationInMinutes: deactivationInMinutes,
                 createdAt: createdAt,
