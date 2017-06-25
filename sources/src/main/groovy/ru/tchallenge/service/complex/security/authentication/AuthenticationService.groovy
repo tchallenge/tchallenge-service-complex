@@ -50,8 +50,27 @@ class AuthenticationService extends GenericService {
         )
     }
 
+    AuthenticationInfo createFromTokenPayload(String payload) {
+        def token = tokenService.get(payload)
+        def account = accountRepository.findById(token.accountId as Long)
+        if (!account) {
+            throw unknownAccount()
+        }
+        if (account.status.textcode != "APPROVED") {
+            throw illegalStatus(account.status.textcode)
+        }
+        return new AuthenticationInfo(
+                account: accountMapper.asInfo(account),
+                token: token
+        )
+    }
+
     private static RuntimeException illegalStatus(String status) {
         return new RuntimeException("authentication failed: account status is " + status)
+    }
+
+    private static RuntimeException unknownAccount() {
+        return new RuntimeException("authentication failed: account does not exist")
     }
 
     private static RuntimeException unknownCredentials() {
