@@ -12,6 +12,7 @@ import javax.persistence.Table
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
+import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
 import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealm
@@ -25,7 +26,7 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 @CompileStatic
 @Entity
 @Table(name = "account")
-class Account extends GenericOrdinalEntity {
+class Account extends GenericOrdinalEntity implements TimestampedEntity {
 
     @Column(name = "email")
     String email

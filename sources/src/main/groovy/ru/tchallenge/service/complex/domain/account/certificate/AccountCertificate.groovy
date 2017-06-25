@@ -10,12 +10,13 @@ import javax.persistence.Table
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
+import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
 import ru.tchallenge.service.complex.domain.account.Account
 
 @CompileStatic
 @Entity
 @Table(name = "account_certificate")
-class AccountCertificate extends GenericComplementaryEntity {
+class AccountCertificate extends GenericComplementaryEntity implements TimestampedEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -28,22 +29,5 @@ class AccountCertificate extends GenericComplementaryEntity {
     String hash
 
     @Column
-    private Instant createdAt
-
-    @Column
-    private Instant expiresAt
-
-    Instant getCreatedAt() {
-        return createdAt
-    }
-
-    Instant getExpiresAt() {
-        return expiresAt
-    }
-
-    @Override
-    protected void onInsert() {
-        super.onInsert()
-        createdAt = Instant.now()
-    }
+    Instant expiresAt
 }
