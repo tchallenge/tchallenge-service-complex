@@ -11,6 +11,6 @@ import ru.tchallenge.service.complex.common.GenericService
 class EncryptionService extends GenericService {
 
     static String passwordHash(String password) {
-        return password.hashCode()
+        return password.hashCode() as String
     }
 }
