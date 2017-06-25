@@ -3,6 +3,6 @@ package ru.tchallenge.service.complex.common
 import groovy.transform.CompileStatic
 
 @CompileStatic
-abstract class GenericContext {
+abstract class GenericContext extends GenericComponent {
 
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
 
 @CompileStatic
-abstract class GenericFacade {
+abstract class GenericFacade extends GenericComponent {
 
     @Autowired
     protected AuthenticationContext authenticationContext
