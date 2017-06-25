@@ -14,12 +14,12 @@ abstract class GenericStorageLocal<V extends GenericInfoValue, K extends Seriali
 
     @Override
     Optional<V> get(K key) {
-        return Optional.of(items.get(key))
+        return Optional.ofNullable(items.get(key))
     }
 
     @Override
     Optional<V> put(K key, V value) {
-        return Optional.of(items.put(key, value))
+        return Optional.ofNullable(items.put(key, value))
     }
 
     @Override
