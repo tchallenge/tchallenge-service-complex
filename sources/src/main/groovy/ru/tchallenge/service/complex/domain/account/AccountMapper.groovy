@@ -39,7 +39,9 @@ class AccountMapper extends GenericMapper {
                 robot: account.robot ? robotMapper.asInfo(account.robot) : null,
                 realm: EnumeratedHelper.one(account.realm),
                 status: EnumeratedHelper.one(account.status),
-                verification: EnumeratedHelper.one(account.verification)
+                verification: EnumeratedHelper.one(account.verification),
+                createdAt: account.createdAt,
+                lastModifiedAt: account.lastModifiedAt
         )
     }
 }
