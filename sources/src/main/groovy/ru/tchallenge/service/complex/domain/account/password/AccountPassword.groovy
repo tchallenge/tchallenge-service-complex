@@ -29,8 +29,5 @@ class AccountPassword extends GenericComplementaryEntity implements TimestampedE
     String hash
 
     @Column
-    private Instant createdAt
-
-    @Column
     Instant expiresAt
 }
