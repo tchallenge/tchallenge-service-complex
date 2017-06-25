@@ -26,12 +26,26 @@ class SecurityInterceptor extends GenericInterceptor {
         if (request.requestURI == "/authentication") {
             return true
         }
+        def certificatePayload = request.getHeader("tchallenge-security-certificate-payload")
+        if (certificatePayload) {
+            authenticateByCertificatePayload(certificatePayload)
+            return true
+        }
         def tokenPayload = request.getHeader("tchallenge-security-token-payload")
         if (tokenPayload) {
-            def authentication = authenticationService.createFromTokenPayload(tokenPayload)
-            authenticationContext.setAuthentication(authentication)
+            authenticateByTokenPayload(tokenPayload)
             return true
         }
         throw new RuntimeException("unauthenticated")
+    }
+
+    private void authenticateByCertificatePayload(String payload) {
+        // TODO: implement authentication by certificate
+        throw new UnsupportedOperationException()
+    }
+
+    private void authenticateByTokenPayload(String payload) {
+        def authentication = authenticationService.createFromTokenPayload(payload)
+        authenticationContext.setAuthentication(authentication)
     }
 }
