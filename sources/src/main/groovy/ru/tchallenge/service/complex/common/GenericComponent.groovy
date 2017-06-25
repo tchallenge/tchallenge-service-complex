@@ -11,7 +11,7 @@ abstract class GenericComponent {
         return Instant.now()
     }
 
-    protected String uuid() {
+    protected static String uuid() {
         return UUID.randomUUID().toString()
     }
 }
