@@ -9,12 +9,14 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Component
+@Transactional
 @Lazy(false)
 public @interface BootstrapComponent {
 
