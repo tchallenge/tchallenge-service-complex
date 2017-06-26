@@ -27,7 +27,7 @@ class AccountFacade extends GenericFacade {
         return accountService.getById(id)
     }
 
-    SearchInfo<AccountInfo> search(SearchInvoice<AccountInvoice> invoice) {
+    SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
         if (!authenticatedEmployee("USERMOD")) {
             throw unauthorized()
         }

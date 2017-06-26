@@ -35,7 +35,7 @@ class AccountRouter extends GenericRouter {
     }
 
     @RouteGet
-    SearchInfo<AccountInfo> search(SearchInvoice<AccountInvoice> invoice) {
+    SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
         return accountFacade.search(invoice)
     }
 

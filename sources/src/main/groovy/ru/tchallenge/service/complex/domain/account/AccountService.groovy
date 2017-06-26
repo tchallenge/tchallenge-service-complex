@@ -30,7 +30,7 @@ class AccountService extends GenericService {
         return accountMapper.asInfo(account)
     }
 
-    SearchInfo<AccountInfo> search(SearchInvoice<AccountInvoice> invoice) {
+    SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
         def page = accountRepository.findPage(new PageRequest(0, 100))
         return new SearchInfo<AccountInfo>(
                 items: page.content.stream().map({ Account account -> accountMapper.asInfo(account) }).collect(Collectors.toList()),
