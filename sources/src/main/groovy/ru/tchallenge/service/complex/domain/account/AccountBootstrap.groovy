@@ -21,7 +21,7 @@ import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleBootstrap
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
 import ru.tchallenge.service.complex.domain.robot.role.RobotRoleBootstrap
-import ru.tchallenge.service.complex.utility.serialization.EncryptionService
+import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
 @BootstrapComponent

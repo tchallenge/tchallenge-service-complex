@@ -12,7 +12,7 @@ import ru.tchallenge.service.complex.domain.account.AccountRepository
 import ru.tchallenge.service.complex.security.token.TokenInfo
 import ru.tchallenge.service.complex.security.token.TokenPayloadService
 import ru.tchallenge.service.complex.security.token.TokenService
-import ru.tchallenge.service.complex.utility.serialization.EncryptionService
+import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
 @ServiceComponent

@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.utility.serialization
+package ru.tchallenge.service.complex.utility.encryption
 
 import groovy.transform.CompileStatic
 
