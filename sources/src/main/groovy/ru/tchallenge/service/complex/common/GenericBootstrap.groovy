@@ -14,8 +14,12 @@ abstract class GenericBootstrap<E extends GenericEntity, ID extends Serializable
 
     @PostConstruct
     protected void bootstrap() {
-        entities().forEach { E entity -> repository.save(entity) }
+        entities().forEach { E entity -> save(entity) }
     }
 
     protected abstract Collection<E> entities()
+
+    protected void save(E entity) {
+        repository.save(entity)
+    }
 }
