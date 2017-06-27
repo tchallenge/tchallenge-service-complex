@@ -22,6 +22,14 @@ class AccountService extends GenericService {
     @Autowired
     protected AccountRepository accountRepository
 
+    AccountInfo create(AccountInvoice invoice) {
+        throw new UnsupportedOperationException()
+    }
+
+    AccountInfo createAsClaim(AccountInvoice invoice) {
+        throw new UnsupportedOperationException()
+    }
+
     AccountInfo getById(String id) {
         def account = accountRepository.findById(id as Long)
         if (!account) {
@@ -37,5 +45,28 @@ class AccountService extends GenericService {
                 offset: 0L,
                 total: page.totalElements
         )
+    }
+
+    SearchInfo<AccountInfo> searchOnlyCandidates(SearchInvoice<AccountFilterInvoice> invoice) {
+        def amendedInvoice = new SearchInvoice<AccountFilterInvoice>(
+                filter: new AccountFilterInvoice(
+                        emailPattern: invoice.filter.emailPattern,
+                        loginPattern: invoice.filter.loginPattern,
+                        personNamePattern: invoice.filter.personNamePattern,
+                        realmTextcodes: ["CANDIDATE"],
+                        statusTextcodes: invoice.filter.statusTextcodes
+                ),
+                limit: invoice.limit,
+                offset: invoice.offset
+        )
+        return search(amendedInvoice)
+    }
+
+    AccountInfo update(AccountInvoice invoice) {
+        throw new UnsupportedOperationException()
+    }
+
+    AccountInfo updateStatus(AccountInvoice invoice) {
+        throw new UnsupportedOperationException()
     }
 }

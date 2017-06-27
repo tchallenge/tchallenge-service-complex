@@ -10,6 +10,6 @@ class AccountFilterInvoice extends GenericInvoiceValue {
     String emailPattern
     String loginPattern
     String personNamePattern
-    String[] realmTextcodes
-    String[] statusTextcodes
+    Collection<String> realmTextcodes
+    Collection<String> statusTextcodes
 }

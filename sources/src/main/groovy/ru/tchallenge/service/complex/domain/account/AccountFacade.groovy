@@ -20,17 +20,50 @@ class AccountFacade extends GenericFacade {
     @Autowired
     protected AuthenticationContext authenticationContext
 
+    AccountInfo create(AccountInvoice invoice) {
+        if (!isAuthenticatedUsermod()) {
+            throw unauthorized()
+        }
+        return accountService.create(invoice)
+    }
+
+    AccountInfo createAsClaim(AccountInvoice invoice) {
+        return accountService.createAsClaim(invoice)
+    }
+
     AccountInfo get(String id) {
-        if (!authenticatedEmployee("USERMOD") && id != authenticated().id) {
+        if (!isAuthenticatedUsermodOrSelfReference(id)) {
             throw unauthorized()
         }
         return accountService.getById(id)
     }
 
     SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
-        if (!authenticatedEmployee("USERMOD")) {
+        if (!authenticatedEmployee()) {
             throw unauthorized()
         }
         return accountService.search(invoice)
+    }
+
+    AccountInfo update(AccountInvoice invoice) {
+        if (!isAuthenticatedUsermodOrSelfReference(invoice.id)) {
+            throw unauthorized()
+        }
+        return accountService.update(invoice)
+    }
+
+    AccountInfo updateStatus(AccountInvoice invoice) {
+        if (!isAuthenticatedUsermod()) {
+            throw unauthorized()
+        }
+        return accountService.updateStatus(invoice)
+    }
+
+    private boolean isAuthenticatedUsermod() {
+        return authenticatedEmployee("USERMOD")
+    }
+
+    private boolean isAuthenticatedUsermodOrSelfReference(String id) {
+        return authenticatedUsermod || id == authenticated().id
     }
 }

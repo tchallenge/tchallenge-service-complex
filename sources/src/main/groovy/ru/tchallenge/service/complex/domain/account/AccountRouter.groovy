@@ -11,8 +11,10 @@ import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.common.search.SearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
+import ru.tchallenge.service.complex.convention.routing.RoutePatch
 import ru.tchallenge.service.complex.convention.routing.RoutePost
 import ru.tchallenge.service.complex.convention.routing.RoutePut
+import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
 @RouterComponent("/accounts")
@@ -23,10 +25,13 @@ class AccountRouter extends GenericRouter {
 
     @RoutePost
     AccountInfo create(@RequestBody AccountInvoice invoice) {
-        return new AccountInfo(
-                id: invoice.id,
-                login: invoice.login
-        )
+        return accountFacade.create(invoice)
+    }
+
+    @NoAuthentication
+    @RoutePost("/claims")
+    AccountInfo createAsClaim(@RequestBody AccountInvoice invoice) {
+        return accountFacade.createAsClaim(invoice)
     }
 
     @RouteGet("/{id}")
@@ -39,11 +44,13 @@ class AccountRouter extends GenericRouter {
         return accountFacade.search(invoice)
     }
 
-    @RoutePut
+    @RoutePatch
     AccountInfo update(@RequestBody AccountInvoice invoice) {
-        return new AccountInfo(
-                id: invoice.id,
-                login: invoice.login
-        )
+        return accountFacade.update(invoice)
+    }
+
+    @RoutePut("/status")
+    AccountInfo updateStatus(@RequestBody AccountInvoice invoice) {
+        return accountFacade.updateStatus(invoice)
     }
 }
