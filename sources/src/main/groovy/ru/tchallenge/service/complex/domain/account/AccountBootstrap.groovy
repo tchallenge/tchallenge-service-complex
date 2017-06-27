@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmBootstrap
@@ -28,9 +27,6 @@ import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
     @Autowired
-    protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
-
-    @Autowired
     protected AccountRealmBootstrap accountRealmBootstrap
 
     @Autowired
@@ -44,6 +40,12 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
     @Autowired
     protected RobotRoleBootstrap robotRoleBootstrap
+
+    @Autowired
+    protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
+
+    @Autowired
+    protected AccountPersister accountPersister
 
     @Autowired
     protected AccountRealmRepository accountRealmRepository
@@ -60,9 +62,6 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
     @Autowired
     protected EncryptionService encryptionService
 
-    @Autowired
-    protected OrdinalSequenceService ordinalSequenceService
-
     @Override
     protected Collection<Account> entities() {
         return [
@@ -70,38 +69,32 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
         ]
     }
 
+    @Override
+    protected void save(Account entity) {
+        accountPersister.save(entity)
+    }
+
     private Account sidorov() {
-        def account = new Account(
-                id: nextId(),
+        return new Account(
                 email: "ivan.sidorov@somemail.net",
                 login: "ivan.sidorov",
+                employee: new Employee(
+                        roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
+                ),
+                person: new Person(
+                        firstname: "Иван",
+                        lastname: "Сидоров",
+                        quickname: "Vano"
+                ),
+                passwords: [
+                        new AccountPassword(
+                                active: 1,
+                                hash: encryptionService.passwordHash("test")
+                        )
+                ],
                 realm: accountRealmRepository.findById("EMPLOYEE"),
                 status: accountStatusRepository.findById("APPROVED"),
                 verification: accountVerificationRepository.findById("PASSWORD")
         )
-        account.employee = new Employee(
-                id: account.id,
-                account: account,
-                roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
-        )
-        account.person = new Person(
-                id: account.id,
-                account: account,
-                firstname: "Иван",
-                lastname: "Сидоров",
-                quickname: "Vano"
-        )
-        account.passwords = [
-                new AccountPassword(
-                        account: account,
-                        active: 1,
-                        hash: encryptionService.passwordHash("test")
-                )
-        ]
-        return account
-    }
-
-    private Long nextId() {
-        return ordinalSequenceService.nextValue("domain.workbook")
     }
 }
