@@ -13,8 +13,6 @@ import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
 @MappedSuperclass
 abstract class GenericEntity<ID extends Serializable> implements Serializable {
 
-    abstract ID getId()
-
     @PrePersist
     protected void onInsert() {
         if (this instanceof TimestampedEntity) {
