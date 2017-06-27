@@ -48,7 +48,8 @@ class SecurityInterceptor extends GenericInterceptor {
     protected void init() {
         // TODO: collect exclusions based on NoAuthentication and RouteMethod annotations
         exclusions = [
-                new RouteSignature(RequestMethod.POST, "/authentication")
+                new RouteSignature(RequestMethod.POST, "/authentication"),
+                new RouteSignature(RequestMethod.POST, "/accounts/claims")
         ]
     }
 
