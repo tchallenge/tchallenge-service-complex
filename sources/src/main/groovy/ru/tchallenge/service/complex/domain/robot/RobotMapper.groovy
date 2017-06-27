@@ -16,15 +16,17 @@ class RobotMapper extends GenericMapper {
     @Autowired
     protected RobotRoleRepository roleRepository
 
-    Robot asEntity(RobotInvoice invoice) {
-        return new Robot(
-                roles: EnumeratedHelper.many(invoice.roles, roleRepository)
-        )
-    }
-
     RobotInfo asInfo(Robot entity) {
         return new RobotInfo(
                 roles: EnumeratedHelper.many(entity.roles)
         )
+    }
+
+    Robot merge(Robot entity, RobotInvoice invoice) {
+        entity = entity ?: new Robot()
+        return entity.with {
+            id = invoice.id as Long ?: id
+            it
+        }
     }
 }

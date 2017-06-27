@@ -17,11 +17,42 @@ interface AccountRepository extends GenericOrdinalRepository<Account> {
     Account findByLogin(String login)
 
     @Query("""SELECT a FROM Account AS a
-                WHERE (a.email LIKE :emailPattern)
-                    AND (a.login LIKE :loginPattern)
-                    AND (a.person.firstname LIKE :personNamePattern OR a.person.lastname LIKE :personNamePattern)
-                    AND (a.realm.textcode IN :realmTextcodes)
-                    AND (a.status.textcode IN :statusTextcodes)""")
+                
+                JOIN a.person AS p
+              
+                WHERE   (
+                            :emailPattern IS NULL
+                        OR
+                            upper(a.email) LIKE :emailPattern
+                        )
+
+                    AND (
+                            :loginPattern IS NULL
+                        OR
+                            upper(a.login) LIKE :loginPattern
+                        )
+
+                    AND (
+                            :personNamePattern IS NULL
+                        OR
+                            upper(p.firstname) LIKE :personNamePattern
+                        OR
+                            upper(p.lastname) LIKE :personNamePattern
+                        OR
+                            upper(p.quickname) LIKE :personNamePattern
+                        )
+
+                    AND (
+                            :realmTextcodes IS NULL
+                        OR
+                            a.realm.textcode IN :realmTextcodes
+                        )
+
+                    AND (
+                            :statusTextcodes IS NULL
+                        OR
+                            a.status.textcode IN :statusTextcodes
+                        )""")
     Page<Account> findPage(@Param("emailPattern") String emailPattern,
                            @Param("loginPattern") String loginPattern,
                            @Param("personNamePattern") String personNamePattern,

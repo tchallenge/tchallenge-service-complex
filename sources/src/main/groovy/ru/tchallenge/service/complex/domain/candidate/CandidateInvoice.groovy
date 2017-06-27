@@ -7,5 +7,6 @@ import ru.tchallenge.service.complex.common.GenericInvoiceValue
 @CompileStatic
 class CandidateInvoice extends GenericInvoiceValue {
 
+    String id
     String github
 }

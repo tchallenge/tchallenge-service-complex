@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
@@ -41,8 +42,7 @@ class AccountRouter extends GenericRouter {
 
     @RouteGet
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
-        def normalizedInvoice = normalizeSearchInvoice(invoice)
-        return accountFacade.search(normalizedInvoice)
+        return accountFacade.search(ensureOrderingAndPaging(invoice))
     }
 
     @RoutePatch
@@ -55,22 +55,13 @@ class AccountRouter extends GenericRouter {
         return accountFacade.updateStatus(invoice)
     }
 
-    private AccountSearchInvoice normalizeSearchInvoice(AccountSearchInvoice invoice) {
-        return new AccountSearchInvoice(
-                filterEmailPattern: normalizePattern(invoice.filterEmailPattern),
-                filterLoginPattern: normalizePattern(invoice.filterLoginPattern),
-                filterPersonNamePattern: normalizePattern(invoice.filterPersonNamePattern),
-                filterRealmTextcodes: invoice.filterRealmTextcodes ?: ["CANDIDATE", "EMPLOYEE", "ROBOT"],
-                filterStatusTextcodes: invoice.filterStatusTextcodes ?: ["CREATED", "APPROVED", "SUSPENDED"],
-                pageOffset: invoice.pageOffset ?: 0L,
-                pageSize: invoice.pageSize ?: 10L
-        )
-    }
-
-    private String normalizePattern(String pattern) {
-        if (!pattern || pattern == "%") {
-            return "%"
+    private static AccountSearchInvoice ensureOrderingAndPaging(AccountSearchInvoice invoice) {
+        return invoice.with {
+            orderDescending = invoice.orderDescending ?: false
+            orderProperties = invoice.orderProperties ?: [] as Collection<String>
+            pageNumber = invoice.pageNumber ?: 1
+            pageSize = invoice.pageSize ?: 10
+            it
         }
-        return "%" + pattern + "%"
     }
 }

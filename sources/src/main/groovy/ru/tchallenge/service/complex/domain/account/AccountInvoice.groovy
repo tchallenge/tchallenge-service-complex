@@ -21,4 +21,5 @@ class AccountInvoice extends GenericInvoiceValue {
     RobotInvoice robot
     EnumeratedInvoice realm
     EnumeratedInvoice status
+    EnumeratedInvoice verification
 }

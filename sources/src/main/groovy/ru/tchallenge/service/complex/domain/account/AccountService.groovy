@@ -1,71 +1,75 @@
 package ru.tchallenge.service.complex.domain.account
 
-import java.util.stream.Collectors
-
-import groovy.transform.CompileStatic
-
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
+import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
+import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
-@CompileStatic
 @ServiceComponent
-class AccountService extends GenericService {
+class AccountService extends GenericService implements SearchAware {
 
     @Autowired
     protected AccountMapper accountMapper
 
     @Autowired
+    protected AccountPersister accountPersister
+
+    @Autowired
     protected AccountRepository accountRepository
 
+    @Autowired
+    protected EncryptionService encryptionService
+
+    @Autowired
+    protected OrdinalSequenceService ordinalSequenceService
+
     AccountInfo create(AccountInvoice invoice) {
-        throw new UnsupportedOperationException()
+        def account = accountMapper.asEntity(invoice.with {
+            status = initialStatusByRealm(invoice.realm)
+            verification = verificationByRealm(invoice.realm)
+            it
+        })
+        return saveAndInfo(account)
     }
 
     AccountInfo createAsClaim(AccountInvoice invoice) {
-        throw new UnsupportedOperationException()
+        def account = accountMapper.asEntity(invoice.with {
+            status = initialStatusByRealm(invoice.realm)
+            verification = verificationByRealm(invoice.realm)
+            it
+        })
+        return saveAndInfo(account)
     }
 
     AccountInfo getById(String id) {
-        def account = accountRepository.findById(id as Long)
-        if (!account) {
-            throw new RuntimeException("referenced account does not exist")
-        }
-        return accountMapper.asInfo(account)
+        return info(account(id))
     }
 
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
-        def page = accountRepository.findPage(
-                invoice.filterEmailPattern,
-                invoice.filterLoginPattern,
-                invoice.filterPersonNamePattern,
+        Page<Account> page = accountRepository.findPage(
+                normalizePattern(invoice.filterEmailPattern),
+                normalizePattern(invoice.filterLoginPattern),
+                normalizePattern(invoice.filterPersonNamePattern),
                 invoice.filterRealmTextcodes,
                 invoice.filterStatusTextcodes,
-                new PageRequest(invoice.pageOffset as Integer, invoice.pageSize as Integer)
+                pageable(invoice)
         )
-        return new SearchInfo<AccountInfo>(
-                items: page.content.stream().map({ Account account -> accountMapper.asInfo(account) }).collect(Collectors.toList()),
-                pageCount: page.totalPages as Long,
-                pageOffset: invoice.pageOffset,
-                pageSize: invoice.pageSize
-        )
+        return searchInfo(invoice, page) {
+            Account account -> info(account)
+        } as SearchInfo<AccountInfo>
     }
 
     SearchInfo<AccountInfo> searchOnlyCandidates(AccountSearchInvoice invoice) {
-        def amendedInvoice = new AccountSearchInvoice(
-                filterEmailPattern: invoice.filterEmailPattern,
-                filterLoginPattern: invoice.filterLoginPattern,
-                filterPersonNamePattern: invoice.filterPersonNamePattern,
-                filterRealmTextcodes: ["CANDIDATE"],
-                filterStatusTextcodes: invoice.filterStatusTextcodes,
-                pageOffset: invoice.pageOffset,
-                pageSize: invoice.pageSize
-        )
-        return search(amendedInvoice)
+        return search(invoice.with {
+            filterRealmTextcodes = ["CANDIDATE"]
+            it
+        })
     }
 
     AccountInfo update(AccountInvoice invoice) {
@@ -74,5 +78,37 @@ class AccountService extends GenericService {
 
     AccountInfo updateStatus(AccountInvoice invoice) {
         throw new UnsupportedOperationException()
+    }
+
+    private Account account(String id) {
+        def result = accountRepository.findById(id as Long)
+        if (!result) {
+            throw new RuntimeException("referenced account does not exist")
+        }
+        return result
+    }
+
+    private AccountInfo info(Account account) {
+        return accountMapper.asInfo(account)
+    }
+
+    private Account save(Account account) {
+        return accountPersister.save(account)
+    }
+
+    private AccountInfo saveAndInfo(Account account) {
+        return info(save(account))
+    }
+
+    private static EnumeratedInvoice initialStatusByRealm(EnumeratedInvoice realm) {
+        return new EnumeratedInvoice(
+                textcode: realm.textcode == "CANDIDATE" ? "APPROVED" : "CREATED"
+        )
+    }
+
+    private static EnumeratedInvoice verificationByRealm(EnumeratedInvoice realm) {
+        return new EnumeratedInvoice(
+                textcode: realm.textcode == "ROBOT" ? "CERTIFICATE" : "PASSWORD"
+        )
     }
 }

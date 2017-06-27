@@ -9,19 +9,19 @@ import ru.tchallenge.service.complex.convention.component.MapperComponent
 @MapperComponent
 class PersonMapper extends GenericMapper {
 
-    Person asEntity(PersonInvoice invoice) {
-        return new Person(
-                firstname: invoice.firstname,
-                lastname: invoice.lastname,
-                quickname: invoice.quickname
-        )
-    }
-
     PersonInfo asInfo(Person entity) {
         return new PersonInfo(
                 firstname: entity.firstname,
                 lastname: entity.lastname,
                 quickname: entity.quickname
         )
+    }
+
+    Person merge(Person entity, PersonInvoice invoice) {
+        entity = entity ?: new Person()
+        return entity.with {
+            id = invoice.id ? invoice.id as Long : id
+            it
+        }
     }
 }

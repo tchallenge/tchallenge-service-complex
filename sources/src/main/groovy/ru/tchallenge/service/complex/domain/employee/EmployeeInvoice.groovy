@@ -8,5 +8,6 @@ import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 @CompileStatic
 class EmployeeInvoice extends GenericInvoiceValue {
 
+    String id
     Collection<EnumeratedInvoice> roles
 }
