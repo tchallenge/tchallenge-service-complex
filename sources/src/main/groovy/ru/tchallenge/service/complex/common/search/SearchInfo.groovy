@@ -8,6 +8,7 @@ import ru.tchallenge.service.complex.common.GenericInfoValue
 class SearchInfo<T> extends GenericInfoValue {
 
     Collection<T> items
-    Long offset
-    Long total
+    Long pageCount
+    Long pageOffset
+    Long pageSize
 }

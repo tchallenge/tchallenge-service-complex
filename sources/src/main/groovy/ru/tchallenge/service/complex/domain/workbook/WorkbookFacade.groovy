@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.tchallenge.service.complex.common.GenericFacade
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.common.search.SearchInvoice
+import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
 @CompileStatic
@@ -30,7 +30,7 @@ class WorkbookFacade extends GenericFacade {
         return workbookService.get(id)
     }
 
-    SearchInfo<WorkbookInfo> search(SearchInvoice<WorkbookInvoice> invoice) {
+    SearchInfo<WorkbookInfo> search(WorkbookInvoice invoice) {
         workbookValidator.ensureForSearch(invoice)
         return workbookService.search(invoice)
     }

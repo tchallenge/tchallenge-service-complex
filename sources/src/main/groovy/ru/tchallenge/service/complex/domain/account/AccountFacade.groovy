@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericFacade
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.common.search.SearchInvoice
+import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
 
@@ -38,11 +38,14 @@ class AccountFacade extends GenericFacade {
         return accountService.getById(id)
     }
 
-    SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
-        if (!authenticatedEmployee()) {
+    SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
+        if (!authenticatedEmployee("USERMOD", "CANDVIEW")) {
             throw unauthorized()
         }
-        return accountService.search(invoice)
+        if (isAuthenticatedUsermod()) {
+            return accountService.search(invoice)
+        }
+        return accountService.searchOnlyCandidates(invoice)
     }
 
     AccountInfo update(AccountInvoice invoice) {

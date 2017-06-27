@@ -11,7 +11,7 @@ import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.common.search.SearchInvoice
+import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusRepository
 
@@ -39,12 +39,12 @@ class WorkbookService extends GenericService {
         return workbookMapper.asInfoComplete(entity)
     }
 
-    SearchInfo<WorkbookInfo> search(SearchInvoice<WorkbookInvoice> invoice) {
+    SearchInfo<WorkbookInfo> search(WorkbookInvoice invoice) {
         def pageable = new PageRequest(0, 10)
         def page = workbookRepository.findPage(pageable)
         return new SearchInfo(
                 items: page.content.stream().map({return workbookMapper.asInfoComplete(it)}).collect(Collectors.toList()),
-                offset: 0 as Long
+                pageOffset: 0 as Long
         )
     }
 

@@ -3,7 +3,7 @@ package ru.tchallenge.service.complex.domain.workbook
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.GenericValidator
-import ru.tchallenge.service.complex.common.search.SearchInvoice
+import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.ValidatorComponent
 
 @CompileStatic
@@ -18,7 +18,7 @@ class WorkbookValidator extends GenericValidator {
         // TODO: implement this method
     }
 
-    void ensureForSearch(SearchInvoice<WorkbookInvoice> invoice) {
+    void ensureForSearch(WorkbookInvoice invoice) {
         // TODO: implement this method
     }
 

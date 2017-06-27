@@ -5,9 +5,8 @@ import groovy.transform.CompileStatic
 import ru.tchallenge.service.complex.common.GenericInvoiceValue
 
 @CompileStatic
-class SearchInvoice<T> extends GenericInvoiceValue {
+abstract class GenericSearchInvoice extends GenericInvoiceValue {
 
-    T filter
-    Long limit
-    Long offset
+    Long pageOffset
+    Long pageSize
 }

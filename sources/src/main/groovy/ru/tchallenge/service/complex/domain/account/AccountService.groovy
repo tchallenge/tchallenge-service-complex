@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.common.search.SearchInvoice
+import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 
 @CompileStatic
@@ -38,26 +38,32 @@ class AccountService extends GenericService {
         return accountMapper.asInfo(account)
     }
 
-    SearchInfo<AccountInfo> search(SearchInvoice<AccountFilterInvoice> invoice) {
-        def page = accountRepository.findPage(new PageRequest(0, 100))
+    SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
+        def page = accountRepository.findPage(
+                invoice.filterEmailPattern,
+                invoice.filterLoginPattern,
+                invoice.filterPersonNamePattern,
+                invoice.filterRealmTextcodes,
+                invoice.filterStatusTextcodes,
+                new PageRequest(invoice.pageOffset as Integer, invoice.pageSize as Integer)
+        )
         return new SearchInfo<AccountInfo>(
                 items: page.content.stream().map({ Account account -> accountMapper.asInfo(account) }).collect(Collectors.toList()),
-                offset: 0L,
-                total: page.totalElements
+                pageCount: page.totalPages as Long,
+                pageOffset: invoice.pageOffset,
+                pageSize: invoice.pageSize
         )
     }
 
-    SearchInfo<AccountInfo> searchOnlyCandidates(SearchInvoice<AccountFilterInvoice> invoice) {
-        def amendedInvoice = new SearchInvoice<AccountFilterInvoice>(
-                filter: new AccountFilterInvoice(
-                        emailPattern: invoice.filter.emailPattern,
-                        loginPattern: invoice.filter.loginPattern,
-                        personNamePattern: invoice.filter.personNamePattern,
-                        realmTextcodes: ["CANDIDATE"],
-                        statusTextcodes: invoice.filter.statusTextcodes
-                ),
-                limit: invoice.limit,
-                offset: invoice.offset
+    SearchInfo<AccountInfo> searchOnlyCandidates(AccountSearchInvoice invoice) {
+        def amendedInvoice = new AccountSearchInvoice(
+                filterEmailPattern: invoice.filterEmailPattern,
+                filterLoginPattern: invoice.filterLoginPattern,
+                filterPersonNamePattern: invoice.filterPersonNamePattern,
+                filterRealmTextcodes: ["CANDIDATE"],
+                filterStatusTextcodes: invoice.filterStatusTextcodes,
+                pageOffset: invoice.pageOffset,
+                pageSize: invoice.pageSize
         )
         return search(amendedInvoice)
     }
