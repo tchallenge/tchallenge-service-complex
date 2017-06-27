@@ -7,6 +7,8 @@ import ru.tchallenge.service.complex.common.GenericInvoiceValue
 @CompileStatic
 abstract class GenericSearchInvoice extends GenericInvoiceValue {
 
-    Long pageOffset
-    Long pageSize
+    Boolean orderDescending
+    Collection<String> orderProperties
+    Integer pageNumber
+    Integer pageSize
 }

@@ -7,8 +7,8 @@ import ru.tchallenge.service.complex.common.GenericInfoValue
 @CompileStatic
 class SearchInfo<T> extends GenericInfoValue {
 
-    Collection<T> items
-    Long pageCount
-    Long pageOffset
-    Long pageSize
+    Collection<T> content
+    Integer pageCount
+    Integer pageNumber
+    Integer pageSize
 }
