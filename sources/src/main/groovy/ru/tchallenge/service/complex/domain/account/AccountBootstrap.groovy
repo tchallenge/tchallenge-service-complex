@@ -127,7 +127,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
     private Account candidateKuznetcov() {
         return new Account(
-                email: "alex.kiznetcov@somemail.net",
+                email: "alex.kuznetcov@somemail.net",
                 login: "alexalex",
                 candidate: new Candidate(),
                 person: new Person(
