@@ -43,8 +43,8 @@ class WorkbookService extends GenericService {
         def pageable = new PageRequest(0, 10)
         def page = workbookRepository.findPage(pageable)
         return new SearchInfo(
-                items: page.content.stream().map({return workbookMapper.asInfoComplete(it)}).collect(Collectors.toList()),
-                pageOffset: 0 as Long
+                content: page.content.stream().map({return workbookMapper.asInfoComplete(it)}).collect(Collectors.toList()),
+                pageCount: 0
         )
     }
 
