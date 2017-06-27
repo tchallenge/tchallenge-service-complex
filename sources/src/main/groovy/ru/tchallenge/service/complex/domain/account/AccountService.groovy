@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @ServiceComponent
@@ -24,6 +26,9 @@ class AccountService extends GenericService implements SearchAware {
     protected AccountRepository accountRepository
 
     @Autowired
+    protected AccountStatusRepository accountStatusRepository
+
+    @Autowired
     protected EncryptionService encryptionService
 
     @Autowired
@@ -31,6 +36,7 @@ class AccountService extends GenericService implements SearchAware {
 
     AccountInfo create(AccountInvoice invoice) {
         def account = accountMapper.asEntity(invoice.with {
+            id = null
             status = initialStatusByRealm(invoice.realm)
             verification = verificationByRealm(invoice.realm)
             it
@@ -40,6 +46,9 @@ class AccountService extends GenericService implements SearchAware {
 
     AccountInfo createAsClaim(AccountInvoice invoice) {
         def account = accountMapper.asEntity(invoice.with {
+            id = null
+            employee?.roles = []
+            robot?.roles = []
             status = initialStatusByRealm(invoice.realm)
             verification = verificationByRealm(invoice.realm)
             it
@@ -73,11 +82,25 @@ class AccountService extends GenericService implements SearchAware {
     }
 
     AccountInfo update(AccountInvoice invoice) {
-        throw new UnsupportedOperationException()
+        def account = account(invoice.id)
+        def trimmedInvoice = invoice.with {
+            id = null
+            employee?.roles = null
+            realm = null
+            status = null
+            verification = null
+            it
+        }
+        def mergedAccount = accountMapper.asEntity(account, trimmedInvoice)
+        return saveAndInfo(mergedAccount)
     }
 
     AccountInfo updateStatus(AccountInvoice invoice) {
-        throw new UnsupportedOperationException()
+        def account = account(invoice.id).with {
+            status = EnumeratedHelper.one(invoice.status, accountStatusRepository)
+            it
+        }
+        return saveAndInfo(account)
     }
 
     private Account account(String id) {
@@ -109,6 +132,12 @@ class AccountService extends GenericService implements SearchAware {
     private static EnumeratedInvoice verificationByRealm(EnumeratedInvoice realm) {
         return new EnumeratedInvoice(
                 textcode: realm.textcode == "ROBOT" ? "CERTIFICATE" : "PASSWORD"
+        )
+    }
+
+    private static EnumeratedInvoice enumeratedInvoice(String textcode) {
+        return new EnumeratedInvoice(
+                textcode: textcode
         )
     }
 }

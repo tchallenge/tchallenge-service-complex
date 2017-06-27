@@ -16,17 +16,18 @@ class EmployeeMapper extends GenericMapper {
     @Autowired
     protected EmployeeRoleRepository roleRepository
 
+    Employee asEntity(Employee entity, EmployeeInvoice invoice) {
+        entity = entity ?: new Employee()
+        return entity.with {
+            id = invoice.id as Long ?: id
+            roles = invoice.roles ? EnumeratedHelper.many(roleRepository, invoice.roles) : roles
+            it
+        }
+    }
+
     EmployeeInfo asInfo(Employee entity) {
         return new EmployeeInfo(
                 roles: EnumeratedHelper.many(entity.roles)
         )
-    }
-
-    Employee merge(Employee entity, EmployeeInvoice invoice) {
-        entity = entity ?: new Employee()
-        return entity.with {
-            id = invoice.id ? invoice.id as Long : id
-            it
-        }
     }
 }

@@ -55,10 +55,10 @@ class AccountMapper extends GenericMapper {
             id = invoice.id as Long ?: id
             email = invoice.email ?: email
             login = invoice.login ?: login
-            candidate = invoice.candidate ? candidateMapper.merge(candidate, invoice.candidate) : candidate
-            employee = invoice.employee ? employeeMapper.merge(employee, invoice.employee) : employee
-            person = invoice.person ? personMapper.merge(person, invoice.person) : person
-            robot = invoice.robot ? robotMapper.merge(robot, invoice.robot) : robot
+            candidate = invoice.candidate ? candidateMapper.asEntity(candidate, invoice.candidate) : candidate
+            employee = invoice.employee ? employeeMapper.asEntity(employee, invoice.employee) : employee
+            person = invoice.person ? personMapper.asEntity(person, invoice.person) : person
+            robot = invoice.robot ? robotMapper.asEntity(robot, invoice.robot) : robot
             realm = invoice.realm ? EnumeratedHelper.one(invoice.realm, accountRealmRepository) : realm
             status = invoice.status ? EnumeratedHelper.one(invoice.status, accountStatusRepository) : status
             verification = invoice.verification ? EnumeratedHelper.one(invoice.verification, accountVerificationRepository) : verification

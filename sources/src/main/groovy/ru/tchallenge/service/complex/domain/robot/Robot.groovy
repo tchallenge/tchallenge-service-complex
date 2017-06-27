@@ -31,5 +31,5 @@ class Robot extends GenericOrdinalEntity {
 
     @ManyToMany
     @JoinTable(name = "robot_role_to_robot_map", joinColumns = @JoinColumn(name = "robot_id"))
-    Collection<RobotRole> roles
+    Collection<RobotRole> roles = []
 }

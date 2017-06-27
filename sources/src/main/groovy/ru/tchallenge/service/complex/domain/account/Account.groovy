@@ -47,10 +47,10 @@ class Account extends GenericOrdinalEntity implements TimestampedEntity {
     Robot robot
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    Collection<AccountCertificate> certificates
+    Collection<AccountCertificate> certificates = []
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    Collection<AccountPassword> passwords
+    Collection<AccountPassword> passwords = []
 
     @ManyToOne
     @JoinColumn(name = "realm_id")

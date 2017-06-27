@@ -24,5 +24,5 @@ class Employee extends GenericOrdinalEntity {
 
     @ManyToMany
     @JoinTable(name = "employee_role_to_employee_map", joinColumns = @JoinColumn(name = "employee_id"))
-    Collection<EmployeeRole> roles
+    Collection<EmployeeRole> roles = []
 }
