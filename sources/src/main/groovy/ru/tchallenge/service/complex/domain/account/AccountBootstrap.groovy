@@ -68,6 +68,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
         return [
                 employeeIvanov(),
                 employeePetrov(),
+                employeeSidorov(),
                 candidateKuznetcov()
         ]
     }
@@ -112,6 +113,30 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                         firstname: "Иван",
                         lastname: "Петров",
                         quickname: "Vano"
+                ),
+                passwords: [
+                        new AccountPassword(
+                                active: 1,
+                                hash: encryptionService.passwordHash("test")
+                        )
+                ],
+                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
+                status: accountStatusRepository.findByTextcode("APPROVED"),
+                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+        )
+    }
+
+    private Account employeeSidorov() {
+        return new Account(
+                email: "egor.sidorov@anothermail.net",
+                login: "e.sid",
+                employee: new Employee(
+                        roles: EnumeratedHelper.many(employeeRoleRepository, "USERMOD")
+                ),
+                person: new Person(
+                        firstname: "Егор",
+                        lastname: "Сидоров",
+                        quickname: "Сид"
                 ),
                 passwords: [
                         new AccountPassword(
