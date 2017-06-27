@@ -15,6 +15,7 @@ import ru.tchallenge.service.complex.domain.account.status.AccountStatusBootstra
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
 import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationBootstrap
 import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
+import ru.tchallenge.service.complex.domain.candidate.Candidate
 import ru.tchallenge.service.complex.domain.employee.Employee
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleBootstrap
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
@@ -65,7 +66,9 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
     @Override
     protected Collection<Account> entities() {
         return [
-                sidorov()
+                employeeIvanov(),
+                employeePetrov(),
+                candidateKuznetcov()
         ]
     }
 
@@ -74,16 +77,40 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
         accountPersister.save(entity)
     }
 
-    private Account sidorov() {
+    private Account employeeIvanov() {
         return new Account(
-                email: "ivan.sidorov@somemail.net",
-                login: "ivan.sidorov",
+                email: "sergei.ivanov@somemail.net",
+                login: "serge",
+                employee: new Employee(
+                        roles: EnumeratedHelper.many(employeeRoleRepository, "CANDMOD", "CANDVIEW")
+                ),
+                person: new Person(
+                        firstname: "Сергей",
+                        lastname: "Иванов",
+                        quickname: "Сержо"
+                ),
+                passwords: [
+                        new AccountPassword(
+                                active: 1,
+                                hash: encryptionService.passwordHash("test")
+                        )
+                ],
+                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
+                status: accountStatusRepository.findByTextcode("APPROVED"),
+                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+        )
+    }
+
+    private Account employeePetrov() {
+        return new Account(
+                email: "ivan.petrov@anothermail.net",
+                login: "ipetrov",
                 employee: new Employee(
                         roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
                 ),
                 person: new Person(
                         firstname: "Иван",
-                        lastname: "Сидоров",
+                        lastname: "Петров",
                         quickname: "Vano"
                 ),
                 passwords: [
@@ -92,9 +119,29 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                                 hash: encryptionService.passwordHash("test")
                         )
                 ],
-                realm: accountRealmRepository.findById("EMPLOYEE"),
-                status: accountStatusRepository.findById("APPROVED"),
-                verification: accountVerificationRepository.findById("PASSWORD")
+                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
+                status: accountStatusRepository.findByTextcode("APPROVED"),
+                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+        )
+    }
+
+    private Account candidateKuznetcov() {
+        return new Account(
+                email: "alex.kiznetcov@somemail.net",
+                login: "alexalex",
+                candidate: new Candidate(),
+                person: new Person(
+                        quickname: "Алекс"
+                ),
+                passwords: [
+                        new AccountPassword(
+                                active: 1,
+                                hash: encryptionService.passwordHash("test")
+                        )
+                ],
+                realm: accountRealmRepository.findByTextcode("CANDIDATE"),
+                status: accountStatusRepository.findByTextcode("APPROVED"),
+                verification: accountVerificationRepository.findByTextcode("PASSWORD")
         )
     }
 }

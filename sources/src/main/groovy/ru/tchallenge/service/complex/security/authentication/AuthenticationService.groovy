@@ -72,7 +72,7 @@ class AuthenticationService extends GenericService {
                 expiresAt: now,
                 lastUsedAt: now
         )
-        def account = accountRepository.findByLogin("ivan.sidorov")
+        def account = accountRepository.findByLogin("ipetrov")
         return createByAccountAndToken(account, token)
     }
 
