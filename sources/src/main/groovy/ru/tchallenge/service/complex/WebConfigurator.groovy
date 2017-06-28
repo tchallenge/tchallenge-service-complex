@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import ru.tchallenge.service.complex.security.SecurityInterceptor
+import ru.tchallenge.service.complex.utility.serialization.InstantDeserializer
 import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
 
 @CompileStatic
@@ -74,6 +75,7 @@ class WebConfigurator extends WebMvcConfigurerAdapter {
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
                 .serializationInclusion(JsonInclude.Include.NON_EMPTY)
                 .serializers(new InstantSerializer())
+                .deserializers(new InstantDeserializer())
                 .build()
     }
 }
