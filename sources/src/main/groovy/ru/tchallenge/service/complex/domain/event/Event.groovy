@@ -27,6 +27,9 @@ class Event extends GenericOrdinalEntity implements TimestampedEntity {
     @Column(name = "title")
     String title
 
+    @Column(name = "subtitle")
+    String subtitle
+
     @Column(name = "description")
     String description
 
