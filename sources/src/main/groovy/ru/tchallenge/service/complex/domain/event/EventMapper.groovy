@@ -37,6 +37,7 @@ class EventMapper extends GenericMapper {
         entity = entity ?: new Event()
         return entity.with {
             id = invoice.id as Long ?: id
+            textcode = invoice.textcode ?: textcode
             title = invoice.title ?: title
             subtitle = invoice.subtitle ?: subtitle
             description = invoice.description ?: description
@@ -51,6 +52,7 @@ class EventMapper extends GenericMapper {
     EventInfo asInfo(Event entity) {
         return new EventInfo(
                 id: entity.id as String,
+                textcode: entity.textcode,
                 title: entity.title,
                 subtitle: entity.subtitle,
                 description: entity.description,
