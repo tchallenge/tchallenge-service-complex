@@ -2,28 +2,15 @@ package ru.tchallenge.service.complex.domain.event
 
 import groovy.transform.CompileStatic
 
-import org.springframework.beans.factory.annotation.Autowired
-
-import ru.tchallenge.service.complex.common.GenericService
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
-import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersister
+import ru.tchallenge.service.complex.convention.component.PersisterComponent
 import ru.tchallenge.service.complex.domain.event.interval.EventInterval
 
 @CompileStatic
-@ServiceComponent
-class EventPersister extends GenericService {
+@PersisterComponent
+class EventPersister extends GenericOrdinalPersister<Event> {
 
-    @Autowired
-    protected EventRepository repository
-
-    @Autowired
-    protected OrdinalSequenceService ordinalSequenceService
-
-    Event save(Event entity) {
-        prepare(entity)
-        return repository.save(entity)
-    }
-
+    @Override
     protected void prepare(Event entity) {
         if (!entity.id) {
             entity.id = nextOrdinalSequence("domain.event")
@@ -31,9 +18,5 @@ class EventPersister extends GenericService {
         if (entity.intervals) {
             entity.intervals.forEach { EventInterval it -> it.event = entity }
         }
-    }
-
-    protected Long nextOrdinalSequence(String sequenceId) {
-        return ordinalSequenceService.nextValue(sequenceId)
     }
 }

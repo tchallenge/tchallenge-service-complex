@@ -2,51 +2,41 @@ package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
 
-import org.springframework.beans.factory.annotation.Autowired
-
-import ru.tchallenge.service.complex.common.GenericService
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
-import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersister
+import ru.tchallenge.service.complex.convention.component.PersisterComponent
 import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 
 @CompileStatic
-@ServiceComponent
-class AccountPersister extends GenericService {
+@PersisterComponent
+class AccountPersister extends GenericOrdinalPersister<Account> {
 
-    @Autowired
-    protected OrdinalSequenceService ordinalSequenceService
-
-    @Autowired
-    protected AccountRepository accountRepository
-
-    Account save(Account account) {
-        if (!account.id) {
-            account.id = ordinalSequenceService.nextValue("domain.account")
+    @Override
+    protected void prepare(Account entity) {
+        if (!entity.id) {
+            entity.id = ordinalSequenceService.nextValue("domain.account")
         }
-        if (account.candidate) {
-            account.candidate.id = account.id
-            account.candidate.account = account
+        if (entity.candidate) {
+            entity.candidate.id = entity.id
+            entity.candidate.account = entity
         }
-        if (account.certificates) {
-            account.certificates.forEach { AccountCertificate it -> it.account = account }
+        if (entity.certificates) {
+            entity.certificates.forEach { AccountCertificate it -> it.account = entity }
         }
-        if (account.employee) {
-            account.employee.id = account.id
-            account.employee.account = account
+        if (entity.employee) {
+            entity.employee.id = entity.id
+            entity.employee.account = entity
         }
-        if (account.person) {
-            account.person.id = account.id
-            account.person.account = account
+        if (entity.person) {
+            entity.person.id = entity.id
+            entity.person.account = entity
         }
-        if (account.passwords) {
-            account.passwords.forEach { AccountPassword it -> it.account = account }
+        if (entity.passwords) {
+            entity.passwords.forEach { AccountPassword it -> it.account = entity }
         }
-        if (account.robot) {
-            account.robot.id = account.id
-            account.robot.account = account
+        if (entity.robot) {
+            entity.robot.id = entity.id
+            entity.robot.account = entity
         }
-        accountRepository.save(account)
-        return account
     }
 }
