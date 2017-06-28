@@ -17,6 +17,10 @@ class OrdinalSequenceBootstrap extends GenericBootstrap<OrdinalSequence, String>
                         currentValue: 0L
                 ),
                 new OrdinalSequence(
+                        id: "domain.event",
+                        currentValue: 0L
+                ),
+                new OrdinalSequence(
                         id: "domain.workbook",
                         currentValue: 0L
                 )
