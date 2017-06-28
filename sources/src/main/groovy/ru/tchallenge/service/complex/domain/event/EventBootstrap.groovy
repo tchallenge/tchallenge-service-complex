@@ -1,6 +1,8 @@
 package ru.tchallenge.service.complex.domain.event
 
 import java.time.Instant
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 import groovy.transform.CompileStatic
 
@@ -178,6 +180,6 @@ class EventBootstrap extends GenericOrdinalBootstrap<Event> {
 
 
     private static Instant instant(String iso) {
-        return Instant.parse(iso)
+        return ZonedDateTime.parse(iso, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant()
     }
 }
