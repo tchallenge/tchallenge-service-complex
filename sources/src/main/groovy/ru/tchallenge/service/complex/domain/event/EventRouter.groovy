@@ -34,21 +34,11 @@ class EventRouter extends GenericRouter {
 
     @RouteGet
     SearchInfo<EventInfo> search(EventSearchInvoice invoice) {
-        return eventFacade.search(ensureOrderingAndPaging(invoice))
+        return eventFacade.search(invoice)
     }
 
     @RoutePatch
     EventInfo update(@RequestBody EventInvoice invoice) {
         return eventFacade.update(invoice)
-    }
-
-    private static EventSearchInvoice ensureOrderingAndPaging(EventSearchInvoice invoice) {
-        return invoice.with {
-            orderDescending = invoice.orderDescending ?: false
-            orderProperties = invoice.orderProperties ?: [] as Collection<String>
-            pageNumber = invoice.pageNumber ?: 1
-            pageSize = invoice.pageSize ?: 10
-            it
-        }
     }
 }

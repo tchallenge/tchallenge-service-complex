@@ -42,7 +42,7 @@ class AccountRouter extends GenericRouter {
 
     @RouteGet
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
-        return accountFacade.search(ensureOrderingAndPaging(invoice))
+        return accountFacade.search(invoice)
     }
 
     @RoutePatch
@@ -53,15 +53,5 @@ class AccountRouter extends GenericRouter {
     @RoutePut("/status")
     AccountInfo updateStatus(@RequestBody AccountInvoice invoice) {
         return accountFacade.updateStatus(invoice)
-    }
-
-    private static AccountSearchInvoice ensureOrderingAndPaging(AccountSearchInvoice invoice) {
-        return invoice.with {
-            orderDescending = invoice.orderDescending ?: false
-            orderProperties = invoice.orderProperties ?: [] as Collection<String>
-            pageNumber = invoice.pageNumber ?: 1
-            pageSize = invoice.pageSize ?: 10
-            it
-        }
     }
 }
