@@ -4,9 +4,9 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericBootstrap
-import ru.tchallenge.service.complex.common.GenericComponent
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.Bootstrap
+import ru.tchallenge.service.complex.common.GenericOrchestrator
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
@@ -16,13 +16,13 @@ import ru.tchallenge.service.complex.domain.event.EventBootstrap
 @CompileStatic
 @BootstrapComponent
 @OrchestratorComponent
-class BootstrapOrchestrator extends GenericComponent {
+class BootstrapOrchestrator extends GenericOrchestrator {
 
     @Autowired
     protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
 
     @Autowired
-    protected Collection<GenericEnumeratedBootstrap> enumeratedBootstraps
+    protected Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
 
     @Autowired
     protected AccountBootstrap accountBootstrap
@@ -38,9 +38,5 @@ class BootstrapOrchestrator extends GenericComponent {
                 accountBootstrap,
                 eventBootstrap
         ])
-    }
-
-    private static void runSequentially(Collection<? extends GenericBootstrap> bootstraps) {
-        bootstraps.forEach { GenericBootstrap it -> it.run() }
     }
 }

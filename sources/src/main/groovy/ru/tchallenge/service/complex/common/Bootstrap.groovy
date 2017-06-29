@@ -3,6 +3,6 @@ package ru.tchallenge.service.complex.common
 import groovy.transform.CompileStatic
 
 @CompileStatic
-abstract class GenericWarmer extends GenericComponent implements Warmer {
+interface Bootstrap<E extends GenericEntity, ID extends Serializable> extends Orchestrated {
 
 }
