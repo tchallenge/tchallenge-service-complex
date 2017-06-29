@@ -10,11 +10,13 @@ import ru.tchallenge.service.complex.common.GenericBootstrap
 import ru.tchallenge.service.complex.common.GenericComponent
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
+import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
 import ru.tchallenge.service.complex.domain.account.AccountBootstrap
 import ru.tchallenge.service.complex.domain.event.EventBootstrap
 
 @CompileStatic
+@BootstrapComponent
 @OrchestratorComponent
 class BootstrapOrchestrator extends GenericComponent {
 
