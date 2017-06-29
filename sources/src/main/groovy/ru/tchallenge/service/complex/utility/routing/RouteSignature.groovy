@@ -19,5 +19,13 @@ class RouteSignature {
     }
 
     RequestMethod method
+    boolean pattern = false
     String uri
+
+    boolean matches(RouteSignature another) {
+        if (this == another) {
+            return true
+        }
+        return pattern && method == another.method && another.uri.matches(uri)
+    }
 }

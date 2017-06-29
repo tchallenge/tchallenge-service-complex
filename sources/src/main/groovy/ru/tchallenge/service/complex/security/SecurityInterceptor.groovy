@@ -48,13 +48,30 @@ class SecurityInterceptor extends GenericInterceptor {
     protected void init() {
         // TODO: collect exclusions based on NoAuthentication and RouteMethod annotations
         exclusions = [
-                new RouteSignature(RequestMethod.POST, "/authentication"),
-                new RouteSignature(RequestMethod.POST, "/accounts/claims")
+                new RouteSignature(
+                        method: RequestMethod.POST,
+                        uri: "/authentication"
+                ),
+                new RouteSignature(
+                        method: RequestMethod.POST,
+                        uri: "/accounts/claims"
+                ),
+                new RouteSignature(
+                        method: RequestMethod.GET,
+                        pattern: true,
+                        uri: "/events/.+"
+                )
         ]
     }
 
     private boolean shouldBypass(HttpServletRequest request) {
-        return exclusions.contains(RouteSignature.fromRequest(request))
+        def signature = RouteSignature.fromRequest(request)
+        for (def exclusion : exclusions) {
+            if (exclusion.matches(signature)) {
+                return true
+            }
+        }
+        return false
     }
 
     private void authenticateByCertificatePayload(String payload) {
