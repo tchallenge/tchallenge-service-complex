@@ -1,17 +1,10 @@
 package ru.tchallenge.service.complex.common
 
-import java.time.Instant
-
 import groovy.transform.CompileStatic
 
+import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
+
 @CompileStatic
-abstract class GenericComponent {
+abstract class GenericComponent implements Essentials {
 
-    protected static Instant now() {
-        return Instant.now()
-    }
-
-    protected static String uuid() {
-        return UUID.randomUUID().toString()
-    }
 }

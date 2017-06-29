@@ -12,7 +12,7 @@ class TaskOptionMapper extends GenericMapper {
     TaskOption asEntity(TaskOptionInvoice invoice) {
         return new TaskOption(
                 content: invoice.content,
-                correct: invoice.correct ? 1 : 0,
+                correct: flag(invoice.correct),
                 textcode: invoice.textcode
         )
     }
@@ -20,7 +20,7 @@ class TaskOptionMapper extends GenericMapper {
     TaskOptionInfo asInfo(TaskOption entity) {
         return new TaskOptionInfo(
                 content: entity.content,
-                correct: entity.correct != 0,
+                correct: flag(entity.correct),
                 textcode: entity.textcode
         )
     }

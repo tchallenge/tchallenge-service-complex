@@ -19,6 +19,6 @@ abstract class GenericComplementaryEntity extends GenericEntity<String> {
     @Override
     protected void onInsert() {
         super.onInsert()
-        id = UUID.randomUUID().toString()
+        id = uuid()
     }
 }

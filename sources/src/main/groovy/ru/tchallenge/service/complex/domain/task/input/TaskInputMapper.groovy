@@ -12,7 +12,7 @@ class TaskInputMapper extends GenericMapper {
     TaskInput asEntity(TaskInputInvoice invoice) {
         return new TaskInput(
                 content: invoice.content,
-                regex: invoice.regex ? 1 : 0,
+                regex: flag(invoice.regex),
                 stance: invoice.stance
         )
     }
@@ -20,7 +20,7 @@ class TaskInputMapper extends GenericMapper {
     TaskInputInfo asInfo(TaskInput entity) {
         return new TaskInputInfo(
                 content: entity.content,
-                regex: entity.regex != 0,
+                regex: flag(entity.regex),
                 stance: entity.stance
         )
     }

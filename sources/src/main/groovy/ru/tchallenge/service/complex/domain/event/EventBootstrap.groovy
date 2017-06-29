@@ -1,7 +1,5 @@
 package ru.tchallenge.service.complex.domain.event
 
-import java.time.Instant
-
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.event.category.EventCategory
-import ru.tchallenge.service.complex.domain.event.category.EventCategoryBootstrap
 import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
 import ru.tchallenge.service.complex.domain.event.interval.EventInterval
 import ru.tchallenge.service.complex.domain.event.status.EventStatus
-import ru.tchallenge.service.complex.domain.event.status.EventStatusBootstrap
 import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
-import ru.tchallenge.service.complex.utility.serialization.InstantDeserializer
 
 @CompileStatic
 @BootstrapComponent
@@ -169,10 +164,5 @@ class EventBootstrap extends GenericOrdinalBootstrap<Event> {
 
     private EventStatus status(String textcode) {
         return eventStatusRepository.findByTextcode(textcode)
-    }
-
-
-    private static Instant instant(String iso) {
-        return InstantDeserializer.parse(iso)
     }
 }

@@ -8,10 +8,11 @@ import javax.persistence.PreUpdate
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
+import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
 
 @CompileStatic
 @MappedSuperclass
-abstract class GenericEntity<ID extends Serializable> implements Serializable {
+abstract class GenericEntity<ID extends Serializable> implements Essentials, Serializable {
 
     @PrePersist
     protected void onInsert() {
@@ -28,13 +29,5 @@ abstract class GenericEntity<ID extends Serializable> implements Serializable {
             def timestamped = this as TimestampedEntity
             timestamped.lastModifiedAt = now()
         }
-    }
-
-    protected static Instant now() {
-        return Instant.now()
-    }
-
-    protected static String uuid() {
-        return UUID.randomUUID().toString()
     }
 }
