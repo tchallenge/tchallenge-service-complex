@@ -12,22 +12,18 @@ class OrdinalSequenceBootstrap extends GenericBootstrap<OrdinalSequence, String>
     @Override
     protected Collection<OrdinalSequence> entities() {
         return [
-                new OrdinalSequence(
-                        id: "domain.account",
-                        currentValue: 0L
-                ),
-                new OrdinalSequence(
-                        id: "domain.event",
-                        currentValue: 0L
-                ),
-                new OrdinalSequence(
-                        id: "domain.task",
-                        currentValue: 0L
-                ),
-                new OrdinalSequence(
-                        id: "domain.workbook",
-                        currentValue: 0L
-                )
+                ordinalSequence("domain.account"),
+                ordinalSequence("domain.event"),
+                ordinalSequence("domain.task"),
+                ordinalSequence("domain.workbook")
         ]
+    }
+
+    private static OrdinalSequence ordinalSequence(String id) {
+        return new OrdinalSequence(
+                id: id,
+                initialValue: 1L,
+                step: 1
+        )
     }
 }

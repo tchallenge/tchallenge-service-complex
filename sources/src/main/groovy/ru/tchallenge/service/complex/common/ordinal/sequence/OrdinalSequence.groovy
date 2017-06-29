@@ -23,4 +23,10 @@ class OrdinalSequence extends GenericEntity<String> {
 
     @Column(name = "current_value")
     Long currentValue
+
+    @Column(name = "initial_value")
+    Long initialValue
+
+    @Column(name = "step")
+    Integer step
 }

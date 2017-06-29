@@ -17,9 +17,10 @@ class OrdinalSequenceService extends GenericService {
     Long nextValue(String id) {
         def entity = ordinalSequenceRepository.findById(id)
         if (entity == null) {
-            throw new RuntimeException("illegal ordinal sequence ID: " + id)
+            throw new RuntimeException("unknown ordinal sequence ID: " + id)
         }
-        def result = entity.currentValue + 1
+        def current = entity.currentValue
+        def result = current != null ? current + entity.step : entity.initialValue
         entity.currentValue = result
         ordinalSequenceRepository.save(entity)
         return result
