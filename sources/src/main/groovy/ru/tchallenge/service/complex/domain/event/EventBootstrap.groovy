@@ -22,12 +22,6 @@ import ru.tchallenge.service.complex.utility.serialization.InstantDeserializer
 class EventBootstrap extends GenericOrdinalBootstrap<Event> {
 
     @Autowired
-    protected EventCategoryBootstrap eventCategoryBootstrap
-
-    @Autowired
-    protected EventStatusBootstrap eventStatusBootstrap
-
-    @Autowired
     protected EventCategoryRepository eventCategoryRepository
 
     @Autowired

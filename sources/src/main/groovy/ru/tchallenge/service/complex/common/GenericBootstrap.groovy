@@ -1,7 +1,5 @@
 package ru.tchallenge.service.complex.common
 
-import javax.annotation.PostConstruct
-
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,8 +10,7 @@ abstract class GenericBootstrap<E extends GenericEntity, ID extends Serializable
     @Autowired
     protected GenericRepository<E, ID> repository
 
-    @PostConstruct
-    protected void bootstrap() {
+    void run() {
         entities().forEach { E entity -> save(entity) }
     }
 

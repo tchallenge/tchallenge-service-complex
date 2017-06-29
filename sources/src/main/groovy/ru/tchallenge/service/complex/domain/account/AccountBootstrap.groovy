@@ -28,24 +28,6 @@ import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
     @Autowired
-    protected AccountRealmBootstrap accountRealmBootstrap
-
-    @Autowired
-    protected AccountStatusBootstrap accountStatusBootstrap
-
-    @Autowired
-    protected AccountVerificationBootstrap accountVerificationBootstrap
-
-    @Autowired
-    protected EmployeeRoleBootstrap employeeRoleBootstrap
-
-    @Autowired
-    protected RobotRoleBootstrap robotRoleBootstrap
-
-    @Autowired
-    protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
-
-    @Autowired
     protected AccountPersister accountPersister
 
     @Autowired

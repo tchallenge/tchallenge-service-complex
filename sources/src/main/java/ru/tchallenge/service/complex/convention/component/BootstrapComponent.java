@@ -7,7 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Target(ElementType.TYPE)
 @Component
 @Transactional
-@Lazy(false)
 public @interface BootstrapComponent {
 
 }
