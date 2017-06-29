@@ -21,6 +21,10 @@ class OrdinalSequenceBootstrap extends GenericBootstrap<OrdinalSequence, String>
                         currentValue: 0L
                 ),
                 new OrdinalSequence(
+                        id: "domain.task",
+                        currentValue: 0L
+                ),
+                new OrdinalSequence(
                         id: "domain.workbook",
                         currentValue: 0L
                 )
