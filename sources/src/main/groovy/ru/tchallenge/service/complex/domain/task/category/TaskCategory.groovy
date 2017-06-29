@@ -12,4 +12,5 @@ import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 @Table(name = "task_category")
 class TaskCategory extends GenericEnumeratedEntity {
 
+    // TODO: this entity must NOT be Enumerated
 }
