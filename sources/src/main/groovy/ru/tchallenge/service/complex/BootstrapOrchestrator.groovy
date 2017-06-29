@@ -1,7 +1,5 @@
 package ru.tchallenge.service.complex
 
-import javax.annotation.PostConstruct
-
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,7 +30,7 @@ class BootstrapOrchestrator extends GenericComponent {
     @Autowired
     protected EventBootstrap eventBootstrap
 
-    @PostConstruct
+    @Override
     protected void init() {
         runSequentially(enumeratedBootstraps)
         runSequentially([

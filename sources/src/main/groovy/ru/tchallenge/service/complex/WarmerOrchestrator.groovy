@@ -1,7 +1,5 @@
 package ru.tchallenge.service.complex
 
-import javax.annotation.PostConstruct
-
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +18,7 @@ class WarmerOrchestrator extends GenericComponent {
     @Autowired
     protected Collection<GenericWarmer> warmers
 
-    @PostConstruct
+    @Override
     protected void init() {
         warmers.forEach { GenericWarmer it -> it.run() }
     }
