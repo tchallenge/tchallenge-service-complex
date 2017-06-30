@@ -7,7 +7,7 @@ import groovy.transform.CompileStatic
 import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
 
 @CompileStatic
-abstract class GenericComponent implements Essentials {
+abstract class GenericComponent implements Essentials{
 
     @PostConstruct
     protected void init() {

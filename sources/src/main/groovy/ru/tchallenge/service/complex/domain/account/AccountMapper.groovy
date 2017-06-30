@@ -5,20 +5,23 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericMapper
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
 import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
 import ru.tchallenge.service.complex.domain.candidate.Candidate
-import ru.tchallenge.service.complex.domain.candidate.CandidateInvoice
+import ru.tchallenge.service.complex.domain.candidate.CandidateInfo
 import ru.tchallenge.service.complex.domain.candidate.CandidateMapper
+import ru.tchallenge.service.complex.domain.employee.Employee
+import ru.tchallenge.service.complex.domain.employee.EmployeeInfo
 import ru.tchallenge.service.complex.domain.employee.EmployeeMapper
-import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
+import ru.tchallenge.service.complex.domain.person.Person
+import ru.tchallenge.service.complex.domain.person.PersonInfo
 import ru.tchallenge.service.complex.domain.person.PersonMapper
+import ru.tchallenge.service.complex.domain.robot.Robot
+import ru.tchallenge.service.complex.domain.robot.RobotInfo
 import ru.tchallenge.service.complex.domain.robot.RobotMapper
-import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
 @MapperComponent
@@ -59,9 +62,9 @@ class AccountMapper extends GenericMapper {
             employee = invoice.employee ? employeeMapper.asEntity(employee, invoice.employee) : employee
             person = invoice.person ? personMapper.asEntity(person, invoice.person) : person
             robot = invoice.robot ? robotMapper.asEntity(robot, invoice.robot) : robot
-            realm = invoice.realm ? EnumeratedHelper.one(invoice.realm, accountRealmRepository) : realm
-            status = invoice.status ? EnumeratedHelper.one(invoice.status, accountStatusRepository) : status
-            verification = invoice.verification ? EnumeratedHelper.one(invoice.verification, accountVerificationRepository) : verification
+            realm = invoice.realm ? one(accountRealmRepository, invoice.realm) : realm
+            status = invoice.status ? one(accountStatusRepository, invoice.status) : status
+            verification = invoice.verification ? one(accountVerificationRepository, invoice.verification) : verification
             it
         }
     }
@@ -71,15 +74,31 @@ class AccountMapper extends GenericMapper {
                 id: account.id as String,
                 email: account.email,
                 login: account.login,
-                candidate: account.candidate ? candidateMapper.asInfo(account.candidate) : null,
-                employee: account.employee ? employeeMapper.asInfo(account.employee) : null,
-                person: account.person ? personMapper.asInfo(account.person) : null,
-                robot: account.robot ? robotMapper.asInfo(account.robot) : null,
-                realm: EnumeratedHelper.one(account.realm),
-                status: EnumeratedHelper.one(account.status),
-                verification: EnumeratedHelper.one(account.verification),
+                candidate: candidateInfo(account.candidate),
+                employee: employeeInfo(account.employee),
+                person: personInfo(account.person),
+                robot: robotInfo(account.robot),
+                realm: info(account.realm),
+                status: info(account.status),
+                verification: info(account.verification),
                 createdAt: account.createdAt,
                 lastModifiedAt: account.lastModifiedAt
         )
+    }
+
+    private CandidateInfo candidateInfo(Candidate candidate) {
+        return candidate ? candidateMapper.asInfo(candidate) : null
+    }
+
+    private EmployeeInfo employeeInfo(Employee employee) {
+        return employee ? employeeMapper.asInfo(employee) : null
+    }
+
+    private PersonInfo personInfo(Person person) {
+        return person ? personMapper.asInfo(person) : null
+    }
+
+    private RobotInfo robotInfo(Robot robot) {
+        return robot ? robotMapper.asInfo(robot) : null
     }
 }

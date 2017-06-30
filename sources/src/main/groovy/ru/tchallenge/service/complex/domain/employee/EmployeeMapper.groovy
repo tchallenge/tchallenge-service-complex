@@ -4,8 +4,8 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.common.GenericMapper
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 
@@ -20,14 +20,14 @@ class EmployeeMapper extends GenericMapper {
         entity = entity ?: new Employee()
         return entity.with {
             id = invoice.id as Long ?: id
-            roles = invoice.roles ? EnumeratedHelper.many(roleRepository, invoice.roles) : roles
+            roles = invoice.roles ? some(roleRepository, invoice.roles) : roles
             it
         }
     }
 
     EmployeeInfo asInfo(Employee entity) {
         return new EmployeeInfo(
-                roles: EnumeratedHelper.many(entity.roles)
+                roles: infos(entity.roles)
         )
     }
 }

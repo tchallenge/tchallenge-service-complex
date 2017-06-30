@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericMapper
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 
@@ -20,14 +20,14 @@ class RobotMapper extends GenericMapper {
         entity = entity ?: new Robot()
         return entity.with {
             id = invoice.id as Long ?: id
-            roles = invoice.roles ? EnumeratedHelper.many(roleRepository, invoice.roles) : roles
+            roles = invoice.roles ? some(roleRepository, invoice.roles) : roles
             it
         }
     }
 
     RobotInfo asInfo(Robot entity) {
         return new RobotInfo(
-                roles: EnumeratedHelper.many(entity.roles)
+                roles: infos(entity.roles)
         )
     }
 }

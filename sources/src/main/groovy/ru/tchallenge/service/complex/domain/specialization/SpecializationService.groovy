@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericService
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
@@ -18,6 +18,6 @@ class SpecializationService extends GenericService implements SearchAware {
     protected SpecializationRepository specializationRepository
 
     Collection<EnumeratedInfo> getAll() {
-        return EnumeratedHelper.all(specializationRepository)
+        return all(specializationRepository)
     }
 }

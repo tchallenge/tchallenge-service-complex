@@ -4,23 +4,21 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
-import ru.tchallenge.service.complex.domain.account.realm.AccountRealmBootstrap
+import ru.tchallenge.service.complex.domain.account.realm.AccountRealm
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
-import ru.tchallenge.service.complex.domain.account.status.AccountStatusBootstrap
+import ru.tchallenge.service.complex.domain.account.status.AccountStatus
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
-import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationBootstrap
+import ru.tchallenge.service.complex.domain.account.verification.AccountVerification
 import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
 import ru.tchallenge.service.complex.domain.candidate.Candidate
 import ru.tchallenge.service.complex.domain.employee.Employee
-import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleBootstrap
+import ru.tchallenge.service.complex.domain.employee.role.EmployeeRole
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
-import ru.tchallenge.service.complex.domain.robot.role.RobotRoleBootstrap
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
@@ -65,7 +63,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 email: "sergei.ivanov@somemail.net",
                 login: "serge",
                 employee: new Employee(
-                        roles: EnumeratedHelper.many(employeeRoleRepository, "CANDMOD", "CANDVIEW")
+                        roles: roles("CANDMOD", "CANDVIEW")
                 ),
                 person: new Person(
                         firstname: "Сергей",
@@ -73,14 +71,11 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                         quickname: "Сержо"
                 ),
                 passwords: [
-                        new AccountPassword(
-                                active: 1,
-                                hash: encryptionService.passwordHash("test")
-                        )
+                        activePassword("text")
                 ],
-                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
-                status: accountStatusRepository.findByTextcode("APPROVED"),
-                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+                realm: realm("EMPLOYEE"),
+                status: status("APPROVED"),
+                verification: verification("PASSWORD")
         )
     }
 
@@ -89,7 +84,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 email: "ivan.petrov@anothermail.net",
                 login: "ipetrov",
                 employee: new Employee(
-                        roles: EnumeratedHelper.many(employeeRoleRepository, "ADMIN")
+                        roles: roles("ADMIN")
                 ),
                 person: new Person(
                         firstname: "Иван",
@@ -97,14 +92,11 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                         quickname: "Vano"
                 ),
                 passwords: [
-                        new AccountPassword(
-                                active: 1,
-                                hash: encryptionService.passwordHash("test")
-                        )
+                        activePassword("test")
                 ],
-                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
-                status: accountStatusRepository.findByTextcode("APPROVED"),
-                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+                realm: realm("EMPLOYEE"),
+                status: status("APPROVED"),
+                verification: verification("PASSWORD")
         )
     }
 
@@ -113,7 +105,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 email: "egor.sidorov@anothermail.net",
                 login: "e.sid",
                 employee: new Employee(
-                        roles: EnumeratedHelper.many(employeeRoleRepository, "USERMOD")
+                        roles: roles("USERMOD")
                 ),
                 person: new Person(
                         firstname: "Егор",
@@ -121,14 +113,11 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                         quickname: "Сид"
                 ),
                 passwords: [
-                        new AccountPassword(
-                                active: 1,
-                                hash: encryptionService.passwordHash("test")
-                        )
+                        activePassword("test")
                 ],
-                realm: accountRealmRepository.findByTextcode("EMPLOYEE"),
-                status: accountStatusRepository.findByTextcode("APPROVED"),
-                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+                realm: realm("EMPLOYEE"),
+                status: status("APPROVED"),
+                verification: verification("PASSWORD")
         )
     }
 
@@ -141,14 +130,38 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                         quickname: "Алекс"
                 ),
                 passwords: [
-                        new AccountPassword(
-                                active: 1,
-                                hash: encryptionService.passwordHash("test")
-                        )
+                        activePassword("test")
                 ],
-                realm: accountRealmRepository.findByTextcode("CANDIDATE"),
-                status: accountStatusRepository.findByTextcode("APPROVED"),
-                verification: accountVerificationRepository.findByTextcode("PASSWORD")
+                realm: realm("EMPLOYEE"),
+                status: status("APPROVED"),
+                verification: verification("PASSWORD")
         )
+    }
+
+    private AccountPassword activePassword(String password) {
+        return new AccountPassword(
+                active: flag(true),
+                hash: passwordHash(password)
+        )
+    }
+
+    private String passwordHash(String password) {
+        return encryptionService.passwordHash(password)
+    }
+
+    private AccountRealm realm(String textcode) {
+        return one(accountRealmRepository, textcode)
+    }
+
+    private Collection<EmployeeRole> roles(String... textcodes) {
+        return some(employeeRoleRepository, textcodes)
+    }
+
+    private AccountStatus status(String textcode) {
+        return one(accountStatusRepository, textcode)
+    }
+
+    private AccountVerification verification(String textcode) {
+        return one(accountVerificationRepository, textcode)
     }
 }

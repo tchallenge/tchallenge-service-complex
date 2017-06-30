@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericMapper
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.task.snippet.style.TaskSnippetStyleRepository
 
@@ -20,7 +20,7 @@ class TaskSnippetMapper extends GenericMapper {
         return new TaskSnippet(
                 content: invoice.content,
                 stance: invoice.stance,
-                style: EnumeratedHelper.one(invoice.style, taskSnippetStyleRepository)
+                style: one(taskSnippetStyleRepository, invoice.style)
         )
     }
 
@@ -28,7 +28,7 @@ class TaskSnippetMapper extends GenericMapper {
         return new TaskSnippetInfo(
                 content: entity.content,
                 stance: entity.stance,
-                style: EnumeratedHelper.one(entity.style)
+                style: info(entity.style)
         )
     }
 }

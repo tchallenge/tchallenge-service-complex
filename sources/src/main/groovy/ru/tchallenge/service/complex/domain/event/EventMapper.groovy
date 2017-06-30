@@ -7,7 +7,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericMapper
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
 import ru.tchallenge.service.complex.domain.event.interval.EventInterval
@@ -43,8 +43,8 @@ class EventMapper extends GenericMapper {
             description = invoice.description ?: description
             greeting = invoice.greeting ?: greeting
             intervals = invoice.intervals ? mapIntervalInvoices(invoice.intervals) : intervals
-            category = invoice.category ? EnumeratedHelper.one(invoice.category, eventCategoryRepository) : category
-            status = invoice.status ? EnumeratedHelper.one(invoice.status, eventStatusRepository) : status
+            category = invoice.category ? one(eventCategoryRepository, invoice.category) : category
+            status = invoice.status ? one(eventStatusRepository, invoice.status) : status
             it
         }
     }
@@ -58,8 +58,8 @@ class EventMapper extends GenericMapper {
                 description: entity.description,
                 greeting: entity.greeting,
                 intervals: mapIntervals(entity.intervals),
-                category: EnumeratedHelper.one(entity.category),
-                status: EnumeratedHelper.one(entity.status)
+                category: info(entity.category),
+                status: info(entity.status)
         )
     }
 

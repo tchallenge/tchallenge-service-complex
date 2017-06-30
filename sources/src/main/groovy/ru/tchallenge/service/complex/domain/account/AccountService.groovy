@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedHelper
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 import ru.tchallenge.service.complex.common.search.SearchAware
@@ -132,12 +131,6 @@ class AccountService extends GenericService implements SearchAware {
     private static EnumeratedInvoice verificationByRealm(EnumeratedInvoice realm) {
         return new EnumeratedInvoice(
                 textcode: realm.textcode == "ROBOT" ? "CERTIFICATE" : "PASSWORD"
-        )
-    }
-
-    private static EnumeratedInvoice enumeratedInvoice(String textcode) {
-        return new EnumeratedInvoice(
-                textcode: textcode
         )
     }
 }
