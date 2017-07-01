@@ -19,8 +19,8 @@ import ru.tchallenge.service.complex.domain.employee.role.EmployeeRole
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.one
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.some
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.some
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic

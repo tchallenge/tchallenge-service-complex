@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.*
 import ru.tchallenge.service.complex.common.GenericMapper
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository

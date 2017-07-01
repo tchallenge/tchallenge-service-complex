@@ -7,7 +7,7 @@ import groovy.transform.CompileStatic
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.mapCollection
 
 @CompileStatic
-final class EnumeratedTransformation {
+final class EnumeratedTransformations {
 
     static Collection<EnumeratedInfo> all(GenericEnumeratedRepository repository) {
         return repository
@@ -56,7 +56,7 @@ final class EnumeratedTransformation {
         return mapCollection(textcodes.toList()) { String it -> one(repository, it) }
     }
 
-    private EnumeratedTransformation() {
+    private EnumeratedTransformations() {
 
     }
 }
