@@ -1,6 +1,5 @@
 package ru.tchallenge.service.complex.common
 
-import java.time.Instant
 import javax.persistence.MappedSuperclass
 import javax.persistence.PrePersist
 import javax.persistence.PreUpdate
@@ -8,11 +7,11 @@ import javax.persistence.PreUpdate
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
-import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
 
 @CompileStatic
 @MappedSuperclass
-abstract class GenericEntity<ID extends Serializable> implements Essentials, Serializable {
+abstract class GenericEntity<ID extends Serializable> implements Serializable {
 
     @PrePersist
     protected void onInsert() {

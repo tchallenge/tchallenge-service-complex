@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ServiceComponent

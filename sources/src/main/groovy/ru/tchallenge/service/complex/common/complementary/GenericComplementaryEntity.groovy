@@ -7,6 +7,7 @@ import javax.persistence.MappedSuperclass
 import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.GenericEntity
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @MappedSuperclass

@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.GenericMapper
 import ru.tchallenge.service.complex.convention.component.MapperComponent
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @MapperComponent

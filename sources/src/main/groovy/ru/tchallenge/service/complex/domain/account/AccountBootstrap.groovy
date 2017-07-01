@@ -4,7 +4,6 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.*
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
@@ -20,6 +19,9 @@ import ru.tchallenge.service.complex.domain.employee.role.EmployeeRole
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.one
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformation.some
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @BootstrapComponent

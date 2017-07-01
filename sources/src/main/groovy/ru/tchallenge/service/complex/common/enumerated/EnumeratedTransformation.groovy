@@ -1,9 +1,10 @@
 package ru.tchallenge.service.complex.common.enumerated
 
-import java.util.function.Function
 import java.util.stream.Collectors
 
 import groovy.transform.CompileStatic
+
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.mapCollection
 
 @CompileStatic
 final class EnumeratedTransformation {
@@ -53,13 +54,6 @@ final class EnumeratedTransformation {
 
     static <E extends GenericEnumeratedEntity, R extends GenericEnumeratedRepository<E>> Collection<E> some(R repository, String... textcodes) {
         return mapCollection(textcodes.toList()) { String it -> one(repository, it) }
-    }
-
-    private static <R, T> Collection<R> mapCollection(Collection<T> collection, Function<T, R> mapper) {
-        return collection
-                .stream()
-                .map(mapper)
-                .collect(Collectors.toList())
     }
 
     private EnumeratedTransformation() {

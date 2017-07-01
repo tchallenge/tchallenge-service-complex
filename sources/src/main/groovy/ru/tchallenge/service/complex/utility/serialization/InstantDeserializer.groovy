@@ -9,10 +9,10 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 
-import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.instant
 
 @CompileStatic
-class InstantDeserializer extends JsonDeserializer<Instant> implements Essentials {
+class InstantDeserializer extends JsonDeserializer<Instant> {
 
     @Override
     Instant deserialize(JsonParser parser, DeserializationContext context)

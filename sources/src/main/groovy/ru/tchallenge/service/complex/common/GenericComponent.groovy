@@ -4,10 +4,8 @@ import javax.annotation.PostConstruct
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.utility.miscellaneous.Essentials
-
 @CompileStatic
-abstract class GenericComponent implements Essentials{
+abstract class GenericComponent {
 
     @PostConstruct
     protected void init() {

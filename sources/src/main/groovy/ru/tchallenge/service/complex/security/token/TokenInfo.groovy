@@ -7,6 +7,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.Immutable
 
 import ru.tchallenge.service.complex.common.GenericInfoValue
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
 
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])

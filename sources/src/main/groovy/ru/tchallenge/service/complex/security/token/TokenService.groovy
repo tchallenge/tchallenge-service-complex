@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ServiceComponent

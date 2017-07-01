@@ -11,6 +11,7 @@ import ru.tchallenge.service.complex.domain.event.category.EventCategoryReposito
 import ru.tchallenge.service.complex.domain.event.interval.EventInterval
 import ru.tchallenge.service.complex.domain.event.status.EventStatus
 import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
+import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.instant
 
 @CompileStatic
 @BootstrapComponent
