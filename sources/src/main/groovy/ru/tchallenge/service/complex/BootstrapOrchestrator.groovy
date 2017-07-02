@@ -12,6 +12,7 @@ import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
 import ru.tchallenge.service.complex.domain.account.AccountBootstrap
 import ru.tchallenge.service.complex.domain.event.EventBootstrap
+import ru.tchallenge.service.complex.domain.task.TaskBootstrap
 
 @CompileStatic
 @BootstrapComponent
@@ -30,13 +31,17 @@ class BootstrapOrchestrator extends GenericOrchestrator {
     @Autowired
     protected EventBootstrap eventBootstrap
 
+    @Autowired
+    protected TaskBootstrap taskBootstrap
+
     @Override
     protected void init() {
         runSequentially(enumeratedBootstraps)
         runSequentially([
                 ordinalSequenceBootstrap,
                 accountBootstrap,
-                eventBootstrap
+                eventBootstrap,
+                taskBootstrap
         ])
     }
 }
