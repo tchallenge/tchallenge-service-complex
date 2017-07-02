@@ -1,6 +1,5 @@
 package ru.tchallenge.service.complex.security
 
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
 import groovy.transform.CompileStatic
@@ -24,29 +23,27 @@ class SecurityInterceptor extends GenericInterceptor {
     @Autowired
     protected AuthenticationService authenticationService
 
-    private Collection<RouteSignature> exclusions
+    protected Collection<RouteSignature> exclusions
 
     @Override
-    boolean preHandle(HttpServletRequest request) {
-        if (shouldBypass(request)) {
-            return true
-        }
+    void preHandle(HttpServletRequest request) {
         def certificatePayload = request.getHeader("tchallenge-security-certificate-payload")
         if (certificatePayload) {
-            authenticateByCertificatePayload(certificatePayload)
-            return true
+            authenticateByCertificate(certificatePayload)
+            return
         }
         def tokenPayload = request.getHeader("tchallenge-security-token-payload")
         if (tokenPayload) {
-            authenticateByTokenPayload(tokenPayload)
-            return true
+            authenticateByToken(tokenPayload)
+            return
         }
         throw new RuntimeException("unauthenticated")
     }
 
-    @PostConstruct
+    @Override
     protected void init() {
         // TODO: collect exclusions based on NoAuthentication and RouteMethod annotations
+        super.init()
         exclusions = [
                 new RouteSignature(
                         method: RequestMethod.POST,
@@ -64,22 +61,12 @@ class SecurityInterceptor extends GenericInterceptor {
         ]
     }
 
-    private boolean shouldBypass(HttpServletRequest request) {
-        def signature = RouteSignature.fromRequest(request)
-        for (def exclusion : exclusions) {
-            if (exclusion.matches(signature)) {
-                return true
-            }
-        }
-        return false
-    }
-
-    private void authenticateByCertificatePayload(String payload) {
+    private void authenticateByCertificate(String payload) {
         // TODO: implement authentication by certificate
         throw new UnsupportedOperationException()
     }
 
-    private void authenticateByTokenPayload(String payload) {
+    private void authenticateByToken(String payload) {
         def authentication = authenticationService.createFromTokenPayload(payload)
         authenticationContext.setAuthentication(authentication)
     }
