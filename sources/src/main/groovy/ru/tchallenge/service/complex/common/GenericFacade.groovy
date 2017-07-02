@@ -22,6 +22,14 @@ abstract class GenericFacade extends GenericComponent {
         return result
     }
 
+    protected AccountInfo authenticatedCandidate() {
+        def result = authenticated()
+        if (!result.candidate) {
+            throw unauthorized()
+        }
+        return result
+    }
+
     protected boolean authenticatedEmployee(String... roles) {
         def result = authenticated()
         def employee = result.employee
