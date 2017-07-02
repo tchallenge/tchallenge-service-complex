@@ -28,9 +28,6 @@ import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.
 class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
     @Autowired
-    protected AccountPersister accountPersister
-
-    @Autowired
     protected AccountRealmRepository accountRealmRepository
 
     @Autowired
@@ -53,11 +50,6 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
                 employeeSidorov(),
                 candidateKuznetcov()
         ]
-    }
-
-    @Override
-    protected void save(Account entity) {
-        accountPersister.save(entity)
     }
 
     private Account employeeIvanov() {

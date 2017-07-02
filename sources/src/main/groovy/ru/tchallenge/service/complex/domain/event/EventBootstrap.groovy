@@ -23,9 +23,6 @@ class EventBootstrap extends GenericOrdinalBootstrap<Event> {
     @Autowired
     protected EventStatusRepository eventStatusRepository
 
-    @Autowired
-    protected EventPersister eventPersister
-
     @Override
     protected Collection<Event> entities() {
         return [
@@ -36,11 +33,6 @@ class EventBootstrap extends GenericOrdinalBootstrap<Event> {
                 sqaDays2017(),
                 joker2017()
         ]
-    }
-
-    @Override
-    protected void save(Event entity) {
-        eventPersister.save(entity)
     }
 
     private Event joker2016() {

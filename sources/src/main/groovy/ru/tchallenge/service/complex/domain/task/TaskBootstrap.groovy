@@ -35,19 +35,11 @@ class TaskBootstrap extends GenericOrdinalBootstrap<Task> {
     @Autowired
     protected TaskStatusRepository taskStatusRepository
 
-    @Autowired
-    protected TaskPersister taskPersister
-
     @Override
     protected Collection<Task> entities() {
         return [
                 task1()
         ]
-    }
-
-    @Override
-    protected void save(Task entity) {
-        taskPersister.save(entity)
     }
 
     private Task task1() {
