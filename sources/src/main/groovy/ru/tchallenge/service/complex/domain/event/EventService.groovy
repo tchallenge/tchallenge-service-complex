@@ -7,12 +7,15 @@ import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
-import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
 
+@CompileStatic
 @ServiceComponent
-class EventService extends GenericService implements SearchAware {
+class EventService extends GenericService {
 
     @Autowired
     protected EventMapper eventMapper
@@ -42,7 +45,7 @@ class EventService extends GenericService implements SearchAware {
                 invoice.filterStatusTextcodes,
                 pageable(invoice)
         )
-        return searchInfo(invoice, page) {
+        return info(invoice, page) {
             Event it -> info(it)
         }
     }

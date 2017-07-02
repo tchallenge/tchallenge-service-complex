@@ -1,19 +1,25 @@
 package ru.tchallenge.service.complex.domain.account
 
+import groovy.transform.CompileStatic
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
-import ru.tchallenge.service.complex.common.search.SearchAware
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
+import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
 
+@CompileStatic
 @ServiceComponent
-class AccountService extends GenericService implements SearchAware {
+class AccountService extends GenericService {
 
     @Autowired
     protected AccountMapper accountMapper
@@ -68,7 +74,7 @@ class AccountService extends GenericService implements SearchAware {
                 invoice.filterStatusTextcodes,
                 pageable(invoice)
         )
-        return searchInfo(invoice, page) {
+        return info(invoice, page) {
             Account account -> info(account)
         } as SearchInfo<AccountInfo>
     }
@@ -96,7 +102,7 @@ class AccountService extends GenericService implements SearchAware {
 
     AccountInfo updateStatus(AccountInvoice invoice) {
         def account = account(invoice.id).with {
-            status = EnumeratedHelper.one(invoice.status, accountStatusRepository)
+            status = one(accountStatusRepository, invoice.status)
             it
         }
         return saveAndInfo(account)

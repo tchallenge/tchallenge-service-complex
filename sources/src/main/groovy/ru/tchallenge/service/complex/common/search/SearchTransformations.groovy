@@ -9,8 +9,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
+
 @CompileStatic
-trait SearchAware {
+final class SearchTransformations {
 
     static String normalizePattern(String pattern) {
         if (!pattern || pattern.isEmpty()) {
@@ -23,15 +25,23 @@ trait SearchAware {
         return new PageRequest(invoice.pageNumber - 1, invoice.pageSize)
     }
 
-    static <E, T> SearchInfo<T> searchInfo(GenericSearchInvoice invoice, Page<E> page, Function<E, T> mapper) {
+    static <E, T> SearchInfo<T> info(GenericSearchInvoice invoice, Page<E> page, Function<E, T> mapper) {
         return new SearchInfo<T>(
                 pageCount: page.totalPages,
                 pageNumber: invoice?.pageNumber,
                 pageSize: invoice?.pageSize,
-                content: page
+                content: Foundamentals.mapCollection(page.content, mapper)
+        )
+    }
+
+    private SearchTransformations() {
+
+    }
+/*
                         .content
                         .stream()
                         .map(mapper)
                         .collect(Collectors.toList()))
-    }
+
+ */
 }
