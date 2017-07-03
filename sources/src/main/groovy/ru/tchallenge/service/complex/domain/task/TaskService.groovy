@@ -6,9 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.domain.task.category.TaskCategoryRepository
+import ru.tchallenge.service.complex.domain.task.difficulty.TaskDifficultyRepository
+import ru.tchallenge.service.complex.domain.task.expectation.TaskExpectationRepository
+import ru.tchallenge.service.complex.domain.task.snippet.style.TaskSnippetStyleRepository
+import ru.tchallenge.service.complex.domain.task.status.TaskStatusRepository
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.invoice
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
@@ -27,6 +34,21 @@ class TaskService extends GenericService {
     @Autowired
     protected TaskRepository taskRepository
 
+    @Autowired
+    protected TaskCategoryRepository taskCategoryRepository
+
+    @Autowired
+    protected TaskDifficultyRepository taskDifficultyRepository
+
+    @Autowired
+    protected TaskExpectationRepository taskExpectationRepository
+
+    @Autowired
+    protected TaskSnippetStyleRepository taskSnippetStyleRepository
+
+    @Autowired
+    protected TaskStatusRepository taskStatusRepository
+
     TaskInfo create(TaskInvoice invoice) {
         def task = taskMapper.asEntity(invoice.with {
             id = null
@@ -38,6 +60,26 @@ class TaskService extends GenericService {
 
     TaskInfo get(String id) {
         return info(taskById(id))
+    }
+
+    Collection<EnumeratedInfo> getAllCategories() {
+        return all(taskCategoryRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllDifficulties() {
+        return all(taskDifficultyRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllExpectations() {
+        return all(taskExpectationRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllSnippetStyles() {
+        return all(taskSnippetStyleRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return all(taskStatusRepository)
     }
 
     SearchInfo<TaskInfo> search(TaskSearchInvoice invoice) {

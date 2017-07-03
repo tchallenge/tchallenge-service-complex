@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePatch
@@ -22,6 +23,31 @@ class TaskRouter extends GenericRouter {
     @RoutePost
     def create(@RequestBody TaskInvoice invoice) {
         return taskFacade.create(invoice)
+    }
+
+    @RouteGet("/categories")
+    Collection<EnumeratedInfo> getAllCategories() {
+        return taskFacade.allCategories
+    }
+
+    @RouteGet("/difficulties")
+    Collection<EnumeratedInfo> getAllDifficulties() {
+        return taskFacade.allDifficulties
+    }
+
+    @RouteGet("/expectations")
+    Collection<EnumeratedInfo> getAllExpectations() {
+        return taskFacade.allExpectations
+    }
+
+    @RouteGet("/snippets/styles")
+    Collection<EnumeratedInfo> getAllSnippetStyles() {
+        return taskFacade.allSnippetStyles
+    }
+
+    @RouteGet("/statuses")
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return taskFacade.allStatuses
     }
 
     @RouteGet("/{id}")
