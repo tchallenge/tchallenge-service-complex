@@ -16,6 +16,8 @@ class EventWarmer extends GenericWarmer {
 
     @Override
     void run() {
+        eventService.allCategories
+        eventService.allStatuses
         eventService.search(new EventSearchInvoice(
                 pageNumber: 1,
                 pageSize: 1000

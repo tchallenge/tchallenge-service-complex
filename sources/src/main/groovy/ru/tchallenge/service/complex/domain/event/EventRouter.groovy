@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
@@ -24,6 +25,16 @@ class EventRouter extends GenericRouter {
     @RoutePost
     EventInfo create(@RequestBody EventInvoice invoice) {
         return eventFacade.create(invoice)
+    }
+
+    @RouteGet("/categories")
+    Collection<EnumeratedInfo> getAllCategories() {
+        return eventFacade.allCategories
+    }
+
+    @RouteGet("/statuses")
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return eventFacade.allStatuses
     }
 
     @NoAuthentication
