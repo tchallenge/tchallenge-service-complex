@@ -36,7 +36,7 @@ class WorkbookRouter extends GenericRouter {
     }
 
     @RouteGet
-    def search(WorkbookInvoice invoice) {
+    def search(WorkbookSearchInvoice invoice) {
         return workbookFacade.search(invoice)
     }
 

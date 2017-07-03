@@ -18,7 +18,7 @@ class WorkbookValidator extends GenericValidator {
         // TODO: implement this method
     }
 
-    void ensureForSearch(WorkbookInvoice invoice) {
+    void ensureForSearch(WorkbookSearchInvoice invoice) {
         // TODO: implement this method
     }
 
