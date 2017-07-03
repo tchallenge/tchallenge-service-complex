@@ -30,19 +30,19 @@ class WorkbookService extends GenericService {
     WorkbookInfo create(WorkbookInvoice invoice) {
         def entity = workbookMapper.asEntity(invoice)
         workbookRepository.save(entity)
-        return workbookMapper.asInfoComplete(entity)
+        return workbookMapper.asInfo(entity)
     }
 
     WorkbookInfo get(String id) {
         def entity = workbookById(id)
-        return workbookMapper.asInfoComplete(entity)
+        return workbookMapper.asInfo(entity)
     }
 
     SearchInfo<WorkbookInfo> search(WorkbookInvoice invoice) {
         def pageable = new PageRequest(0, 10)
         def page = workbookRepository.findPage(null, null, null, pageable)
         return new SearchInfo(
-                content: page.content.stream().map({return workbookMapper.asInfoComplete(it)}).collect(Collectors.toList()),
+                content: page.content.stream().map({return workbookMapper.asInfo(it)}).collect(Collectors.toList()),
                 pageCount: 0
         )
     }
@@ -50,7 +50,7 @@ class WorkbookService extends GenericService {
     WorkbookInfo update(WorkbookInvoice invoice) {
         def entity = workbookById(invoice.id)
         workbookRepository.save(entity)
-        return workbookMapper.asInfoComplete(entity)
+        return workbookMapper.asInfo(entity)
     }
 
     Collection<EnumeratedInfo> getStatuses() {
