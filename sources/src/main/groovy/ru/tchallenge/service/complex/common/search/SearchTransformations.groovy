@@ -1,7 +1,6 @@
 package ru.tchallenge.service.complex.common.search
 
 import java.util.function.Function
-import java.util.stream.Collectors
 
 import groovy.transform.CompileStatic
 
@@ -13,6 +12,10 @@ import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 final class SearchTransformations {
+
+    static Collection<Long> normalizeOrdinalIds(Collection<String> ids) {
+        return Foundamentals.mapCollection(ids) { String it -> it as Long }
+    }
 
     static String normalizePattern(String pattern) {
         if (!pattern || pattern.isEmpty()) {
