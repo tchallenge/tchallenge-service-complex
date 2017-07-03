@@ -54,7 +54,7 @@ class AccountFacade extends GenericFacade {
         return accountService.allRobotRoles
     }
 
-    AccountInfo get(String id) {
+    AccountInfo getById(String id) {
         if (!isAuthenticatedUsermodOrSelfReference(id)) {
             throw unauthorized()
         }

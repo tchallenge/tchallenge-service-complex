@@ -43,11 +43,11 @@ class TaskFacade extends GenericFacade {
         return taskService.allStatuses
     }
 
-    TaskInfo get(String id) {
+    TaskInfo getById(String id) {
         if (!isAuthenticatedTaskview()) {
             throw unauthorized()
         }
-        return taskService.get(id)
+        return taskService.getById(id)
     }
 
     SearchInfo<TaskInfo> search(TaskSearchInvoice invoice) {

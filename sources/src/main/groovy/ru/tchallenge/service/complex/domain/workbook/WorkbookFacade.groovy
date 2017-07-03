@@ -24,9 +24,13 @@ class WorkbookFacade extends GenericFacade {
         return workbookService.create(invoice)
     }
 
-    WorkbookInfo get(String id) {
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return workbookService.allStatuses
+    }
+
+    WorkbookInfo getById(String id) {
         workbookValidator.ensureForGet(id)
-        return workbookService.get(id)
+        return workbookService.getById(id)
     }
 
     SearchInfo<WorkbookInfo> search(WorkbookSearchInvoice invoice) {
@@ -37,9 +41,5 @@ class WorkbookFacade extends GenericFacade {
     WorkbookInfo update(WorkbookInvoice invoice) {
         workbookValidator.ensureForUpdate(invoice)
         return workbookService.update(invoice)
-    }
-
-    Collection<EnumeratedInfo> getStatuses() {
-        return workbookService.statuses
     }
 }

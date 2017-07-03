@@ -58,10 +58,6 @@ class TaskService extends GenericService {
         return saveAndInfo(task)
     }
 
-    TaskInfo get(String id) {
-        return info(taskById(id))
-    }
-
     Collection<EnumeratedInfo> getAllCategories() {
         return all(taskCategoryRepository)
     }
@@ -80,6 +76,10 @@ class TaskService extends GenericService {
 
     Collection<EnumeratedInfo> getAllStatuses() {
         return all(taskStatusRepository)
+    }
+
+    TaskInfo getById(String id) {
+        return info(taskById(id))
     }
 
     SearchInfo<TaskInfo> search(TaskSearchInvoice invoice) {

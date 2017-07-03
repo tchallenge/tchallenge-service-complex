@@ -51,8 +51,8 @@ class TaskRouter extends GenericRouter {
     }
 
     @RouteGet("/{id}")
-    def get(@PathVariable("id") String id) {
-        return taskFacade.get(id)
+    def getById(@PathVariable("id") String id) {
+        return taskFacade.getById(id)
     }
 
     @RouteGet

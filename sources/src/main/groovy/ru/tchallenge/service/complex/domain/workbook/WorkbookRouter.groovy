@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouter
-import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePost
@@ -25,14 +24,14 @@ class WorkbookRouter extends GenericRouter {
         return workbookFacade.create(invoice)
     }
 
-    @RouteGet("/{id}")
-    def get(@PathVariable("id") String id) {
-        return workbookFacade.get(id)
+    @RouteGet("/statuses")
+    def getAllStatuses() {
+        return workbookFacade.allStatuses
     }
 
-    @RouteGet("/statuses")
-    def getStatuses() {
-        return workbookFacade.statuses
+    @RouteGet("/{id}")
+    def getById(@PathVariable("id") String id) {
+        return workbookFacade.getById(id)
     }
 
     @RouteGet

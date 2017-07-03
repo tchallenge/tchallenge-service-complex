@@ -31,8 +31,8 @@ class EventFacade extends GenericFacade {
         return eventService.allStatuses
     }
 
-    EventInfo get(String textcode) {
-        return eventService.get(textcode)
+    EventInfo getByTextcode(String textcode) {
+        return eventService.getByTextcode(textcode)
     }
 
     SearchInfo<EventInfo> search(EventSearchInvoice invoice) {

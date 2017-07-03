@@ -40,7 +40,7 @@ class EventRouter extends GenericRouter {
     @NoAuthentication
     @RouteGet("/{textcode}")
     EventInfo getByTextcode(@PathVariable("textcode") String textcode) {
-        return eventFacade.get(textcode)
+        return eventFacade.getByTextcode(textcode)
     }
 
     @RouteGet

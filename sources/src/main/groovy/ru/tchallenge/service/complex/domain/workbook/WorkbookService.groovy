@@ -42,7 +42,11 @@ class WorkbookService extends GenericService {
         return saveAndInfo(workbook)
     }
 
-    WorkbookInfo get(String id) {
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return all(workbookStatusRepository)
+    }
+
+    WorkbookInfo getById(String id) {
         return info(workbookById(id))
     }
 
@@ -66,10 +70,6 @@ class WorkbookService extends GenericService {
         }
         def updatedWorkbook = workbookMapper.asEntity(workbook, trimmedInvoice)
         return saveAndInfo(updatedWorkbook)
-    }
-
-    Collection<EnumeratedInfo> getStatuses() {
-        return all(workbookStatusRepository)
     }
 
     private Workbook workbookById(String id) {

@@ -13,6 +13,7 @@ import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
 import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.invoice
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
@@ -37,12 +38,12 @@ class EventService extends GenericService {
     protected EventStatusRepository eventStatusRepository
 
     EventInfo create(EventInvoice invoice) {
-        def account = eventMapper.asEntity(invoice.with {
+        def event = eventMapper.asEntity(invoice.with {
             id = null
             status = initialStatus()
             it
         })
-        return saveAndInfo(account)
+        return saveAndInfo(event)
     }
 
     Collection<EnumeratedInfo> getAllCategories() {
@@ -53,67 +54,61 @@ class EventService extends GenericService {
         return all(eventStatusRepository)
     }
 
-    EventInfo get(String textcode) {
+    EventInfo getByTextcode(String textcode) {
         return info(eventByTextcode(textcode))
     }
 
     SearchInfo<EventInfo> search(EventSearchInvoice invoice) {
-        Page<Event> page = eventRepository.findPage(
+        def eventPage = eventRepository.findPage(
                 normalizePattern(invoice.filterTextPattern),
                 invoice.filterStatusTextcodes,
                 pageable(invoice)
         )
-        return info(invoice, page) {
+        return info(invoice, eventPage) {
             Event it -> info(it)
         }
     }
 
     EventInfo update(EventInvoice invoice) {
-        def entity = eventById(invoice.id)
+        def event = eventById(invoice.id)
         def trimmedInvoice = invoice.with {
             id = null
             it
         }
-        def mergedEntity = eventMapper.asEntity(entity, trimmedInvoice)
-        return saveAndInfo(mergedEntity)
+        def updatedEvent = eventMapper.asEntity(event, trimmedInvoice)
+        return saveAndInfo(updatedEvent)
     }
 
     private Event eventById(String id) {
-        def result = eventRepository.findById(id as Long)
-        if (!result) {
+        def event = eventRepository.findById(id as Long)
+        if (!event) {
             throw unknownEvent()
         }
-        return result
+        return event
     }
 
     private Event eventByTextcode(String textcode) {
-        def result = eventRepository.findByTextcode(textcode)
-        if (!result) {
+        def event = eventRepository.findByTextcode(textcode)
+        if (!event) {
             throw unknownEvent()
         }
-        return result
+        return event
     }
 
-    private EventInfo info(Event entity) {
-        return eventMapper.asInfo(entity)
+    private EventInfo info(Event event) {
+        return eventMapper.asInfo(event)
     }
 
-    private Event save(Event entity) {
-        return eventPersister.save(entity)
+    private Event save(Event event) {
+        return eventPersister.save(event)
     }
 
-    private EventInfo saveAndInfo(Event entity) {
-        return info(save(entity))
+    private EventInfo saveAndInfo(Event event) {
+        return info(save(event))
     }
 
     private static EnumeratedInvoice initialStatus() {
-        return enumeratedInvoice("CREATED")
-    }
-
-    private static EnumeratedInvoice enumeratedInvoice(String textcode) {
-        return new EnumeratedInvoice(
-                textcode: textcode
-        )
+        return invoice("CREATED")
     }
 
     private static RuntimeException unknownEvent() {
