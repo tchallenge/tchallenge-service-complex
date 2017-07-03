@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
-import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
@@ -35,9 +34,6 @@ class AccountService extends GenericService {
 
     @Autowired
     protected EncryptionService encryptionService
-
-    @Autowired
-    protected OrdinalSequenceService ordinalSequenceService
 
     AccountInfo create(AccountInvoice invoice) {
         def account = accountMapper.asEntity(invoice.with {
