@@ -16,9 +16,14 @@ class TaskWarmer extends GenericWarmer {
 
     @Override
     void run() {
+        taskService.allCategories
+        taskService.allDifficulties
+        taskService.allExpectations
+        taskService.allSnippetStyles
+        taskService.allStatuses
         taskService.search(new TaskSearchInvoice(
                 pageNumber: 1,
-                pageSize: 1000
+                pageSize: 100
         ))
     }
 }
