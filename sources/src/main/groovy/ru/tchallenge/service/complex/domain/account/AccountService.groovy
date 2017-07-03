@@ -6,11 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
+import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
+import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
+import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
+import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
@@ -30,7 +36,19 @@ class AccountService extends GenericService {
     protected AccountRepository accountRepository
 
     @Autowired
+    protected AccountRealmRepository accountRealmRepository
+
+    @Autowired
     protected AccountStatusRepository accountStatusRepository
+
+    @Autowired
+    protected AccountVerificationRepository accountVerificationRepository
+
+    @Autowired
+    protected EmployeeRoleRepository employeeRoleRepository
+
+    @Autowired
+    protected RobotRoleRepository robotRoleRepository
 
     @Autowired
     protected EncryptionService encryptionService
@@ -55,6 +73,26 @@ class AccountService extends GenericService {
             it
         })
         return saveAndInfo(account)
+    }
+
+    Collection<EnumeratedInfo> getAllRealms() {
+        return all(accountRealmRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllStatuses() {
+        return all(accountStatusRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllVerifications() {
+        return all(accountVerificationRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllEmployeeRoles() {
+        return all(employeeRoleRepository)
+    }
+
+    Collection<EnumeratedInfo> getAllRobotRoles() {
+        return all(robotRoleRepository)
     }
 
     AccountInfo getById(String id) {
