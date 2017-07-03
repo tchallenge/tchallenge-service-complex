@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 
+import ru.tchallenge.service.complex.reliability.correlation.CorrelationInterceptor
 import ru.tchallenge.service.complex.security.SecurityInterceptor
 import ru.tchallenge.service.complex.utility.serialization.InstantDeserializer
 import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
@@ -30,10 +31,16 @@ import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
 class WebConfigurator extends WebMvcConfigurerAdapter {
 
     @Autowired
+    CorrelationInterceptor correlationInterceptor
+
+    @Autowired
     SecurityInterceptor securityInterceptor
 
     @Override
     void addInterceptors(InterceptorRegistry registry) {
+        registry
+                .addInterceptor(correlationInterceptor)
+                .addPathPatterns("/**")
         registry
                 .addInterceptor(securityInterceptor)
                 .addPathPatterns("/**")
