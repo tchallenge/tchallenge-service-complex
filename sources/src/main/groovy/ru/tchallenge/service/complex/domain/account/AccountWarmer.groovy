@@ -16,6 +16,11 @@ class AccountWarmer extends GenericWarmer {
 
     @Override
     void run() {
+        accountService.allRealms
+        accountService.allStatuses
+        accountService.allVerifications
+        accountService.allEmployeeRoles
+        accountService.allRobotRoles
         accountService.search(new AccountSearchInvoice(
                 pageNumber: 1,
                 pageSize: 1000
