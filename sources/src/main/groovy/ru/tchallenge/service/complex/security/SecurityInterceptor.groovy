@@ -37,7 +37,7 @@ class SecurityInterceptor extends GenericInterceptor {
             authenticateByToken(tokenPayload)
             return
         }
-        throw new RuntimeException("unauthenticated")
+        throw SecurityExceptionHelper.unauthenticated()
     }
 
     @Override
