@@ -5,7 +5,7 @@ import groovy.transform.Immutable
 
 @CompileStatic
 @Immutable
-class CorrelationInfo {
+final class CorrelationInfo {
 
     String id
     CorrelationRequestInfo request

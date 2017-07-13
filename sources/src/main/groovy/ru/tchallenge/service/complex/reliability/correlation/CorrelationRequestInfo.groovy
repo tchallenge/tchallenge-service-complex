@@ -7,7 +7,7 @@ import groovy.transform.Immutable
 
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])
-class CorrelationRequestInfo {
+final class CorrelationRequestInfo {
 
     String client
     String method
