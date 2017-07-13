@@ -27,7 +27,11 @@ class CorrelationInterceptorBean extends GenericInterceptor implements Correlati
         return new CorrelationInfo(
                 id: uuid(),
                 request: new CorrelationRequestInfo(
-                        client: request.requestURI,
+                        client: new CorrelationRequestClientInfo(
+                                address: request.remoteAddr,
+                                hostname: request.remoteHost,
+                                port: request.remotePort
+                        ),
                         method: request.method,
                         uri: request.requestURI,
                         receivedAt: now()

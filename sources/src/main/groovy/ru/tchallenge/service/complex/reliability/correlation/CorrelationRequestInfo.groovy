@@ -9,7 +9,7 @@ import groovy.transform.Immutable
 @Immutable(knownImmutableClasses = [Instant])
 final class CorrelationRequestInfo {
 
-    String client
+    CorrelationRequestClientInfo client
     String method
     String uri
     Instant receivedAt
