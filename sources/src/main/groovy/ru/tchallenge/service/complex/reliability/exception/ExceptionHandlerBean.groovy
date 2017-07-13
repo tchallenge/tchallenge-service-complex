@@ -20,50 +20,53 @@ class ExceptionHandlerBean extends GenericComponent {
     CorrelationContext correlationContext
 
     @ExceptionHandler(ViolationException)
-    ResponseEntity<?> handleViolationException(ViolationException exception) {
+    def handleViolationException(ViolationException exception) {
         def info = info(exception)
         logAsInfo(info)
         return responseEntity(info, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(SecurityViolationException)
-    ResponseEntity<?> handleSecurityException(SecurityViolationException exception) {
+    def handleSecurityException(SecurityViolationException exception) {
         def info = info(exception)
         logAsWarn(info)
         return responseEntity(info, HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(UnsupportedOperationException)
-    ResponseEntity<?> handleUnsupportedException(UnsupportedOperationException exception) {
+    def handleUnsupportedException(UnsupportedOperationException exception) {
         def info = info(ExceptionCategory.UNSUPPORTED)
         logAsError(info, exception)
         return responseEntity(info, HttpStatus.NOT_IMPLEMENTED)
     }
 
     @ExceptionHandler(Throwable)
-    ResponseEntity<?> handleUnpredictedThrowable(Throwable throwable) {
+    def handleUnpredictedThrowable(Throwable throwable) {
         def info = info(ExceptionCategory.UNPREDICTED)
         logAsError(info, throwable)
         return responseEntity(info, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    private BaseExceptionInfo info(ExceptionCategory category) {
+    private ResponseEntity<CorrelatedExceptionInfo> responseEntity(ExceptionInfo info, HttpStatus status) {
+        def correlatedInfo = new CorrelatedExceptionInfo(
+                correlation: correlationContext.correlation,
+                exception: info
+        )
+        return new ResponseEntity<>(correlatedInfo, status)
+    }
+
+    private static BaseExceptionInfo info(ExceptionCategory category) {
         return new BaseExceptionInfo(
                 id: uuid(),
                 category: category,
-                correlation: correlationContext.correlation,
                 description: category.description
         )
     }
 
-    private ViolationExceptionInfo info(ViolationException exception) {
+    private static ViolationExceptionInfo info(ViolationException exception) {
         return new ViolationExceptionInfo(
                 base: info(ExceptionCategory.VIOLATION),
                 violation: exception.violation
         )
-    }
-
-    private static ResponseEntity<ExceptionInfo> responseEntity(ExceptionInfo info, HttpStatus status) {
-        return new ResponseEntity<>(info, status)
     }
 }

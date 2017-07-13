@@ -6,10 +6,9 @@ import groovy.transform.Immutable
 import ru.tchallenge.service.complex.reliability.correlation.CorrelationInfo
 
 @CompileStatic
-@Immutable
-final class BaseExceptionInfo implements ExceptionInfo {
+@Immutable(knownImmutableClasses = [ExceptionInfo])
+class CorrelatedExceptionInfo {
 
-    String id
-    ExceptionCategory category
-    String description
+    CorrelationInfo correlation
+    ExceptionInfo exception
 }
