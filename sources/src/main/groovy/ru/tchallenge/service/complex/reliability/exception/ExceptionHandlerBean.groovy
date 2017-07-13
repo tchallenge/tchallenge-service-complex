@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 
 import ru.tchallenge.service.complex.common.GenericComponent
 import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
-import ru.tchallenge.service.complex.reliability.logging.LogAware
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ControllerAdvice
-class ExceptionHandlerBean extends GenericComponent implements LogAware {
+class ExceptionHandlerBean extends GenericComponent {
 
     @Autowired
     CorrelationContext correlationContext
