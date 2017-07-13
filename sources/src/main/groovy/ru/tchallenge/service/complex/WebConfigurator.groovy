@@ -73,10 +73,16 @@ class WebConfigurator extends WebMvcConfigurerAdapter {
 
     @Override
     void configureMessageConverters(List<HttpMessageConverter<?>> list) {
-        list.add(new MappingJackson2HttpMessageConverter(jackson2ObjectMapper()))
+        list.add(jacksonHttpMessageConverterConverter())
     }
 
-    private static ObjectMapper jackson2ObjectMapper() {
+    @Bean
+    MappingJackson2HttpMessageConverter jacksonHttpMessageConverterConverter() {
+        return new MappingJackson2HttpMessageConverter(jacksonObjectMapper())
+    }
+
+    @Bean
+    ObjectMapper jacksonObjectMapper() {
         return new Jackson2ObjectMapperBuilder()
                 .failOnEmptyBeans(false)
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
