@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
+import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
+import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
@@ -41,16 +44,16 @@ class TokenService extends GenericService {
     TokenInfo get(String payload) {
         def tokenOptional = tokenStorage.get(payload)
         if (!tokenOptional.isPresent()) {
-            throw new RuntimeException("token's payload has not been recognized")
+            throw tokenUnknown(payload)
         }
         def token = tokenOptional.get()
         if (token.deactivated) {
             remove(payload)
-            throw new RuntimeException("token has been deactivated due to absence of activity")
+            throw tokenDeactivated(token)
         }
         if (token.expired) {
             remove(payload)
-            throw new RuntimeException("token has been expired")
+            throw tokenExpired(token)
         }
         def updatedToken = token.copyWithUpdatedLastUsage()
         tokenStorage.put(payload, updatedToken)
@@ -64,5 +67,44 @@ class TokenService extends GenericService {
     void removeForAccount(String payload) {
         // TODO: implement removal of all Account's tokens by given payload
         throw new UnsupportedOperationException()
+    }
+
+    private static RuntimeException tokenDeactivated(TokenInfo token) {
+        return new SecurityViolationException(
+                new TokenViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "token has been deactivated due to absence of activity",
+                                textcode: "X.SECURITY.TOKEN.DEACTIVATED"
+                        ),
+                        token: token
+                )
+        )
+    }
+
+    private static RuntimeException tokenExpired(TokenInfo token) {
+        return new SecurityViolationException(
+                new TokenViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "token has been expired",
+                                textcode: "X.SECURITY.TOKEN.EXPIRED"
+                        ),
+                        token: token
+                )
+        )
+    }
+
+    private static RuntimeException tokenUnknown(String payload) {
+        return new SecurityViolationException(
+                new TokenViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "token has not been recognized",
+                                textcode: "X.SECURITY.TOKEN.UNKNOWN"
+                        ),
+                        payload: payload
+                )
+        )
     }
 }
