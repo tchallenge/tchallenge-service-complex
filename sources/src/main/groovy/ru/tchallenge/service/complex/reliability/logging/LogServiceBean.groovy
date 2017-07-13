@@ -2,22 +2,30 @@ package ru.tchallenge.service.complex.reliability.logging
 
 import groovy.transform.CompileStatic
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.logging.LogLevel
 
 import org.apache.commons.logging.LogFactory
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
 
 @CompileStatic
 @ServiceComponent
 class LogServiceBean extends GenericService implements LogService {
 
+    @Autowired
+    CorrelationContext correlationContext
+
     @Override
     void log(LogRecord record) {
         def log = LogFactory.getLog(record.descriptor)
         def level = record.level
-        def message = record.message
+        def message = new CorrelatedMessage(
+                correlation: correlationContext.correlation,
+                message: record.message
+        )
         def throwable = record.throwable
         if (level == LogLevel.TRACE && log.traceEnabled) {
             log.trace(message, throwable)
