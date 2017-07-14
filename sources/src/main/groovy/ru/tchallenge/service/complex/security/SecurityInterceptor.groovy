@@ -7,7 +7,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMethod
 
-import ru.tchallenge.service.complex.common.GenericInterceptor
+import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
 import ru.tchallenge.service.complex.security.authentication.AuthenticationService
@@ -15,7 +15,7 @@ import ru.tchallenge.service.complex.utility.routing.RouteSignature
 
 @CompileStatic
 @InterceptorComponent
-class SecurityInterceptor extends GenericInterceptor {
+class SecurityInterceptor extends GenericInterceptorBean {
 
     @Autowired
     protected AuthenticationContext authenticationContext

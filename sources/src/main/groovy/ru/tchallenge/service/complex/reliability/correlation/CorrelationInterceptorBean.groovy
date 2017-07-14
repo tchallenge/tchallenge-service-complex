@@ -6,14 +6,14 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericInterceptor
+import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
 import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @InterceptorComponent
-class CorrelationInterceptorBean extends GenericInterceptor implements CorrelationInterceptor {
+class CorrelationInterceptorBean extends GenericInterceptorBean implements CorrelationInterceptor {
 
     @Autowired
     protected CorrelationContextConfigurer correlationContextConfigurer
