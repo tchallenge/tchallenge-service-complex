@@ -20,7 +20,9 @@ class CorrelationInterceptorBean extends GenericInterceptorBean implements Corre
 
     @Override
     protected void preHandle(HttpServletRequest request) {
-        correlationContextConfigurer.setCorrelation(correlation(request))
+        def correlation = correlation(request)
+        correlationContextConfigurer.setCorrelation(correlation)
+        logAsInfo("Request correlation is created", correlation)
     }
 
     private static CorrelationInfo correlation(HttpServletRequest request) {
