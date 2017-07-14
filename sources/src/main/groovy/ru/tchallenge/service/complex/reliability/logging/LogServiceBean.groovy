@@ -58,7 +58,7 @@ class LogServiceBean extends GenericService implements LogService {
 
     private CorrelationInfo correlationIfAny() {
         try {
-            return correlationContext.correlation
+            return correlationContext.correlation.orElse(null)
         } catch (BeanCreationException exception) {
             def log = LogFactory.getLog(this.class.name)
             log.trace("No correlation is available ($exception.message)")

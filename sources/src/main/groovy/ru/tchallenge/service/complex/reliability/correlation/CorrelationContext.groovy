@@ -5,5 +5,5 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface CorrelationContext {
 
-    CorrelationInfo getCorrelation()
+    Optional<CorrelationInfo> getCorrelation()
 }

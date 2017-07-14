@@ -9,5 +9,15 @@ import ru.tchallenge.service.complex.convention.component.ContextComponent
 @ContextComponent
 class CorrelationContextConfigurerBean extends GenericContextBean implements CorrelationContextConfigurer {
 
-    CorrelationInfo correlation
+    private volatile CorrelationInfo correlation
+
+    @Override
+    Optional<CorrelationInfo> getCorrelation() {
+        return Optional.ofNullable(correlation)
+    }
+
+    @Override
+    void setCorrelation(CorrelationInfo correlation) {
+        this.correlation = correlation
+    }
 }
