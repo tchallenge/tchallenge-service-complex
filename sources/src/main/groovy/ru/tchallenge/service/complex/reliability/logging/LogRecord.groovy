@@ -11,6 +11,7 @@ final class LogRecord {
 
     String descriptor
     LogLevel level
-    Object message
+    String message
+    Object payload
     Throwable throwable
 }

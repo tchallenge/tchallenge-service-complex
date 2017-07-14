@@ -22,28 +22,28 @@ class ExceptionHandlerBean extends GenericComponent {
     @ExceptionHandler(ViolationException)
     def handleViolationException(ViolationException exception) {
         def info = info(exception)
-        logAsInfo(info)
+        logAsInfo(info.violation.description, info)
         return responseEntity(info, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(SecurityViolationException)
     def handleSecurityException(SecurityViolationException exception) {
         def info = info(exception)
-        logAsWarn(info)
+        logAsWarn(info.violation.description, info)
         return responseEntity(info, HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(UnsupportedOperationException)
     def handleUnsupportedException(UnsupportedOperationException exception) {
         def info = info(ExceptionCategory.UNSUPPORTED)
-        logAsError(info, exception)
+        logAsError(info.description, exception)
         return responseEntity(info, HttpStatus.NOT_IMPLEMENTED)
     }
 
     @ExceptionHandler(Throwable)
     def handleUnpredictedThrowable(Throwable throwable) {
         def info = info(ExceptionCategory.UNPREDICTED)
-        logAsError(info, throwable)
+        logAsError(info.description, throwable)
         return responseEntity(info, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 

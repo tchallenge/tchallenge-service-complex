@@ -43,7 +43,7 @@ class EventServiceBean extends GenericService implements EventService {
             status = initialStatus()
             it
         })
-        logAsInfo("New event has been created")
+        logAsInfo("New event has been created", event)
         return saveAndInfo(event)
     }
 
@@ -69,9 +69,11 @@ class EventServiceBean extends GenericService implements EventService {
                 invoice.filterStatusTextcodes,
                 pageable(invoice)
         )
-        return info(invoice, eventPage) {
+        def searchInfo = info(invoice, eventPage) {
             Event it -> info(it)
         }
+        logAsDebug("Search result of events is prepared", searchInfo)
+        return searchInfo
     }
 
     @Override

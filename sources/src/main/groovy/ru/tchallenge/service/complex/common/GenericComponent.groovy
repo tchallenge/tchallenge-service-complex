@@ -16,33 +16,50 @@ abstract class GenericComponent {
     @Autowired
     LogService logService
 
-    void log(LogLevel level, Object message, Throwable throwable) {
+    void log(LogLevel level, String message, Object payload) {
+        log(level, message, payload, null)
+    }
+
+    void log(LogLevel level, String message, Object payload, Throwable throwable) {
         logService.log(new LogRecord(
-                descriptor: this.class.name,
+                descriptor: throwable ? throwable.stackTrace[0].className : this.class.name,
                 level: level,
                 message: message,
+                payload: payload,
                 throwable: throwable
         ))
     }
 
-    void logAsTrace(Object message) {
-        log(LogLevel.TRACE, message, null)
+    void logAsTrace(String message, Object payload) {
+        log(LogLevel.TRACE, message, payload)
     }
 
-    void logAsDebug(Object message) {
-        log(LogLevel.DEBUG, message, null)
+    void logAsDebug(String message, Object payload) {
+        log(LogLevel.DEBUG, message, payload)
     }
 
-    void logAsInfo(Object message) {
-        log(LogLevel.INFO, message, null)
+    void logAsInfo(String message, Object payload) {
+        log(LogLevel.INFO, message, payload)
     }
 
-    void logAsWarn(Object message) {
-        log(LogLevel.WARN, message, null)
+    void logAsWarn(String message, Object payload) {
+        log(LogLevel.WARN, message, payload)
     }
 
-    void logAsError(Object message, Throwable throwable) {
-        log(LogLevel.ERROR, message, throwable)
+    void logAsError(String message, Throwable throwable) {
+        logAsError(message, null, throwable)
+    }
+
+    void logAsError(String message, Object payload, Throwable throwable) {
+        log(LogLevel.ERROR, message, payload, throwable)
+    }
+
+    void logAsFatal(String message, Throwable throwable) {
+        logAsFatal(message, null, throwable)
+    }
+
+    void logAsFatal(String message, Object payload, Throwable throwable) {
+        log(LogLevel.FATAL, message, payload, throwable)
     }
 
     @PostConstruct
