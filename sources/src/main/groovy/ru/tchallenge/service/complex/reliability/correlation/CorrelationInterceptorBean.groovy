@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @InterceptorComponent
@@ -20,24 +18,8 @@ class CorrelationInterceptorBean extends GenericInterceptorBean implements Corre
 
     @Override
     protected void preHandle(HttpServletRequest request) {
-        def correlation = correlation(request)
+        def correlation = CorrelationInfo.of(request)
         correlationContextConfigurer.setCorrelation(correlation)
         logAsInfo("Request correlation is created", correlation)
-    }
-
-    private static CorrelationInfo correlation(HttpServletRequest request) {
-        return new CorrelationInfo(
-                id: uuid(),
-                request: new CorrelationRequestInfo(
-                        client: new CorrelationRequestClientInfo(
-                                address: request.remoteAddr,
-                                hostname: request.remoteHost,
-                                port: request.remotePort
-                        ),
-                        method: request.method,
-                        uri: request.requestURI,
-                        receivedAt: now()
-                )
-        )
     }
 }
