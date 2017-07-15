@@ -1,9 +1,9 @@
 package ru.tchallenge.service.complex.utility.routing
 
-import javax.servlet.http.HttpServletRequest
-
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
+
+import javax.servlet.http.HttpServletRequest
 
 import org.springframework.web.bind.annotation.RequestMethod
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 class RouteSignature {
 
     static RouteSignature fromRequest(HttpServletRequest request) {
-        return new RouteSignature(
+        new RouteSignature(
                 method: RequestMethod.valueOf(request.method),
                 uri: request.requestURI
         )
@@ -23,9 +23,6 @@ class RouteSignature {
     String uri
 
     boolean matches(RouteSignature another) {
-        if (this == another) {
-            return true
-        }
-        return pattern && method == another.method && another.uri.matches(uri)
+        this == another || (pattern && method == another.method && another.uri.matches(uri))
     }
 }

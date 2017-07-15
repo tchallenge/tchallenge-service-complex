@@ -1,8 +1,8 @@
 package ru.tchallenge.service.complex.utility.serialization
 
-import java.time.Instant
-
 import groovy.transform.CompileStatic
+
+import java.time.Instant
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -20,6 +20,6 @@ class InstantSerializer extends JsonSerializer<Instant> {
 
     @Override
     Class<Instant> handledType() {
-        return Instant
+        Instant
     }
 }
