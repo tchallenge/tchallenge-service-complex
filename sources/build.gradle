@@ -25,29 +25,33 @@ targetCompatibility = 1.8
 sourceSets.main.java.srcDirs = []
 sourceSets.main.groovy.srcDirs += ['src/main/java']
 
-repositories {
-
-    jcenter()
-}
-
 bootRun {
 
     systemProperties = System.properties as Map<String, ?>
 }
 
+repositories {
+
+    jcenter()
+}
+
 dependencies {
 
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    // @formatter:off (required to keep the list of dependencies as a table)
 
-    compile group: 'com.google.guava', name: 'guava', version: '22.0'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11'
-    compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.2.10.Final'
-    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
-    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+    compile         group: 'org.springframework.boot',  name: 'spring-boot-starter-web'
+    compile         group: 'org.springframework.boot',  name: 'spring-boot-starter-data-jpa'
+    compile         group: 'org.springframework.boot',  name: 'spring-boot-starter-mail'
 
-    providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+    compile         group: 'com.google.guava',          name: 'guava',                          version: '22.0'
+    compile         group: 'org.codehaus.groovy',       name: 'groovy-all',                     version: '2.4.11'
+    compile         group: 'org.hibernate',             name: 'hibernate-java8',                version: '5.2.10.Final'
+    compile         group: 'org.hsqldb',                name: 'hsqldb',                         version: '2.4.0'
+    compile         group: 'org.mindrot',               name: 'jbcrypt',                        version: '0.4'
 
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    providedRuntime group: 'org.springframework.boot',  name: 'spring-boot-starter-tomcat'
+
+    testCompile     group: 'org.springframework.boot',  name: 'spring-boot-starter-test'
+
+    // @formatter:on
 }
