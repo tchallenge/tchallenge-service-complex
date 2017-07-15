@@ -8,10 +8,6 @@ import ru.tchallenge.service.complex.common.GenericFacade
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
-import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
 
 @CompileStatic
 @FacadeComponent
@@ -19,9 +15,6 @@ class AccountFacade extends GenericFacade {
 
     @Autowired
     protected AccountService accountService
-
-    @Autowired
-    protected AuthenticationContext authenticationContext
 
     AccountInfo create(AccountInvoice invoice) {
         if (!isAuthenticatedUsermod()) {

@@ -5,10 +5,14 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.account.AccountMapper
 import ru.tchallenge.service.complex.domain.account.AccountRepository
+import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
+import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
+import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
 import ru.tchallenge.service.complex.security.token.TokenInfo
 import ru.tchallenge.service.complex.security.token.TokenPayloadService
 import ru.tchallenge.service.complex.security.token.TokenService
@@ -38,17 +42,17 @@ class AuthenticationService extends GenericService {
     AuthenticationInfo createFromLoginAndPassword(String login, String password) {
         def account = accountRepository.findByLogin(login)
         if (!account) {
-            throw unknownCredentials()
+            throw illegalCredentials(login)
         }
         if (account.verification.textcode != "PASSWORD") {
-            throw unknownCredentials()
+            throw illegalCredentials(login)
         }
         def accountPassword = account.passwords.last()
         if (!accountPassword || !accountPassword.active || !encryptionService.verify(password, accountPassword.hash)) {
-            throw unknownCredentials()
+            throw illegalCredentials(login)
         }
         def token = tokenService.create(account.id as String)
-        return createByAccountAndToken(account, token)
+        createByAccountAndToken(account, token)
     }
 
     AuthenticationInfo createFromTokenPayload(String payload) {
@@ -58,7 +62,7 @@ class AuthenticationService extends GenericService {
         def token = tokenService.get(payload)
         def accountId = tokenPayloadService.restoreAccountId(token.payload)
         def account = accountRepository.findById(accountId as Long)
-        return createByAccountAndToken(account, token)
+        createByAccountAndToken(account, token)
     }
 
     private AuthenticationInfo bootstrappedEmployee() {
@@ -72,7 +76,7 @@ class AuthenticationService extends GenericService {
                 lastUsedAt: now
         )
         def account = accountRepository.findByLogin("ipetrov")
-        return createByAccountAndToken(account, token)
+        createByAccountAndToken(account, token)
     }
 
     private AuthenticationInfo createByAccountAndToken(Account account, TokenInfo token) {
@@ -80,23 +84,50 @@ class AuthenticationService extends GenericService {
             throw unknownAccount()
         }
         if (account.status.textcode != "APPROVED") {
-            throw illegalStatus(account.status.textcode)
+            throw illegalStatus(account)
         }
-        return new AuthenticationInfo(
+        new AuthenticationInfo(
                 account: accountMapper.asInfo(account),
                 token: token
         )
     }
 
-    private static RuntimeException illegalStatus(String status) {
-        return new RuntimeException("authentication failed: account status is " + status)
+    private static SecurityViolationException illegalCredentials(String login) {
+        new SecurityViolationException(
+                new AccountViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "Specified credentials are illegal or not recognized",
+                                textcode: "X.SECURITY.CREDENTIALS.ILLEGAL"
+                        ),
+                        login: login
+                )
+        )
     }
 
-    private static RuntimeException unknownAccount() {
-        return new RuntimeException("authentication failed: account does not exist")
+    private static SecurityViolationException illegalStatus(Account account) {
+        new SecurityViolationException(
+                new AccountViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "Account status is illegal",
+                                textcode: "X.SECURITY.ACCOUNT.STATUS.ILLEGAL"
+                        ),
+                        login: account.login,
+                        status: EnumeratedTransformations.info(account.status)
+                )
+        )
     }
 
-    private static RuntimeException unknownCredentials() {
-        return new RuntimeException("authentication failed: login or password are incorrect")
+    private static SecurityViolationException unknownAccount() {
+        new SecurityViolationException(
+                new AccountViolationInfo(
+                        base: new BaseViolationInfo(
+                                category: ViolationCategory.SECURITY,
+                                description: "Referenced account does not exist",
+                                textcode: "X.SECURITY.ACCOUNT.UNKNOWN"
+                        )
+                )
+        )
     }
 }

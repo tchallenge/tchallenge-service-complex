@@ -15,6 +15,6 @@ class AuthenticationFacade extends GenericFacade {
     protected AuthenticationService authenticationService
 
     AuthenticationInfo create(AuthenticationInvoice invoice) {
-        return authenticationService.createFromLoginAndPassword(invoice.login, invoice.password)
+        authenticationService.createFromLoginAndPassword(invoice.login, invoice.password)
     }
 }

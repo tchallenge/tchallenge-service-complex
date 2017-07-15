@@ -90,19 +90,19 @@ class LogServiceBean extends GenericService implements LogService {
 
     private AuthenticationInfo authenticationIfAny() {
         try {
-            return authenticationContext.authentication
+            authenticationContext.authentication.orElse(null)
         } catch (BeanCreationException exception) {
             ownLog.trace("No authentication is available", exception)
-            return null
+            null
         }
     }
 
     private CorrelationInfo correlationIfAny() {
         try {
-            return correlationContext.correlation.orElse(null)
+            correlationContext.correlation.orElse(null)
         } catch (BeanCreationException exception) {
             ownLog.trace("No correlation is available", exception)
-            return null
+            null
         }
     }
 

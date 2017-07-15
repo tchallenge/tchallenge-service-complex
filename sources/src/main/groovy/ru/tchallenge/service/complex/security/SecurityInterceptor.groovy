@@ -1,15 +1,15 @@
 package ru.tchallenge.service.complex.security
 
-import javax.servlet.http.HttpServletRequest
-
 import groovy.transform.CompileStatic
+
+import javax.servlet.http.HttpServletRequest
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMethod
 
 import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
-import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
+import ru.tchallenge.service.complex.security.authentication.AuthenticationContextConfigurer
 import ru.tchallenge.service.complex.security.authentication.AuthenticationService
 import ru.tchallenge.service.complex.utility.routing.RouteSignature
 
@@ -18,7 +18,7 @@ import ru.tchallenge.service.complex.utility.routing.RouteSignature
 class SecurityInterceptor extends GenericInterceptorBean {
 
     @Autowired
-    protected AuthenticationContext authenticationContext
+    protected AuthenticationContextConfigurer authenticationContextConfigurer
 
     @Autowired
     protected AuthenticationService authenticationService
@@ -27,6 +27,7 @@ class SecurityInterceptor extends GenericInterceptorBean {
 
     @Override
     void preHandle(HttpServletRequest request) {
+        // TODO: re-implement to get rid off intermediate returns
         def certificatePayload = request.getHeader("tchallenge-security-certificate-payload")
         if (certificatePayload) {
             authenticateByCertificate(certificatePayload)
@@ -68,6 +69,6 @@ class SecurityInterceptor extends GenericInterceptorBean {
 
     private void authenticateByToken(String payload) {
         def authentication = authenticationService.createFromTokenPayload(payload)
-        authenticationContext.setAuthentication(authentication)
+        authenticationContextConfigurer.setAuthentication(authentication)
     }
 }

@@ -20,6 +20,6 @@ class AuthenticationRouter extends GenericRouter {
     @NoAuthentication
     @RoutePost
     AuthenticationInfo create(@RequestBody AuthenticationInvoice invoice) {
-        return authenticationFacade.create(invoice)
+        authenticationFacade.create(invoice)
     }
 }
