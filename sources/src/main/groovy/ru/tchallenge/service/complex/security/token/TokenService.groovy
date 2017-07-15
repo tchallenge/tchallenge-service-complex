@@ -1,18 +1,16 @@
 package ru.tchallenge.service.complex.security.token
 
-import java.time.Duration
-
 import groovy.transform.CompileStatic
+
+import java.time.Duration
 
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
+import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
 import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ServiceComponent
@@ -28,9 +26,9 @@ class TokenService extends GenericService {
     private static final Integer expirationInHours = 12
 
     TokenInfo create(String accountId) {
-        def now = now()
+        def now = now
         def token = new TokenInfo(
-                id: uuid(),
+                id: uuid,
                 payload: payloadService.fromAccountId(accountId),
                 deactivationInMinutes: deactivationInMinutes,
                 createdAt: now,

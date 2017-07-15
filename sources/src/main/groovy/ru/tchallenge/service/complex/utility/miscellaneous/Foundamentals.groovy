@@ -1,40 +1,47 @@
 package ru.tchallenge.service.complex.utility.miscellaneous
 
+import groovy.transform.CompileStatic
+
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.function.Function
 import java.util.stream.Collectors
 
-import groovy.transform.CompileStatic
-
 @CompileStatic
 final class Foundamentals {
 
+    public static final Foundamentals INSTANCE = new Foundamentals()
+
     static boolean flag(Integer value) {
-        return value
+        value as boolean
     }
 
     static Integer flag(Boolean value) {
-        return value ? 1 : 0
+        value ? 1 : 0
     }
 
     static Instant instant(String iso) {
-        return ZonedDateTime.parse(iso, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant()
+        ZonedDateTime.parse(iso, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant()
     }
 
     static <R, T> Collection<R> mapCollection(Collection<T> collection, Function<T, R> mapper) {
-        return collection
+        collection
                 .stream()
                 .map(mapper)
                 .collect(Collectors.toList())
     }
 
-    static Instant now() {
-        return Instant.now()
+    static Instant getNow() {
+        Instant.now()
     }
 
-    static String uuid() {
-        return UUID.randomUUID().toString()
+    static String getUuid() {
+        // TODO: implement real UUID generation
+        UUID.randomUUID().toString()
+    }
+
+    private Foundamentals() {
+
     }
 }

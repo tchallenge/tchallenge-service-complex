@@ -1,11 +1,11 @@
 package ru.tchallenge.service.complex.reliability.correlation
 
-import javax.servlet.http.HttpServletRequest
-
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
 
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
+import javax.servlet.http.HttpServletRequest
+
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 @Immutable
@@ -13,7 +13,7 @@ final class CorrelationInfo {
 
     static CorrelationInfo of(HttpServletRequest request) {
         return new CorrelationInfo(
-                id: uuid(),
+                id: Foundamentals.uuid,
                 request: CorrelationRequestInfo.of(request)
         )
     }

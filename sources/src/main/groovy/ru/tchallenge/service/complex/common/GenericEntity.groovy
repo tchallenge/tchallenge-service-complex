@@ -1,23 +1,32 @@
 package ru.tchallenge.service.complex.common
 
+import groovy.transform.CompileStatic
+
+import java.time.Instant
 import javax.persistence.MappedSuperclass
 import javax.persistence.PrePersist
 import javax.persistence.PreUpdate
 
-import groovy.transform.CompileStatic
-
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 @MappedSuperclass
 abstract class GenericEntity<ID extends Serializable> implements Serializable {
 
+    protected static Instant getNow() {
+        Foundamentals.now
+    }
+
+    protected static String getUuid() {
+        Foundamentals.uuid
+    }
+
     @PrePersist
     protected void onInsert() {
         if (this instanceof TimestampedEntity) {
             def timestamped = this as TimestampedEntity
-            timestamped.createdAt = now()
+            timestamped.createdAt = now
             timestamped.lastModifiedAt = timestamped.createdAt
         }
     }
@@ -26,7 +35,7 @@ abstract class GenericEntity<ID extends Serializable> implements Serializable {
     protected void onUpdate() {
         if (this instanceof TimestampedEntity) {
             def timestamped = this as TimestampedEntity
-            timestamped.lastModifiedAt = now()
+            timestamped.lastModifiedAt = now
         }
     }
 }

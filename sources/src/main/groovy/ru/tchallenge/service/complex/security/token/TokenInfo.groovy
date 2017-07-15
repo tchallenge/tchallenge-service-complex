@@ -1,13 +1,12 @@
 package ru.tchallenge.service.complex.security.token
 
-import java.time.Duration
-import java.time.Instant
-
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
 
+import java.time.Duration
+import java.time.Instant
+
 import ru.tchallenge.service.complex.common.GenericInfoValue
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
 
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])
@@ -21,11 +20,11 @@ class TokenInfo extends GenericInfoValue {
     Instant lastUsedAt
 
     boolean isDeactivated() {
-        return now() > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
+        return now > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
     }
 
     boolean isExpired() {
-        return now() > expiresAt
+        return now > expiresAt
     }
 
     TokenInfo copyWithUpdatedLastUsage() {
@@ -35,7 +34,7 @@ class TokenInfo extends GenericInfoValue {
                 deactivationInMinutes: deactivationInMinutes,
                 createdAt: createdAt,
                 expiresAt: expiresAt,
-                lastUsedAt: now()
+                lastUsedAt: now
         )
     }
 }

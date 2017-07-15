@@ -13,8 +13,6 @@ import ru.tchallenge.service.complex.security.token.TokenInfo
 import ru.tchallenge.service.complex.security.token.TokenPayloadService
 import ru.tchallenge.service.complex.security.token.TokenService
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.now
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ServiceComponent
@@ -64,9 +62,9 @@ class AuthenticationService extends GenericService {
     }
 
     private AuthenticationInfo bootstrappedEmployee() {
-        def now = now()
+        def now = now
         def token = new TokenInfo(
-                id: uuid(),
+                id: uuid,
                 payload: PREDEFINED_EMPLOYEE_TOKEN_PAYLOAD,
                 deactivationInMinutes: 0,
                 createdAt: now,

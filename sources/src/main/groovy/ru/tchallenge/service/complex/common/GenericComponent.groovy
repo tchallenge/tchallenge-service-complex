@@ -1,17 +1,44 @@
 package ru.tchallenge.service.complex.common
 
-import javax.annotation.PostConstruct
-
 import groovy.transform.CompileStatic
+
+import java.time.Instant
+import java.util.function.Function
+import javax.annotation.PostConstruct
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.logging.LogLevel
 
 import ru.tchallenge.service.complex.reliability.logging.LogRecord
 import ru.tchallenge.service.complex.reliability.logging.LogService
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 abstract class GenericComponent {
+
+    protected static Integer flag(Boolean value) {
+        Foundamentals.flag(value)
+    }
+
+    protected static boolean flag(Integer value) {
+        Foundamentals.flag(value)
+    }
+
+    protected static Instant instant(String iso) {
+        Foundamentals.instant(iso)
+    }
+
+    protected static <R, T> Collection<R> mapCollection(Collection<T> collection, Function<T, R> mapper) {
+        Foundamentals.mapCollection(collection, mapper)
+    }
+
+    protected static Instant getNow() {
+        Foundamentals.now
+    }
+
+    protected static String getUuid() {
+        Foundamentals.uuid
+    }
 
     @Autowired
     LogService logService

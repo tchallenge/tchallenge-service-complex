@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 
 import ru.tchallenge.service.complex.common.GenericComponent
 import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.uuid
 
 @CompileStatic
 @ControllerAdvice
@@ -57,7 +56,7 @@ class ExceptionHandlerBean extends GenericComponent {
 
     private static BaseExceptionInfo info(ExceptionCategory category) {
         return new BaseExceptionInfo(
-                id: uuid(),
+                id: uuid,
                 category: category,
                 description: category.description
         )
