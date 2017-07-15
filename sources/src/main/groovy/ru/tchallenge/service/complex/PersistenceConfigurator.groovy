@@ -1,9 +1,9 @@
 package ru.tchallenge.service.complex
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
-
-import groovy.transform.CompileStatic
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -25,7 +25,7 @@ class PersistenceConfigurator {
 
     @Bean
     DataSource dataSourceHsql() {
-        return new EmbeddedDatabaseBuilder()
+        new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.HSQL)
                 .generateUniqueName(true)
                 .build()
@@ -33,7 +33,7 @@ class PersistenceConfigurator {
 
     @Bean
     HibernateJpaVendorAdapter vendorAdapterHsql() {
-        return new HibernateJpaVendorAdapter(
+        new HibernateJpaVendorAdapter(
                 database: Database.HSQL,
                 generateDdl: true
         )
@@ -47,12 +47,12 @@ class PersistenceConfigurator {
                 dataSource: dataSource
         )
         factory.afterPropertiesSet()
-        return factory.object
+        factory.object
     }
 
     @Bean
     PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
-        return new JpaTransactionManager(
+        new JpaTransactionManager(
                 entityManagerFactory: factory
         )
     }

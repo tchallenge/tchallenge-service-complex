@@ -55,8 +55,8 @@ class WebConfigurator extends WebMvcConfigurerAdapter {
     }
 
     @Override
-    void configureMessageConverters(List<HttpMessageConverter<?>> list) {
-        list.add(jacksonHttpMessageConverterConverter())
+    void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(jacksonHttpMessageConverterConverter())
     }
 
     @Bean

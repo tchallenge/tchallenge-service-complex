@@ -14,12 +14,12 @@ import org.springframework.boot.web.support.SpringBootServletInitializer
 @EnableAutoConfiguration(exclude = [ErrorMvcAutoConfiguration])
 class Application extends SpringBootServletInitializer {
 
-    static void main(String[] arguments) {
+    static void main(String... arguments) {
         SpringApplication.run(Application, arguments)
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application)
+        application.sources(Application)
     }
 }
