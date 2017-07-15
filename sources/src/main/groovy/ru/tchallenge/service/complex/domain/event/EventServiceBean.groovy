@@ -40,7 +40,6 @@ class EventServiceBean extends GenericService implements EventService {
 
     @Override
     EventInfo create(EventInvoice invoice) {
-        throw NotSupportedException.expectedSince(this, '2.0.0')
         def event = eventMapper.asEntity(invoice.with {
             id = null
             status = initialStatus()
@@ -62,7 +61,6 @@ class EventServiceBean extends GenericService implements EventService {
 
     @Override
     EventInfo getByTextcode(String textcode) {
-        throw new UnsupportedOperationException()
         return info(eventByTextcode(textcode))
     }
 
@@ -76,7 +74,6 @@ class EventServiceBean extends GenericService implements EventService {
         def searchInfo = info(invoice, eventPage) {
             Event it -> info(it)
         }
-        logAsDebug("Search result of events is prepared", searchInfo)
         return searchInfo
     }
 
@@ -88,7 +85,9 @@ class EventServiceBean extends GenericService implements EventService {
             it
         }
         def updatedEvent = eventMapper.asEntity(event, trimmedInvoice)
-        return saveAndInfo(updatedEvent)
+        def result = saveAndInfo(updatedEvent)
+        logAsInfo("Event has been updated", result)
+        return result
     }
 
     private Event eventById(String id) {
