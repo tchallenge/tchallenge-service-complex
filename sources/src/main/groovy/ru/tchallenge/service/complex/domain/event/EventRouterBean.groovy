@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.GenericRouterBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
@@ -16,40 +16,40 @@ import ru.tchallenge.service.complex.convention.routing.RoutePost
 import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
-@RouterComponent("/events")
-class EventRouter extends GenericRouter {
+@RouterComponent('/events')
+class EventRouterBean extends GenericRouterBean {
 
     @Autowired
-    protected EventFacade eventFacade
+    EventFacade eventFacade
 
     @RoutePost
     EventInfo create(@RequestBody EventInvoice invoice) {
-        return eventFacade.create(invoice)
+        eventFacade.create(invoice)
     }
 
-    @RouteGet("/categories")
+    @RouteGet('/categories')
     Collection<EnumeratedInfo> getAllCategories() {
-        return eventFacade.allCategories
+        eventFacade.allCategories
     }
 
-    @RouteGet("/statuses")
+    @RouteGet('/statuses')
     Collection<EnumeratedInfo> getAllStatuses() {
-        return eventFacade.allStatuses
+        eventFacade.allStatuses
     }
 
     @NoAuthentication
-    @RouteGet("/{textcode}")
-    EventInfo getByTextcode(@PathVariable("textcode") String textcode) {
-        return eventFacade.getByTextcode(textcode)
+    @RouteGet('/{textcode}')
+    EventInfo getByTextcode(@PathVariable('textcode') String textcode) {
+        eventFacade.getByTextcode(textcode)
     }
 
     @RouteGet
     SearchInfo<EventInfo> search(EventSearchInvoice invoice) {
-        return eventFacade.search(invoice)
+        eventFacade.search(invoice)
     }
 
     @RoutePatch
     EventInfo update(@RequestBody EventInvoice invoice) {
-        return eventFacade.update(invoice)
+        eventFacade.update(invoice)
     }
 }

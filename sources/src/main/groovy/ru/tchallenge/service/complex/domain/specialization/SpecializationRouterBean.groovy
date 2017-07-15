@@ -1,23 +1,23 @@
-package ru.tchallenge.service.complex.domain.maturity
+package ru.tchallenge.service.complex.domain.specialization
 
 import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.GenericRouterBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 
 @CompileStatic
-@RouterComponent("/maturities")
-class MaturityRouter extends GenericRouter {
+@RouterComponent('/specializations')
+class SpecializationRouterBean extends GenericRouterBean {
 
     @Autowired
-    protected MaturityFacade maturityFacade
+    SpecializationFacade specializationFacade
 
     @RouteGet
     Collection<EnumeratedInfo> getAll() {
-        return maturityFacade.getAll()
+        specializationFacade.getAll()
     }
 }

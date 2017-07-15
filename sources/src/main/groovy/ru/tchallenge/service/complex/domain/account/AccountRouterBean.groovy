@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.GenericRouterBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
@@ -17,65 +17,65 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
-@RouterComponent("/accounts")
-class AccountRouter extends GenericRouter {
+@RouterComponent('/accounts')
+class AccountRouterBean extends GenericRouterBean {
 
     @Autowired
-    protected AccountFacade accountFacade
+    AccountFacade accountFacade
 
     @RoutePost
     AccountInfo create(@RequestBody AccountInvoice invoice) {
-        return accountFacade.create(invoice)
+        accountFacade.create(invoice)
     }
 
     @NoAuthentication
-    @RoutePost("/claims")
+    @RoutePost('/claims')
     AccountInfo createAsClaim(@RequestBody AccountInvoice invoice) {
-        return accountFacade.createAsClaim(invoice)
+        accountFacade.createAsClaim(invoice)
     }
 
-    @RouteGet("/realms")
+    @RouteGet('/realms')
     Collection<EnumeratedInfo> getAllRealms() {
-        return accountFacade.allRealms
+        accountFacade.allRealms
     }
 
-    @RouteGet("/statuses")
+    @RouteGet('/statuses')
     Collection<EnumeratedInfo> getAllStatuses() {
-        return accountFacade.allStatuses
+        accountFacade.allStatuses
     }
 
-    @RouteGet("/verifications")
+    @RouteGet('/verifications')
     Collection<EnumeratedInfo> getAllVerifications() {
-        return accountFacade.allVerifications
+        accountFacade.allVerifications
     }
 
-    @RouteGet("/employees/roles")
+    @RouteGet('/employees/roles')
     Collection<EnumeratedInfo> getAllEmployeeRoles() {
-        return accountFacade.allEmployeeRoles
+        accountFacade.allEmployeeRoles
     }
 
-    @RouteGet("/robots/roles")
+    @RouteGet('/robots/roles')
     Collection<EnumeratedInfo> getAllRobotRoles() {
-        return accountFacade.allRobotRoles
+        accountFacade.allRobotRoles
     }
 
-    @RouteGet("/{id}")
-    AccountInfo getById(@PathVariable("id") String id) {
-        return accountFacade.getById(id)
+    @RouteGet('/{id}')
+    AccountInfo getById(@PathVariable('id') String id) {
+        accountFacade.getById(id)
     }
 
     @RouteGet
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
-        return accountFacade.search(invoice)
+        accountFacade.search(invoice)
     }
 
     @RoutePatch
     AccountInfo update(@RequestBody AccountInvoice invoice) {
-        return accountFacade.update(invoice)
+        accountFacade.update(invoice)
     }
 
-    @RoutePut("/status")
+    @RoutePut('/status')
     AccountInfo updateStatus(@RequestBody AccountInvoice invoice) {
-        return accountFacade.updateStatus(invoice)
+        accountFacade.updateStatus(invoice)
     }
 }

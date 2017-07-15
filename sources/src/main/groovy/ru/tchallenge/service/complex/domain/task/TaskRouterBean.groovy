@@ -6,62 +6,63 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-import ru.tchallenge.service.complex.common.GenericRouter
+import ru.tchallenge.service.complex.common.GenericRouterBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
+import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePatch
 import ru.tchallenge.service.complex.convention.routing.RoutePost
 
 @CompileStatic
-@RouterComponent("/tasks")
-class TaskRouter extends GenericRouter {
+@RouterComponent('/tasks')
+class TaskRouterBean extends GenericRouterBean {
 
     @Autowired
-    protected TaskFacade taskFacade
+    TaskFacade taskFacade
 
     @RoutePost
-    def create(@RequestBody TaskInvoice invoice) {
-        return taskFacade.create(invoice)
+    TaskInfo create(@RequestBody TaskInvoice invoice) {
+        taskFacade.create(invoice)
     }
 
-    @RouteGet("/categories")
+    @RouteGet('/categories')
     Collection<EnumeratedInfo> getAllCategories() {
-        return taskFacade.allCategories
+        taskFacade.allCategories
     }
 
-    @RouteGet("/difficulties")
+    @RouteGet('/difficulties')
     Collection<EnumeratedInfo> getAllDifficulties() {
-        return taskFacade.allDifficulties
+        taskFacade.allDifficulties
     }
 
-    @RouteGet("/expectations")
+    @RouteGet('/expectations')
     Collection<EnumeratedInfo> getAllExpectations() {
-        return taskFacade.allExpectations
+        taskFacade.allExpectations
     }
 
-    @RouteGet("/snippets/styles")
+    @RouteGet('/snippets/styles')
     Collection<EnumeratedInfo> getAllSnippetStyles() {
-        return taskFacade.allSnippetStyles
+        taskFacade.allSnippetStyles
     }
 
-    @RouteGet("/statuses")
+    @RouteGet('/statuses')
     Collection<EnumeratedInfo> getAllStatuses() {
-        return taskFacade.allStatuses
+        taskFacade.allStatuses
     }
 
-    @RouteGet("/{id}")
-    def getById(@PathVariable("id") String id) {
-        return taskFacade.getById(id)
+    @RouteGet('/{id}')
+    TaskInfo getById(@PathVariable('id') String id) {
+        taskFacade.getById(id)
     }
 
     @RouteGet
-    def search(TaskSearchInvoice invoice) {
-        return taskFacade.search(invoice)
+    SearchInfo<TaskInfo> search(TaskSearchInvoice invoice) {
+        taskFacade.search(invoice)
     }
 
     @RoutePatch
-    def update(@RequestBody TaskInvoice invoice) {
-        return taskFacade.update(invoice)
+    TaskInfo update(@RequestBody TaskInvoice invoice) {
+        taskFacade.update(invoice)
     }
 }
