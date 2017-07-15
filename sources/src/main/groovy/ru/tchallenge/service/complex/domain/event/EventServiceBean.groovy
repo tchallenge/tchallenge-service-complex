@@ -17,6 +17,8 @@ import static ru.tchallenge.service.complex.common.search.SearchTransformations.
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
 
+import ru.tchallenge.service.complex.reliability.exception.NotSupportedException
+
 @CompileStatic
 @ServiceComponent
 class EventServiceBean extends GenericService implements EventService {
@@ -38,6 +40,7 @@ class EventServiceBean extends GenericService implements EventService {
 
     @Override
     EventInfo create(EventInvoice invoice) {
+        throw NotSupportedException.expectedSince(this, '2.0.0')
         def event = eventMapper.asEntity(invoice.with {
             id = null
             status = initialStatus()
@@ -59,6 +62,7 @@ class EventServiceBean extends GenericService implements EventService {
 
     @Override
     EventInfo getByTextcode(String textcode) {
+        throw new UnsupportedOperationException()
         return info(eventByTextcode(textcode))
     }
 

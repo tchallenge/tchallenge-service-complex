@@ -41,15 +41,14 @@ abstract class GenericComponent {
     }
 
     @Autowired
-    LogService logService
+    protected LogService logService
 
     void log(LogLevel level, String message, Object payload) {
         log(level, message, payload, null)
     }
 
     void log(LogLevel level, String message, Object payload, Throwable throwable) {
-        def descriptor = throwable ? throwable.stackTrace[0].className : this.class.name
-        log(descriptor, level, message, payload, throwable)
+        log(this.class.name, level, message, payload, throwable)
     }
 
     void log(String descriptor, LogLevel level, String message, Object payload, Throwable throwable) {

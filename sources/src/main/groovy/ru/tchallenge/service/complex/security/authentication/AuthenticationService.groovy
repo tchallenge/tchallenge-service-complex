@@ -93,41 +93,35 @@ class AuthenticationService extends GenericService {
     }
 
     private static SecurityViolationException illegalCredentials(String login) {
-        new SecurityViolationException(
-                new AccountViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "Specified credentials are illegal or not recognized",
-                                textcode: "X.SECURITY.CREDENTIALS.ILLEGAL"
-                        ),
-                        login: login
-                )
-        )
+        new SecurityViolationException(this, new AccountViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "Specified credentials are illegal or not recognized",
+                        textcode: "X.SECURITY.CREDENTIALS.ILLEGAL"
+                ),
+                login: login
+        ))
     }
 
     private static SecurityViolationException illegalStatus(Account account) {
-        new SecurityViolationException(
-                new AccountViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "Account status is illegal",
-                                textcode: "X.SECURITY.ACCOUNT.STATUS.ILLEGAL"
-                        ),
-                        login: account.login,
-                        status: EnumeratedTransformations.info(account.status)
-                )
-        )
+        new SecurityViolationException(this, new AccountViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "Account status is illegal",
+                        textcode: "X.SECURITY.ACCOUNT.STATUS.ILLEGAL"
+                ),
+                login: account.login,
+                status: EnumeratedTransformations.info(account.status)
+        ))
     }
 
     private static SecurityViolationException unknownAccount() {
-        new SecurityViolationException(
-                new AccountViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "Referenced account does not exist",
-                                textcode: "X.SECURITY.ACCOUNT.UNKNOWN"
-                        )
+        new SecurityViolationException(this, new AccountViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "Referenced account does not exist",
+                        textcode: "X.SECURITY.ACCOUNT.UNKNOWN"
                 )
-        )
+        ))
     }
 }

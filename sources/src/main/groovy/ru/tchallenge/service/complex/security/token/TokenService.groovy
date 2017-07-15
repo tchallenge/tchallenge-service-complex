@@ -68,41 +68,35 @@ class TokenService extends GenericService {
     }
 
     private static RuntimeException tokenDeactivated(TokenInfo token) {
-        return new SecurityViolationException(
-                new TokenViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "token has been deactivated due to absence of activity",
-                                textcode: "X.SECURITY.TOKEN.DEACTIVATED"
-                        ),
-                        token: token
-                )
-        )
+        return new SecurityViolationException(this, new TokenViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "token has been deactivated due to absence of activity",
+                        textcode: "X.SECURITY.TOKEN.DEACTIVATED"
+                ),
+                token: token
+        ))
     }
 
     private static RuntimeException tokenExpired(TokenInfo token) {
-        return new SecurityViolationException(
-                new TokenViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "token has been expired",
-                                textcode: "X.SECURITY.TOKEN.EXPIRED"
-                        ),
-                        token: token
-                )
-        )
+        return new SecurityViolationException(this, new TokenViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "token has been expired",
+                        textcode: "X.SECURITY.TOKEN.EXPIRED"
+                ),
+                token: token
+        ))
     }
 
     private static RuntimeException tokenUnknown(String payload) {
-        return new SecurityViolationException(
-                new TokenViolationInfo(
-                        base: new BaseViolationInfo(
-                                category: ViolationCategory.SECURITY,
-                                description: "token has not been recognized",
-                                textcode: "X.SECURITY.TOKEN.UNKNOWN"
-                        ),
-                        payload: payload
-                )
-        )
+        return new SecurityViolationException(this, new TokenViolationInfo(
+                base: new BaseViolationInfo(
+                        category: ViolationCategory.SECURITY,
+                        description: "token has not been recognized",
+                        textcode: "X.SECURITY.TOKEN.UNKNOWN"
+                ),
+                payload: payload
+        ))
     }
 }

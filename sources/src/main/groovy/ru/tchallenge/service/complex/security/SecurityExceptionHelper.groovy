@@ -10,23 +10,19 @@ import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
 final class SecurityExceptionHelper {
 
     static SecurityViolationException unauthenticated() {
-        new SecurityViolationException(
-                new BaseViolationInfo(
-                        category: ViolationCategory.SECURITY,
-                        description: "Unauthenticated access is restricted",
-                        textcode: "X.SECURITY.UNAUTHENTICATED"
-                )
-        )
+        new SecurityViolationException(this, new BaseViolationInfo(
+                category: ViolationCategory.SECURITY,
+                description: "Unauthenticated access is restricted",
+                textcode: "X.SECURITY.UNAUTHENTICATED"
+        ))
     }
 
     static SecurityViolationException unauthorized() {
-        new SecurityViolationException(
-                new BaseViolationInfo(
-                        category: ViolationCategory.SECURITY,
-                        description: "Request can not be fulfilled due to lack of authorization",
-                        textcode: "X.SECURITY.UNAUTHORIZED"
-                )
-        )
+        new SecurityViolationException(this, new BaseViolationInfo(
+                category: ViolationCategory.SECURITY,
+                description: "Request can not be fulfilled due to lack of authorization",
+                textcode: "X.SECURITY.UNAUTHORIZED"
+        ))
     }
 
     private SecurityExceptionHelper() {

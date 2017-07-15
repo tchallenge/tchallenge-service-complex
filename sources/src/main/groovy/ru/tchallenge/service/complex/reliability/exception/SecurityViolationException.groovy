@@ -7,7 +7,7 @@ import ru.tchallenge.service.complex.reliability.violation.ViolationInfo
 @CompileStatic
 class SecurityViolationException extends ViolationException {
 
-    SecurityViolationException(ViolationInfo violation) {
-        super(violation)
+    SecurityViolationException(Class<?> origin, ViolationInfo violation) {
+        super(origin, violation)
     }
 }
