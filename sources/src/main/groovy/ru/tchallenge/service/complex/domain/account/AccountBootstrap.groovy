@@ -140,7 +140,7 @@ class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
     }
 
     private String passwordHash(String password) {
-        return encryptionService.passwordHash(password)
+        return encryptionService.hash(password)
     }
 
     private AccountRealm realm(String textcode) {

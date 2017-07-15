@@ -45,9 +45,8 @@ class AuthenticationService extends GenericService {
         if (account.verification.textcode != "PASSWORD") {
             throw unknownCredentials()
         }
-        def passwordHash = encryptionService.passwordHash(password)
         def accountPassword = account.passwords.last()
-        if (!accountPassword || !accountPassword.active || accountPassword.hash != passwordHash) {
+        if (!accountPassword || !accountPassword.active || !encryptionService.verify(password, accountPassword.hash)) {
             throw unknownCredentials()
         }
         def token = tokenService.create(account.id as String)
