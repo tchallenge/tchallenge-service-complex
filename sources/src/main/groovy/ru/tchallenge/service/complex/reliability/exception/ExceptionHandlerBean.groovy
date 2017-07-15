@@ -22,40 +22,36 @@ class ExceptionHandlerBean extends GenericComponent {
     def handleViolationException(ViolationException exception) {
         def info = info(exception)
         logAsInfo(info.violation.description, info)
-        return responseEntity(info, HttpStatus.BAD_REQUEST)
+        responseEntity(info, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(SecurityViolationException)
     def handleSecurityException(SecurityViolationException exception) {
         def info = info(exception)
         logAsWarn(info.violation.description, info)
-        return responseEntity(info, HttpStatus.UNAUTHORIZED)
+        responseEntity(info, HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(UnsupportedOperationException)
     def handleUnsupportedException(UnsupportedOperationException exception) {
         def info = info(ExceptionCategory.UNSUPPORTED)
         logAsError(info.description, exception)
-        return responseEntity(info, HttpStatus.NOT_IMPLEMENTED)
+        responseEntity(info, HttpStatus.NOT_IMPLEMENTED)
     }
 
     @ExceptionHandler(Throwable)
     def handleUnpredictedThrowable(Throwable throwable) {
         def info = info(ExceptionCategory.UNPREDICTED)
         logAsError(info.description, throwable)
-        return responseEntity(info, HttpStatus.INTERNAL_SERVER_ERROR)
+        responseEntity(info, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    private ResponseEntity<CorrelatedExceptionInfo> responseEntity(ExceptionInfo info, HttpStatus status) {
-        def correlatedInfo = new CorrelatedExceptionInfo(
-                correlation: correlationContext.correlation.orElse(null),
-                exception: info
-        )
-        return new ResponseEntity<>(correlatedInfo, status)
+    private static ResponseEntity<ExceptionInfo> responseEntity(ExceptionInfo info, HttpStatus status) {
+        new ResponseEntity<>(info, status)
     }
 
     private static BaseExceptionInfo info(ExceptionCategory category) {
-        return new BaseExceptionInfo(
+        new BaseExceptionInfo(
                 id: uuid,
                 category: category,
                 description: category.description
@@ -63,7 +59,7 @@ class ExceptionHandlerBean extends GenericComponent {
     }
 
     private static ViolationExceptionInfo info(ViolationException exception) {
-        return new ViolationExceptionInfo(
+        new ViolationExceptionInfo(
                 base: info(ExceptionCategory.VIOLATION),
                 violation: exception.violation
         )
