@@ -2,7 +2,7 @@ logging:
 
   level:
 
-    org: ${log-framework:ERROR}
+    org: ${log-framework:WARN}
 
     ru:
       tchallenge: ${log:INFO}
