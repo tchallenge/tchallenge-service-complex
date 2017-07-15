@@ -49,7 +49,7 @@ class ExceptionHandlerBean extends GenericComponent {
 
     private ResponseEntity<CorrelatedExceptionInfo> responseEntity(ExceptionInfo info, HttpStatus status) {
         def correlatedInfo = new CorrelatedExceptionInfo(
-                correlation: correlationContext.correlation,
+                correlation: correlationContext.correlation.orElse(null),
                 exception: info
         )
         return new ResponseEntity<>(correlatedInfo, status)
