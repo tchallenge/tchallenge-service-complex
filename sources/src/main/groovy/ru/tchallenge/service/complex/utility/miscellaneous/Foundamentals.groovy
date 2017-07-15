@@ -37,7 +37,6 @@ final class Foundamentals {
     }
 
     static String getUuid() {
-        // TODO: implement real UUID generation
         UUID.randomUUID().toString()
     }
 
