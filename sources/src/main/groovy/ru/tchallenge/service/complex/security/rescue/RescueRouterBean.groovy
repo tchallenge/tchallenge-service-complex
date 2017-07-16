@@ -13,7 +13,7 @@ import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
 @PackageScope
-@RouterComponent('/rescues')
+@RouterComponent('/security/rescues')
 class RescueRouterBean extends GenericRouterBean {
 
     @Autowired

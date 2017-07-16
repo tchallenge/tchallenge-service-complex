@@ -53,7 +53,11 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
         exclusions = [
                 new RouteSignature(
                         method: RequestMethod.POST,
-                        uri: '/authentication'
+                        uri: '/security/rescues'
+                ),
+                new RouteSignature(
+                        method: RequestMethod.POST,
+                        uri: '/security/tokens'
                 ),
                 new RouteSignature(
                         method: RequestMethod.POST,

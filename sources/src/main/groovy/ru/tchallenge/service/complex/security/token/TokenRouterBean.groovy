@@ -15,7 +15,7 @@ import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
 @PackageScope
-@RouterComponent('/tokens')
+@RouterComponent('/security/tokens')
 class TokenRouterBean extends GenericRouterBean {
 
     @Autowired
