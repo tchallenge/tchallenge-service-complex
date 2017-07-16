@@ -33,8 +33,8 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
     @Value('${tchallenge.security.token.payload.header}')
     String tokenPayloadHeader
 
-    // TODO: inject?
-    protected Collection<RouteSignature> exclusions
+    // TODO: implement exclusions injection
+    Collection<RouteSignature> exclusions
 
     @Override
     void preHandle(HttpServletRequest request) {
