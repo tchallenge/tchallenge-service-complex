@@ -19,7 +19,7 @@ import ru.tchallenge.service.complex.utility.routing.RouteSignature
 @CompileStatic
 @PackageScope
 @InterceptorComponent
-class SecurityInterceptorBean extends GenericInterceptorBean implements SecurityInterceptor {
+class SecurityInterceptorConfigurerBean extends GenericInterceptorBean implements SecurityInterceptorConfigurer {
 
     @Autowired
     AuthenticationContextConfigurer authenticationContextConfigurer
@@ -33,7 +33,6 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
     @Value('${tchallenge.security.token.payload.header}')
     String tokenPayloadHeader
 
-    // TODO: implement exclusions injection
     Collection<RouteSignature> exclusions
 
     @Override
@@ -44,31 +43,6 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
         }
         authenticationContextConfigurer.setAuthentication(authentication)
         logAsInfo('Client has been authenticated', authentication)
-    }
-
-    @Override
-    protected void init() {
-        // TODO: collect exclusions based on NoAuthentication and RouteMethod annotations
-        super.init()
-        exclusions = [
-                new RouteSignature(
-                        method: RequestMethod.POST,
-                        uri: '/security/rescues'
-                ),
-                new RouteSignature(
-                        method: RequestMethod.POST,
-                        uri: '/security/tokens'
-                ),
-                new RouteSignature(
-                        method: RequestMethod.POST,
-                        uri: '/accounts/claims'
-                ),
-                new RouteSignature(
-                        method: RequestMethod.GET,
-                        pattern: true,
-                        uri: '/events/.+'
-                )
-        ]
     }
 
     private AuthenticationInfo authenticateIfPossible(HttpServletRequest request) {
