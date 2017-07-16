@@ -6,11 +6,16 @@ import java.time.Instant
 import java.util.function.Function
 import javax.annotation.PostConstruct
 
+import org.springframework.beans.factory.BeanCreationException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.logging.LogLevel
 
+import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
+import ru.tchallenge.service.complex.reliability.correlation.CorrelationInfo
 import ru.tchallenge.service.complex.reliability.logging.LogRecord
 import ru.tchallenge.service.complex.reliability.logging.LogService
+import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
+import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
 import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
@@ -41,81 +46,84 @@ abstract class GenericComponent {
     }
 
     @Autowired
-    protected LogService logService
+    AuthenticationContext authenticationContext
 
-    void log(LogLevel level, String message, Object payload) {
-        log(level, message, payload, null)
+    @Autowired
+    CorrelationContext correlationContext
+
+    @Autowired
+    LogService logService
+
+    protected Optional<AuthenticationInfo> getAuthentication() {
+        try {
+            authenticationContext.authentication
+        } catch (BeanCreationException exception) {
+            logCaughtThrowable('No authentication is available', exception)
+            Optional.empty()
+        }
     }
 
-    void log(LogLevel level, String message, Object payload, Throwable throwable) {
-        log(this.class.name, level, message, payload, throwable)
+    protected Optional<CorrelationInfo> getCorrelation() {
+        try {
+            correlationContext.correlation
+        } catch (BeanCreationException exception) {
+            logCaughtThrowable('No correlation is available', exception)
+            Optional.empty()
+        }
     }
 
-    void log(String descriptor, LogLevel level, String message, Object payload, Throwable throwable) {
-        def record = new LogRecord(
-                descriptor: descriptor,
-                level: level,
-                message: message,
-                payload: payload,
-                throwable: throwable
-        )
-        logService.log(record)
-    }
-
-    void logAsTrace(String message) {
+    protected void logAsTrace(String message) {
         logAsTrace(message, null)
     }
 
-    void logAsTrace(String message, Object payload) {
+    protected void logAsTrace(String message, Object payload) {
         log(LogLevel.TRACE, message, payload)
     }
 
-    void logAsTraceCaughtThrowable(Throwable throwable) {
-        log(this.class.name, LogLevel.TRACE, throwable.message, null, throwable)
-    }
-
-    void logAsDebug(String message) {
+    protected void logAsDebug(String message) {
         logAsDebug(message, null)
     }
 
-    void logAsDebug(String message, Object payload) {
+    protected void logAsDebug(String message, Object payload) {
         log(LogLevel.DEBUG, message, payload)
     }
 
-    void logAsInfo(String message) {
+    protected void logAsInfo(String message) {
         logAsInfo(message, null)
     }
 
-    void logAsInfo(String message, Object payload) {
+    protected void logAsInfo(String message, Object payload) {
         log(LogLevel.INFO, message, payload)
     }
 
-    void logAsWarn(String message) {
+    protected void logAsWarn(String message) {
         logAsWarn(message, null)
     }
 
-    void logAsWarn(String message, Object payload) {
+    protected void logAsWarn(String message, Object payload) {
         log(LogLevel.WARN, message, payload)
     }
 
-    void logAsError(String message, Throwable throwable) {
-        logAsError(message, null, throwable)
-    }
-
-    void logAsError(String message, Object payload, Throwable throwable) {
-        log(LogLevel.ERROR, message, payload, throwable)
-    }
-
-    void logAsFatal(String message, Throwable throwable) {
-        logAsFatal(message, null, throwable)
-    }
-
-    void logAsFatal(String message, Object payload, Throwable throwable) {
-        log(LogLevel.FATAL, message, payload, throwable)
+    protected void logCaughtThrowable(String message, Throwable throwable) {
+        log(LogLevel.TRACE, message, null, throwable)
     }
 
     @PostConstruct
     protected void init() {
 
+    }
+
+    private void log(LogLevel level, String message, Object payload) {
+        log(level, message, payload, null)
+    }
+
+    private void log(LogLevel level, String message, Object payload, Throwable throwable) {
+        logService.log(new LogRecord(
+                descriptor: this.class.name,
+                level: level,
+                message: message,
+                payload: payload,
+                throwable: throwable
+        ))
     }
 }

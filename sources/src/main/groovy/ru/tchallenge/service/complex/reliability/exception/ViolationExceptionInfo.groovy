@@ -11,6 +11,20 @@ import ru.tchallenge.service.complex.reliability.violation.ViolationInfo
 @Immutable
 final class ViolationExceptionInfo implements ExceptionInfo {
 
+    static ViolationExceptionInfo of(ViolationException exception) {
+        new ViolationExceptionInfo(
+                base: BaseExceptionInfo.of(ExceptionCategory.VIOLATION),
+                violation: exception.violation
+        )
+    }
+
+    static ViolationExceptionInfo of(ViolationInfo violation) {
+        new ViolationExceptionInfo(
+                base: BaseExceptionInfo.of(ExceptionCategory.VIOLATION),
+                violation: violation
+        )
+    }
+
     @Delegate
     @JsonIgnore
     BaseExceptionInfo base

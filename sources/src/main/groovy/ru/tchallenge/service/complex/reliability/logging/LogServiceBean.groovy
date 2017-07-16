@@ -2,30 +2,18 @@ package ru.tchallenge.service.complex.reliability.logging
 
 import groovy.transform.CompileStatic
 
-import org.springframework.beans.factory.BeanCreationException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.logging.LogLevel
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
 import ru.tchallenge.service.complex.common.GenericService
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
-import ru.tchallenge.service.complex.reliability.correlation.CorrelationInfo
-import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
-import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
 
 @CompileStatic
 @ServiceComponent
 class LogServiceBean extends GenericService implements LogService {
-
-    @Autowired
-    AuthenticationContext authenticationContext
-
-    @Autowired
-    CorrelationContext correlationContext
 
     @Autowired
     ObjectMapper objectMapper
@@ -35,7 +23,7 @@ class LogServiceBean extends GenericService implements LogService {
         try {
             logRecord(record)
         } catch (Throwable throwable) {
-            ownLog.fatal("Logging failed", throwable)
+            logOwnError(throwable)
         }
     }
 
@@ -66,47 +54,31 @@ class LogServiceBean extends GenericService implements LogService {
             def payloadSerialized = objectMapper.writeValueAsString(payload)
             result.append(": $payloadSerialized")
         }
-        def attributes = attributes()
-        if (!attributes.empty) {
-            def joinedAttributes = attributes.join(", ")
+        def joinedAttributes = attributes.join(", ")
+        if (joinedAttributes) {
             result.append(" ($joinedAttributes)")
         }
-        return result
+        result.toString()
     }
 
-    private Collection<String> attributes() {
+    private Collection<String> getAttributes() {
         def result = []
-        def correlation = correlationIfAny()
-        if (correlation) {
-            result.add("correlation: $correlation.id")
+        if (correlation.present) {
+            def correlationId = correlation.get().id
+            result.add("correlation: $correlationId")
         }
-        def authentication = authenticationIfAny()
-        if (authentication) {
-            result.add("account: $authentication.account.id")
-            result.add("logon: $authentication.token.createdAt")
+        if (authentication.present) {
+            def accountId = authentication.get().account.id
+            result.add("account: $accountId")
+            def logonAt = authentication.get().token.createdAt
+            result.add("logon: $logonAt")
         }
-        return result
+        result
     }
 
-    private AuthenticationInfo authenticationIfAny() {
-        try {
-            authenticationContext.authentication.orElse(null)
-        } catch (BeanCreationException exception) {
-            ownLog.trace("No authentication is available", exception)
-            null
-        }
-    }
-
-    private CorrelationInfo correlationIfAny() {
-        try {
-            correlationContext.correlation.orElse(null)
-        } catch (BeanCreationException exception) {
-            ownLog.trace("No correlation is available", exception)
-            null
-        }
-    }
-
-    private Log getOwnLog() {
-        LogFactory.getLog(this.class.name)
+    private static void logOwnError(Throwable throwable) {
+        LogFactory
+                .getLog(LogServiceBean.class.name)
+                .fatal('Logging attempt has failed', throwable)
     }
 }

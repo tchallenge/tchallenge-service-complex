@@ -3,7 +3,7 @@ package ru.tchallenge.service.complex.reliability.exception
 import groovy.transform.CompileStatic
 
 @CompileStatic
-class OriginatedException extends RuntimeException {
+abstract class OriginatedException extends RuntimeException {
 
     private final Class<?> origin
 

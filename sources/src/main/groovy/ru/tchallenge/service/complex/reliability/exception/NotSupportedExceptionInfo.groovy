@@ -9,6 +9,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 @Immutable
 final class NotSupportedExceptionInfo implements ExceptionInfo {
 
+    static NotSupportedExceptionInfo of(NotSupportedException exception) {
+        new NotSupportedExceptionInfo(
+                base: BaseExceptionInfo.of(ExceptionCategory.UNSUPPORTED),
+                comment: exception.comment,
+                deprecatedSince: exception.deprecatedSince,
+                expectedSince: exception.expectedSince
+        )
+    }
+
+    static NotSupportedExceptionInfo ofUnsupportedOperation() {
+        new NotSupportedExceptionInfo(
+                base: BaseExceptionInfo.of(ExceptionCategory.UNSUPPORTED),
+                comment: 'no information regarding deprecated or expected version is available',
+        )
+    }
+
     @Delegate
     @JsonIgnore
     BaseExceptionInfo base
