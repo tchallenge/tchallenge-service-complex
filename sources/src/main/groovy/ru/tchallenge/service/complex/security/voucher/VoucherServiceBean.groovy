@@ -28,6 +28,7 @@ class VoucherServiceBean extends GenericService implements VoucherService {
 
     @Override
     VoucherInfo create(String accountId) {
+        // TODO: possibly, remove all other vouchers for the account
         def $now = now
         def $result = new VoucherInfo(
                 id: uuid,
@@ -46,9 +47,9 @@ class VoucherServiceBean extends GenericService implements VoucherService {
                 .get(payload)
                 .orElseThrow { voucherUnknown(payload) }
         if ($result.expired) {
-            remove(payload)
             throw voucherExpired($result)
         }
+        remove(payload)
         logAsDebug('Voucher has been retrieved', payload)
         $result
     }
