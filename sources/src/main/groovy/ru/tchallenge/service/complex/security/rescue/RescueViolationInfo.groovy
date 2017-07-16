@@ -41,6 +41,7 @@ final class RescueViolationInfo implements ViolationInfo {
                 payload: payload
         )
     }
+
     @Delegate
     @JsonIgnore
     SecurityViolationInfo base
