@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.security
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import javax.servlet.http.HttpServletRequest
 
@@ -10,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
-import ru.tchallenge.service.complex.reliability.exception.NotSupportedException
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContextConfigurer
 import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
-import ru.tchallenge.service.complex.security.authentication.AuthenticationService
 import ru.tchallenge.service.complex.utility.routing.RouteSignature
 
 @CompileStatic
+@PackageScope
 @InterceptorComponent
 class SecurityInterceptorBean extends GenericInterceptorBean implements SecurityInterceptor {
 
@@ -25,12 +25,12 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
     AuthenticationContextConfigurer authenticationContextConfigurer
 
     @Autowired
-    AuthenticationService authenticationService
+    SecurityService securityService
 
-    @Value('${tchallenge.security.headers.certificatePayload}')
+    @Value('${tchallenge.security.certificate.payload.header}')
     String certificatePayloadHeader
 
-    @Value('${tchallenge.security.headers.tokenPayload}')
+    @Value('${tchallenge.security.token.payload.header}')
     String tokenPayloadHeader
 
     // TODO: inject?
@@ -72,13 +72,9 @@ class SecurityInterceptorBean extends GenericInterceptorBean implements Security
         def certificatePayload = request.getHeader(certificatePayloadHeader)
         def tokenPayload = request.getHeader(tokenPayloadHeader)
         if (certificatePayload) {
-            throw NotSupportedException.expectedSince(
-                    this,
-                    '1.3.x',
-                    'Authentication by certificate is not yet supported'
-            )
+            result = securityService.authenticateByCertificate(certificatePayload)
         } else if (tokenPayload) {
-            result = authenticationService.createFromTokenPayload(tokenPayload)
+            result = securityService.authenticateByToken(tokenPayload)
         }
         result
     }
