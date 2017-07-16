@@ -30,6 +30,9 @@ tchallenge:
 
   security:
 
+    rescue:
+      expirationInMinutes: 15
+
     headers:
       certificatePayload: 'X-Security-Certificate'
       tokenPayload: 'X-Security-Token'
