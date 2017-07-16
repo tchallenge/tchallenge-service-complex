@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.security.rescue
+package ru.tchallenge.service.complex.security.voucher
 
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
@@ -11,7 +11,7 @@ import ru.tchallenge.service.complex.common.GenericInfoValue
 
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])
-class RescueInfo extends GenericInfoValue {
+class VoucherInfo extends GenericInfoValue {
 
     String id
     String payload

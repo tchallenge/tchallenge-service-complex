@@ -30,7 +30,7 @@ tchallenge:
 
   security:
 
-    rescue:
+    voucher:
       expirationInMinutes: 15
 
     headers:

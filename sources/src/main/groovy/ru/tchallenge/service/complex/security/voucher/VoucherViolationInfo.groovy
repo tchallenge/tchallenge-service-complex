@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.security.rescue
+package ru.tchallenge.service.complex.security.voucher
 
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
@@ -11,32 +11,32 @@ import ru.tchallenge.service.complex.reliability.violation.ViolationInfo
 
 @CompileStatic
 @Immutable
-final class RescueViolationInfo implements ViolationInfo {
+final class VoucherViolationInfo implements ViolationInfo {
 
-    static RescueViolationInfo expired(RescueInfo rescue) {
+    static VoucherViolationInfo expired(VoucherInfo voucher) {
         def base = new SecurityViolationInfo(
                 base: new BaseViolationInfo(
                         category: SecurityViolationInfo.CATEGORY,
-                        description: 'Rescue has been expired',
-                        textcode: "${SecurityViolationInfo.TEXTCODE_PREFIX}.RESCUE.EXPIRED"
+                        description: 'Voucher has been expired',
+                        textcode: "${SecurityViolationInfo.TEXTCODE_PREFIX}.VOUCHER.EXPIRED"
                 )
         )
-        new RescueViolationInfo(
+        new VoucherViolationInfo(
                 base: base,
-                payload: rescue.payload,
-                rescue: rescue
+                payload: voucher.payload,
+                voucher: voucher
         )
     }
 
-    static RescueViolationInfo unknown(String payload) {
+    static VoucherViolationInfo unknown(String payload) {
         def base = new SecurityViolationInfo(
                 base: new BaseViolationInfo(
                         category: SecurityViolationInfo.CATEGORY,
-                        description: 'Rescue payload has not been recognized',
-                        textcode: "${SecurityViolationInfo.TEXTCODE_PREFIX}.RESCUE.UNKNOWN"
+                        description: 'Voucher payload has not been recognized',
+                        textcode: "${SecurityViolationInfo.TEXTCODE_PREFIX}.VOUCHER.UNKNOWN"
                 )
         )
-        new RescueViolationInfo(
+        new VoucherViolationInfo(
                 base: base,
                 payload: payload
         )
@@ -47,5 +47,5 @@ final class RescueViolationInfo implements ViolationInfo {
     SecurityViolationInfo base
 
     String payload
-    RescueInfo rescue
+    VoucherInfo voucher
 }

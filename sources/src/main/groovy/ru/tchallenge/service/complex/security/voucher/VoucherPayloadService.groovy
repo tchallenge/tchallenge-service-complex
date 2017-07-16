@@ -1,9 +1,9 @@
-package ru.tchallenge.service.complex.security.rescue
+package ru.tchallenge.service.complex.security.voucher
 
 import groovy.transform.CompileStatic
 
 @CompileStatic
-interface RescuePayloadService {
+interface VoucherPayloadService {
 
     String create(String accountId)
 

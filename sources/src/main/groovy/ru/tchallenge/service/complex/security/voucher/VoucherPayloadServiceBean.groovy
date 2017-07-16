@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.security.rescue
+package ru.tchallenge.service.complex.security.voucher
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
@@ -9,9 +9,9 @@ import ru.tchallenge.service.complex.convention.component.ServiceComponent
 @CompileStatic
 @PackageScope
 @ServiceComponent
-class RescuePayloadServiceBean extends GenericService implements RescuePayloadService {
+class VoucherPayloadServiceBean extends GenericService implements VoucherPayloadService {
 
-    // TODO: implement a real encryption/decryption of rescue payloads
+    // TODO: implement a real encryption/decryption of voucher payloads
     // TODO: re-use this component for token payloads
 
     private static final String DELIMITER = ':'
