@@ -7,11 +7,16 @@ import javax.servlet.http.HttpServletRequest
 import org.springframework.boot.logging.LogLevel
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
+import com.fasterxml.jackson.databind.JsonMappingException
+
 import ru.tchallenge.service.complex.common.GenericComponent
+import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
+import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
 
 @CompileStatic
 @ControllerAdvice
@@ -50,6 +55,32 @@ class ExceptionHandlerBean extends GenericComponent {
         def info = unsupportedOperationInfo()
         log(descriptor(exception), LogLevel.ERROR, info.description, info, exception)
         responseEntity(info, HttpStatus.NOT_IMPLEMENTED)
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException)
+    def handleNotReadableMessage(HttpMessageNotReadableException exception) {
+        def info = info(exception)
+        log(descriptor(exception), LogLevel.INFO, info.violation.description, info, null)
+        responseEntity(info, HttpStatus.BAD_REQUEST)
+    }
+
+    private static ViolationExceptionInfo info(HttpMessageNotReadableException exception) {
+        def description
+        if (exception.cause instanceof JsonMappingException) {
+            def jsonException = exception.cause as JsonMappingException
+            def fields = mapCollection(jsonException.path) { JsonMappingException.Reference it -> it.fieldName }
+            description = fields.join('.')
+        } else {
+            description = 'unknown parsing exception'
+        }
+        new ViolationExceptionInfo(
+                base: info(ExceptionCategory.VIOLATION),
+                violation: new BaseViolationInfo(
+                        category: ViolationCategory.CONTRACT,
+                        description: description,
+                        textcode: 'X.CONTRACT.MESSAGE.UNRECOGNIZED'
+                )
+        )
     }
 
     @ExceptionHandler(Throwable)
