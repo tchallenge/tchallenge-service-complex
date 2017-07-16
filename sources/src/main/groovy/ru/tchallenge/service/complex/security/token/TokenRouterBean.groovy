@@ -37,7 +37,7 @@ class TokenRouterBean extends GenericRouterBean {
         tokenFacade.remove()
     }
 
-    @RouteDelete
+    @RouteDelete('/all')
     void removeAllForAccount() {
         tokenFacade.removeAllForAccount()
     }
