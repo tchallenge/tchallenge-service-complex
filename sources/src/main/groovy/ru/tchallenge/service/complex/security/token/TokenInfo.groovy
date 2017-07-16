@@ -20,15 +20,15 @@ class TokenInfo extends GenericInfoValue {
     Instant lastUsedAt
 
     boolean isDeactivated() {
-        return now > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
+        now > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
     }
 
     boolean isExpired() {
-        return now > expiresAt
+        now > expiresAt
     }
 
     TokenInfo copyWithUpdatedLastUsage() {
-        return new TokenInfo(
+        new TokenInfo(
                 id: id,
                 payload: payload,
                 deactivationInMinutes: deactivationInMinutes,

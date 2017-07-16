@@ -56,6 +56,7 @@ final class TokenViolationInfo implements ViolationInfo {
                 payload: payload
         )
     }
+
     @Delegate
     @JsonIgnore
     SecurityViolationInfo base

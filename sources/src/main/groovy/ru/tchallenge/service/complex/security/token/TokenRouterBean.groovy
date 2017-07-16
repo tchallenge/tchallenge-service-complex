@@ -1,6 +1,7 @@
-package ru.tchallenge.service.complex.security.authentication
+package ru.tchallenge.service.complex.security.token
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestBody
@@ -8,31 +9,36 @@ import org.springframework.web.bind.annotation.RequestBody
 import ru.tchallenge.service.complex.common.GenericRouterBean
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteDelete
+import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePost
 import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
-@RouterComponent('/authentication')
-class AuthenticationRouterBean extends GenericRouterBean {
+@PackageScope
+@RouterComponent('/tokens')
+class TokenRouterBean extends GenericRouterBean {
 
     @Autowired
-    AuthenticationFacade authenticationFacade
+    TokenFacade tokenFacade
 
     @NoAuthentication
     @RoutePost
-    AuthenticationInfo create(@RequestBody AuthenticationInvoice invoice) {
-        authenticationFacade.create(invoice)
+    TokenInfo create(@RequestBody TokenInvoice invoice) {
+        tokenFacade.create(invoice)
+    }
+
+    @RouteGet('/current')
+    TokenInfo get() {
+        tokenFacade.get()
     }
 
     @RouteDelete
     void remove() {
-        // TODO: implement this method
-        throw new UnsupportedOperationException('authentication removal')
+        tokenFacade.remove()
     }
 
-    @RouteDelete('/all')
-    void removeAll() {
-        // TODO: implement this method
-        throw new UnsupportedOperationException('all authentications removal')
+    @RouteDelete
+    void removeAllForAccount() {
+        tokenFacade.removeAllForAccount()
     }
 }

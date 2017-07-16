@@ -38,6 +38,9 @@ tchallenge:
 
     token:
 
+      deactivationInMinutes: 30
+      expirationInHours: 12
+
       payload:
 
         header: 'X-Security-Token'

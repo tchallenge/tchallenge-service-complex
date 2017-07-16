@@ -2,80 +2,14 @@ package ru.tchallenge.service.complex.security.token
 
 import groovy.transform.CompileStatic
 
-import java.time.Duration
-
-import org.springframework.beans.factory.annotation.Autowired
-
-import ru.tchallenge.service.complex.common.GenericService
-import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
-import ru.tchallenge.service.complex.reliability.violation.BaseViolationInfo
-import ru.tchallenge.service.complex.reliability.violation.ViolationCategory
-
 @CompileStatic
-@ServiceComponent
-class TokenService extends GenericService {
+interface TokenService {
 
-    @Autowired
-    protected TokenPayloadService payloadService
+    TokenInfo create(String accountId)
 
-    @Autowired
-    protected TokenStorage tokenStorage
+    TokenInfo get(String payload)
 
-    private static final Integer deactivationInMinutes = 30
-    private static final Integer expirationInHours = 12
+    void remove(String payload)
 
-    TokenInfo create(String accountId) {
-        def now = now
-        def token = new TokenInfo(
-                id: uuid,
-                payload: payloadService.fromAccountId(accountId),
-                deactivationInMinutes: deactivationInMinutes,
-                createdAt: now,
-                expiresAt: now + Duration.ofHours(expirationInHours),
-                lastUsedAt: now
-        )
-        tokenStorage.put(token.payload, token)
-        return token
-    }
-
-    TokenInfo get(String payload) {
-        def tokenOptional = tokenStorage.get(payload)
-        if (!tokenOptional.isPresent()) {
-            throw tokenUnknown(payload)
-        }
-        def token = tokenOptional.get()
-        if (token.deactivated) {
-            remove(payload)
-            throw tokenDeactivated(token)
-        }
-        if (token.expired) {
-            remove(payload)
-            throw tokenExpired(token)
-        }
-        def updatedToken = token.copyWithUpdatedLastUsage()
-        tokenStorage.put(payload, updatedToken)
-        return updatedToken
-    }
-
-    void remove(String payload) {
-        tokenStorage.remove(payload)
-    }
-
-    void removeForAccount(String payload) {
-        // TODO: implement removal of all Account's tokens by given payload
-        throw new UnsupportedOperationException()
-    }
-
-    private RuntimeException tokenDeactivated(TokenInfo token) {
-        SecurityViolationException.of(this, TokenViolationInfo.deactivated(token))
-    }
-
-    private RuntimeException tokenExpired(TokenInfo token) {
-        SecurityViolationException.of(this, TokenViolationInfo.expired(token))
-    }
-
-    private RuntimeException tokenUnknown(String payload) {
-        SecurityViolationException.of(this, TokenViolationInfo.unknown(payload))
-    }
+    void removeAllForAccount(String payload)
 }
