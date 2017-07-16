@@ -1,9 +1,9 @@
-package ru.tchallenge.service.complex.security.voucher
+package ru.tchallenge.service.complex.security.shared
 
 import groovy.transform.CompileStatic
 
 @CompileStatic
-interface VoucherPayloadService {
+interface PayloadService {
 
     String create(String accountId)
 

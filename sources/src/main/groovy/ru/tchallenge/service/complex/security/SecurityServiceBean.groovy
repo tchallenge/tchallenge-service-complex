@@ -15,8 +15,8 @@ import ru.tchallenge.service.complex.reliability.exception.NotSupportedException
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
 import ru.tchallenge.service.complex.security.shared.AccountViolationInfo
 import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
+import ru.tchallenge.service.complex.security.shared.PayloadService
 import ru.tchallenge.service.complex.security.token.TokenInfo
-import ru.tchallenge.service.complex.security.token.TokenPayloadService
 import ru.tchallenge.service.complex.security.token.TokenService
 
 @CompileStatic
@@ -34,7 +34,7 @@ class SecurityServiceBean extends GenericService implements SecurityService {
     TokenService tokenService
 
     @Autowired
-    TokenPayloadService tokenPayloadService
+    PayloadService payloadService
 
     @Value('${tchallenge.security.token.predefined.employee.enabled}')
     Boolean predefinedTokenEmployeeEnabled
@@ -60,7 +60,7 @@ class SecurityServiceBean extends GenericService implements SecurityService {
             return bootstrappedEmployee()
         }
         def $token = tokenService.get(payload)
-        def $accountId = tokenPayloadService.restoreAccountId($token.payload)
+        def $accountId = payloadService.restoreAccountId($token.payload)
         def $account = accountRepository.findById($accountId as Long)
         createByAccountAndToken($account, $token)
     }
