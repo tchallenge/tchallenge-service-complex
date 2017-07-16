@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.domain.account.AccountInfo
-import ru.tchallenge.service.complex.security.SecurityExceptionHelper
+import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
 
 @CompileStatic
@@ -18,7 +18,7 @@ abstract class GenericFacade extends GenericComponent {
     protected AccountInfo authenticated() {
         def result = authenticationContext
                 .authentication
-                .orElseThrow(SecurityExceptionHelper.&unauthenticated)
+                .orElseThrow { unauthenticated() }
                 .account
         if (!result) {
             throw unauthorized()
@@ -52,7 +52,11 @@ abstract class GenericFacade extends GenericComponent {
         return false
     }
 
+    protected RuntimeException unauthenticated() {
+        SecurityViolationException.unauthenticated(this)
+    }
+
     protected RuntimeException unauthorized() {
-        throw new RuntimeException("unauthorized")
+        SecurityViolationException.unauthorized(this)
     }
 }

@@ -67,36 +67,15 @@ class TokenService extends GenericService {
         throw new UnsupportedOperationException()
     }
 
-    private static RuntimeException tokenDeactivated(TokenInfo token) {
-        return new SecurityViolationException(this, new TokenViolationInfo(
-                base: new BaseViolationInfo(
-                        category: ViolationCategory.SECURITY,
-                        description: "token has been deactivated due to absence of activity",
-                        textcode: "X.SECURITY.TOKEN.DEACTIVATED"
-                ),
-                token: token
-        ))
+    private RuntimeException tokenDeactivated(TokenInfo token) {
+        SecurityViolationException.of(this, TokenViolationInfo.deactivated(token))
     }
 
-    private static RuntimeException tokenExpired(TokenInfo token) {
-        return new SecurityViolationException(this, new TokenViolationInfo(
-                base: new BaseViolationInfo(
-                        category: ViolationCategory.SECURITY,
-                        description: "token has been expired",
-                        textcode: "X.SECURITY.TOKEN.EXPIRED"
-                ),
-                token: token
-        ))
+    private RuntimeException tokenExpired(TokenInfo token) {
+        SecurityViolationException.of(this, TokenViolationInfo.expired(token))
     }
 
-    private static RuntimeException tokenUnknown(String payload) {
-        return new SecurityViolationException(this, new TokenViolationInfo(
-                base: new BaseViolationInfo(
-                        category: ViolationCategory.SECURITY,
-                        description: "token has not been recognized",
-                        textcode: "X.SECURITY.TOKEN.UNKNOWN"
-                ),
-                payload: payload
-        ))
+    private RuntimeException tokenUnknown(String payload) {
+        SecurityViolationException.of(this, TokenViolationInfo.unknown(payload))
     }
 }

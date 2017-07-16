@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 import ru.tchallenge.service.complex.common.GenericInterceptorBean
 import ru.tchallenge.service.complex.convention.component.InterceptorComponent
+import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContextConfigurer
 import ru.tchallenge.service.complex.security.authentication.AuthenticationService
 import ru.tchallenge.service.complex.utility.routing.RouteSignature
@@ -38,7 +39,7 @@ class SecurityInterceptor extends GenericInterceptorBean {
             authenticateByToken(tokenPayload)
             return
         }
-        throw SecurityExceptionHelper.unauthenticated()
+        throw unauthenticated()
     }
 
     @Override
@@ -70,5 +71,9 @@ class SecurityInterceptor extends GenericInterceptorBean {
     private void authenticateByToken(String payload) {
         def authentication = authenticationService.createFromTokenPayload(payload)
         authenticationContextConfigurer.setAuthentication(authentication)
+    }
+
+    private RuntimeException unauthenticated() {
+        SecurityViolationException.unauthenticated(this)
     }
 }
