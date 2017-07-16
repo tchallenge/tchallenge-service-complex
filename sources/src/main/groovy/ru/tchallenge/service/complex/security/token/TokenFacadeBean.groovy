@@ -11,6 +11,7 @@ import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.account.AccountMapper
 import ru.tchallenge.service.complex.domain.account.AccountRepository
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
+import ru.tchallenge.service.complex.security.shared.AccountViolationInfo
 import ru.tchallenge.service.complex.security.voucher.VoucherService
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 

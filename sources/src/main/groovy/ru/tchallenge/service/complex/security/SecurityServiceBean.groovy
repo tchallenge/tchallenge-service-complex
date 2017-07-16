@@ -13,7 +13,7 @@ import ru.tchallenge.service.complex.domain.account.AccountMapper
 import ru.tchallenge.service.complex.domain.account.AccountRepository
 import ru.tchallenge.service.complex.reliability.exception.NotSupportedException
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
-import ru.tchallenge.service.complex.security.token.AccountViolationInfo
+import ru.tchallenge.service.complex.security.shared.AccountViolationInfo
 import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
 import ru.tchallenge.service.complex.security.token.TokenInfo
 import ru.tchallenge.service.complex.security.token.TokenPayloadService

@@ -1,4 +1,4 @@
-package ru.tchallenge.service.complex.security.token
+package ru.tchallenge.service.complex.security.shared
 
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
