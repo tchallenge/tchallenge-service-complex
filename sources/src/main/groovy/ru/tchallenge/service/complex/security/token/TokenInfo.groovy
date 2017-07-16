@@ -6,6 +6,8 @@ import groovy.transform.Immutable
 import java.time.Duration
 import java.time.Instant
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 import ru.tchallenge.service.complex.common.GenericInfoValue
 
 @CompileStatic
@@ -19,10 +21,12 @@ class TokenInfo extends GenericInfoValue {
     Instant expiresAt
     Instant lastUsedAt
 
+    @JsonIgnore
     boolean isDeactivated() {
         now > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
     }
 
+    @JsonIgnore
     boolean isExpired() {
         now > expiresAt
     }
