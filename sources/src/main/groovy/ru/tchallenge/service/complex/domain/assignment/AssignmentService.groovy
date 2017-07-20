@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 
 @CompileStatic
 @ServiceComponent
-class AssignmentService extends GenericService {
+class AssignmentService extends GenericServiceBean {
 
     @Autowired
     protected AssignmentMapper assignmentMapper

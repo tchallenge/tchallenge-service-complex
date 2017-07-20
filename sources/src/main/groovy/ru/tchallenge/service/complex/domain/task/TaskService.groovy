@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
@@ -23,7 +23,7 @@ import static ru.tchallenge.service.complex.common.search.SearchTransformations.
 
 @CompileStatic
 @ServiceComponent
-class TaskService extends GenericService {
+class TaskService extends GenericServiceBean {
 
     @Autowired
     protected TaskMapper taskMapper

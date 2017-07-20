@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 
 import org.mindrot.jbcrypt.BCrypt
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 
 @CompileStatic
 @ServiceComponent
-class EncryptionServiceBean extends GenericService implements EncryptionService {
+class EncryptionServiceBean extends GenericServiceBean implements EncryptionService {
 
     @Override
     String hash(String input) {

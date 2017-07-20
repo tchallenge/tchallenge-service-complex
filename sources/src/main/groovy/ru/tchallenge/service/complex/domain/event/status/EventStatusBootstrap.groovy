@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.event.status
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class EventStatusBootstrap extends GenericEnumeratedBootstrap<EventStatus> {
+class EventStatusBootstrap extends GenericEnumeratedBootstrapBean<EventStatus> {
 
     @Override
     protected Collection<EventStatus> enumeratedEntities() {

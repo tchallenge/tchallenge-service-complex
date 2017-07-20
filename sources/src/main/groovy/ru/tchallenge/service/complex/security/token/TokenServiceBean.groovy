@@ -8,7 +8,7 @@ import java.time.Duration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.reliability.exception.SecurityViolationException
 import ru.tchallenge.service.complex.security.shared.PayloadService
@@ -16,7 +16,7 @@ import ru.tchallenge.service.complex.security.shared.PayloadService
 @CompileStatic
 @PackageScope
 @ServiceComponent
-class TokenServiceBean extends GenericService implements TokenService {
+class TokenServiceBean extends GenericServiceBean implements TokenService {
 
     @Autowired
     PayloadService payloadService

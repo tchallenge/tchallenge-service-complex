@@ -5,10 +5,10 @@ import groovy.transform.CompileStatic
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-import ru.tchallenge.service.complex.common.GenericComponent
+import ru.tchallenge.service.complex.common.GenericComponentBean
 
 @CompileStatic
-abstract class BaseExceptionHandlerBean extends GenericComponent {
+abstract class BaseExceptionHandlerBean extends GenericComponentBean {
 
     protected static String descriptor(Throwable throwable) {
         String result

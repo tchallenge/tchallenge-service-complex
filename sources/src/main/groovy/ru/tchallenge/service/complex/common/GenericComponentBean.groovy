@@ -19,7 +19,7 @@ import ru.tchallenge.service.complex.security.authentication.AuthenticationInfo
 import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
-abstract class GenericComponent {
+abstract class GenericComponentBean {
 
     protected static Integer flag(Boolean value) {
         Foundamentals.flag(value)

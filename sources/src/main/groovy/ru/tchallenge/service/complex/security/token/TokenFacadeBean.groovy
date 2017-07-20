@@ -5,7 +5,7 @@ import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericFacade
+import ru.tchallenge.service.complex.common.GenericFacadeBean
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.account.AccountMapper
@@ -18,7 +18,7 @@ import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 @CompileStatic
 @PackageScope
 @FacadeComponent
-class TokenFacadeBean extends GenericFacade implements TokenFacade {
+class TokenFacadeBean extends GenericFacadeBean implements TokenFacade {
 
     @Autowired
     AccountRepository accountRepository

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView
 import ru.tchallenge.service.complex.utility.routing.RouteSignature
 
 @CompileStatic
-abstract class GenericInterceptorBean extends GenericComponent implements AsyncHandlerInterceptor {
+abstract class GenericInterceptorBean extends GenericComponentBean implements AsyncHandlerInterceptor {
 
     @Override
     boolean preHandle(HttpServletRequest request,

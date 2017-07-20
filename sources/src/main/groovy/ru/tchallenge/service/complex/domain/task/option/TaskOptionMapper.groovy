@@ -2,13 +2,12 @@ package ru.tchallenge.service.complex.domain.task.option
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @MapperComponent
-class TaskOptionMapper extends GenericMapper {
+class TaskOptionMapper extends GenericMapperBean {
 
     TaskOption asEntity(TaskOptionInvoice invoice) {
         return new TaskOption(

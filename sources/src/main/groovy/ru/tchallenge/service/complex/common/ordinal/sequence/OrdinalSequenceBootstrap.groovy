@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.common.ordinal.sequence
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericBootstrap
+import ru.tchallenge.service.complex.common.GenericBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class OrdinalSequenceBootstrap extends GenericBootstrap<OrdinalSequence, String> {
+class OrdinalSequenceBootstrap extends GenericBootstrapBean<OrdinalSequence, String> {
 
     @Override
     protected Collection<OrdinalSequence> entities() {

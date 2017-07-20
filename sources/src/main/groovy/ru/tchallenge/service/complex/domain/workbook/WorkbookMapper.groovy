@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.account.AccountMapper
 import ru.tchallenge.service.complex.domain.assignment.Assignment
@@ -16,11 +16,10 @@ import ru.tchallenge.service.complex.domain.specialization.SpecializationReposit
 import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusRepository
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.info
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.mapCollection
 
 @CompileStatic
 @MapperComponent
-class WorkbookMapper extends GenericMapper {
+class WorkbookMapper extends GenericMapperBean {
 
     @Autowired
     protected AccountMapper accountMapper

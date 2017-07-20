@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
@@ -28,7 +28,7 @@ import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransfor
 
 @CompileStatic
 @BootstrapComponent
-class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
+class AccountBootstrap extends GenericOrdinalBootstrapBean<Account> {
 
     // TODO: consider breaking this bootstrap into several
 

@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.task.category.TaskCategory
 import ru.tchallenge.service.complex.domain.task.category.TaskCategoryRepository
@@ -17,11 +17,10 @@ import ru.tchallenge.service.complex.domain.task.status.TaskStatus
 import ru.tchallenge.service.complex.domain.task.status.TaskStatusRepository
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.some
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @BootstrapComponent
-class TaskBootstrap extends GenericOrdinalBootstrap<Task> {
+class TaskBootstrap extends GenericOrdinalBootstrapBean<Task> {
 
     @Autowired
     protected TaskCategoryRepository taskCategoryRepository

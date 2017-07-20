@@ -4,18 +4,17 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.domain.event.category.EventCategory
 import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
 import ru.tchallenge.service.complex.domain.event.interval.EventInterval
 import ru.tchallenge.service.complex.domain.event.status.EventStatus
 import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.instant
 
 @CompileStatic
 @BootstrapComponent
-class EventBootstrap extends GenericOrdinalBootstrap<Event> {
+class EventBootstrap extends GenericOrdinalBootstrapBean<Event> {
 
     @Autowired
     protected EventCategoryRepository eventCategoryRepository

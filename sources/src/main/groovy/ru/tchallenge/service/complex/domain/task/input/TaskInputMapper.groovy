@@ -2,13 +2,12 @@ package ru.tchallenge.service.complex.domain.task.input
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @MapperComponent
-class TaskInputMapper extends GenericMapper {
+class TaskInputMapper extends GenericMapperBean {
 
     TaskInput asEntity(TaskInputInvoice invoice) {
         return new TaskInput(

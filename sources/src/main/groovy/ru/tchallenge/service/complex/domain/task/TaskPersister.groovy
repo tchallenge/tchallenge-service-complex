@@ -2,7 +2,7 @@ package ru.tchallenge.service.complex.domain.task
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersister
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersisterBean
 import ru.tchallenge.service.complex.convention.component.PersisterComponent
 import ru.tchallenge.service.complex.domain.task.input.TaskInput
 import ru.tchallenge.service.complex.domain.task.option.TaskOption
@@ -10,7 +10,7 @@ import ru.tchallenge.service.complex.domain.task.snippet.TaskSnippet
 
 @CompileStatic
 @PersisterComponent
-class TaskPersister extends GenericOrdinalPersister<Task> {
+class TaskPersister extends GenericOrdinalPersisterBean<Task> {
 
     @Override
     protected void prepare(Task entity) {

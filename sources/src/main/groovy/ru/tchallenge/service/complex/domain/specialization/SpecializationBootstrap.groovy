@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.specialization
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class SpecializationBootstrap extends GenericEnumeratedBootstrap<Specialization> {
+class SpecializationBootstrap extends GenericEnumeratedBootstrapBean<Specialization> {
 
     @Override
     protected Collection<Specialization> enumeratedEntities() {

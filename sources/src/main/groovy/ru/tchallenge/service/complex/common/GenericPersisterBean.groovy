@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 @CompileStatic
-abstract class GenericPersister<E extends GenericEntity, ID extends Serializable> extends GenericComponent {
+abstract class GenericPersisterBean<E extends GenericEntity, ID extends Serializable> extends GenericComponentBean {
 
     @Autowired
     protected GenericRepository<E, ID> repository

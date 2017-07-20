@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericWarmer
+import ru.tchallenge.service.complex.common.GenericWarmerBean
 import ru.tchallenge.service.complex.convention.component.WarmerComponent
 
 @CompileStatic
 @WarmerComponent
-class TaskWarmer extends GenericWarmer {
+class TaskWarmer extends GenericWarmerBean {
 
     @Autowired
     protected TaskService taskService

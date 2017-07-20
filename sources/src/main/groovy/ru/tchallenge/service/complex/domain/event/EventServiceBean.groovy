@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
@@ -17,11 +17,9 @@ import static ru.tchallenge.service.complex.common.search.SearchTransformations.
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
 import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
 
-import ru.tchallenge.service.complex.reliability.exception.NotSupportedException
-
 @CompileStatic
 @ServiceComponent
-class EventServiceBean extends GenericService implements EventService {
+class EventServiceBean extends GenericServiceBean implements EventService {
 
     @Autowired
     protected EventMapper eventMapper

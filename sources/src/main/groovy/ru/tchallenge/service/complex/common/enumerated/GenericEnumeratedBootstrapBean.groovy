@@ -2,10 +2,10 @@ package ru.tchallenge.service.complex.common.enumerated
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericBootstrap
+import ru.tchallenge.service.complex.common.GenericBootstrapBean
 
 @CompileStatic
-abstract class GenericEnumeratedBootstrap<E extends GenericEnumeratedEntity> extends GenericBootstrap<E, String> {
+abstract class GenericEnumeratedBootstrapBean<E extends GenericEnumeratedEntity> extends GenericBootstrapBean<E, String> {
 
     @Override
     protected Collection<E> entities() {

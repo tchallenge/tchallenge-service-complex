@@ -8,12 +8,12 @@ import org.springframework.boot.logging.LogLevel
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.commons.logging.LogFactory
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 
 @CompileStatic
 @ServiceComponent
-class LogServiceBean extends GenericService implements LogService {
+class LogServiceBean extends GenericServiceBean implements LogService {
 
     @Autowired
     ObjectMapper objectMapper

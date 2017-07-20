@@ -2,14 +2,14 @@ package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersister
+import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalPersisterBean
 import ru.tchallenge.service.complex.convention.component.PersisterComponent
 import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 
 @CompileStatic
 @PersisterComponent
-class AccountPersister extends GenericOrdinalPersister<Account> {
+class AccountPersister extends GenericOrdinalPersisterBean<Account> {
 
     @Override
     protected void prepare(Account entity) {

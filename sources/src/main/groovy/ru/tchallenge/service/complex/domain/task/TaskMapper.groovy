@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.task.category.TaskCategoryRepository
 import ru.tchallenge.service.complex.domain.task.difficulty.TaskDifficultyRepository
@@ -30,7 +30,7 @@ import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransfor
 
 @CompileStatic
 @MapperComponent
-class TaskMapper extends GenericMapper {
+class TaskMapper extends GenericMapperBean {
 
     @Autowired
     protected TaskCategoryRepository taskCategoryRepository

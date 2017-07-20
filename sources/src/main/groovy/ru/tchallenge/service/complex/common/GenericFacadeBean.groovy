@@ -10,7 +10,7 @@ import ru.tchallenge.service.complex.reliability.exception.SecurityViolationExce
 import ru.tchallenge.service.complex.security.authentication.AuthenticationContext
 
 @CompileStatic
-abstract class GenericFacade extends GenericComponent {
+abstract class GenericFacadeBean extends GenericComponentBean {
 
     @Autowired
     protected AuthenticationContext authenticationContext

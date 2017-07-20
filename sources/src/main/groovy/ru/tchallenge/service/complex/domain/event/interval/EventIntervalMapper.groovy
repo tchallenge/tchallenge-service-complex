@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.event.interval
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 
 @CompileStatic
 @MapperComponent
-class EventIntervalMapper extends GenericMapper {
+class EventIntervalMapper extends GenericMapperBean {
 
     EventInterval asEntity(EventIntervalInvoice invoice) {
         return new EventInterval(

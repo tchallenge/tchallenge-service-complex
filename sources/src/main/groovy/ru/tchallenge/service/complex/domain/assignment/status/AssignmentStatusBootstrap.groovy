@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.assignment.status
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class AssignmentStatusBootstrap extends GenericEnumeratedBootstrap<AssignmentStatus> {
+class AssignmentStatusBootstrap extends GenericEnumeratedBootstrapBean<AssignmentStatus> {
 
     @Override
     protected Collection<AssignmentStatus> enumeratedEntities() {

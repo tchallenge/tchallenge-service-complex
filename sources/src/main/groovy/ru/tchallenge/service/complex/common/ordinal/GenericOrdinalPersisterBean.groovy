@@ -4,11 +4,11 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericPersister
+import ru.tchallenge.service.complex.common.GenericPersisterBean
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceService
 
 @CompileStatic
-abstract class GenericOrdinalPersister<E extends GenericOrdinalEntity> extends GenericPersister<E, Long> {
+abstract class GenericOrdinalPersisterBean<E extends GenericOrdinalEntity> extends GenericPersisterBean<E, Long> {
 
     @Autowired
     protected OrdinalSequenceService ordinalSequenceService

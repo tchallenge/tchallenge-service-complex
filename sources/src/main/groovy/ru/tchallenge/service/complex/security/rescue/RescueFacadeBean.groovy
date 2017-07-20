@@ -5,7 +5,7 @@ import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericFacade
+import ru.tchallenge.service.complex.common.GenericFacadeBean
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.account.AccountRepository
@@ -19,7 +19,7 @@ import ru.tchallenge.service.complex.security.voucher.VoucherService
 @CompileStatic
 @PackageScope
 @FacadeComponent
-class RescueFacadeBean extends GenericFacade implements RescueFacade {
+class RescueFacadeBean extends GenericFacadeBean implements RescueFacade {
 
     @Autowired
     AccountRepository accountRepository

@@ -5,8 +5,8 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 @CompileStatic
-abstract class GenericBootstrap<E extends GenericEntity, ID extends Serializable>
-        extends GenericComponent
+abstract class GenericBootstrapBean<E extends GenericEntity, ID extends Serializable>
+        extends GenericComponentBean
         implements Bootstrap<E, ID> {
 
     @Autowired

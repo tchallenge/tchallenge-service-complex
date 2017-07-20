@@ -6,8 +6,8 @@ import java.util.concurrent.ConcurrentMap
 import groovy.transform.CompileStatic
 
 @CompileStatic
-abstract class GenericStorageLocal<V extends GenericInfoValue, K extends Serializable>
-        extends GenericComponent
+abstract class GenericStorageLocalBean<V extends GenericInfoValue, K extends Serializable>
+        extends GenericComponentBean
         implements GenericStorage<V, K> {
 
     private final ConcurrentMap<K, V> items = new ConcurrentHashMap<>()

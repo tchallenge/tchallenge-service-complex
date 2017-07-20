@@ -4,14 +4,14 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.task.TaskMapper
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.info
 
 @CompileStatic
 @MapperComponent
-class AssignmentMapper extends GenericMapper {
+class AssignmentMapper extends GenericMapperBean {
 
     @Autowired
     protected TaskMapper taskMapper

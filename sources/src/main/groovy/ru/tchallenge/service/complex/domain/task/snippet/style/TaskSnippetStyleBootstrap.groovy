@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.task.snippet.style
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class TaskSnippetStyleBootstrap extends GenericEnumeratedBootstrap<TaskSnippetStyle> {
+class TaskSnippetStyleBootstrap extends GenericEnumeratedBootstrapBean<TaskSnippetStyle> {
 
     @Override
     protected Collection<TaskSnippetStyle> enumeratedEntities() {

@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericMapper
+import ru.tchallenge.service.complex.common.GenericMapperBean
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.*
 import ru.tchallenge.service.complex.convention.component.MapperComponent
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
@@ -25,7 +25,7 @@ import ru.tchallenge.service.complex.domain.robot.RobotMapper
 
 @CompileStatic
 @MapperComponent
-class AccountMapper extends GenericMapper {
+class AccountMapper extends GenericMapperBean {
 
     @Autowired
     protected CandidateMapper candidateMapper

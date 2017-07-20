@@ -5,19 +5,19 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.Bootstrap
-import ru.tchallenge.service.complex.common.GenericOrchestrator
+import ru.tchallenge.service.complex.common.GenericOrchestratorBean
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
-import ru.tchallenge.service.complex.domain.account.AccountBootstrap
+import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.event.EventBootstrap
 import ru.tchallenge.service.complex.domain.task.TaskBootstrap
 
 @CompileStatic
 @BootstrapComponent
 @OrchestratorComponent
-class BootstrapOrchestrator extends GenericOrchestrator {
+class BootstrapOrchestrator extends GenericOrchestratorBean {
 
     @Autowired
     protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
@@ -26,7 +26,7 @@ class BootstrapOrchestrator extends GenericOrchestrator {
     protected Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
 
     @Autowired
-    protected AccountBootstrap accountBootstrap
+    protected Bootstrap<Account, Long> accountBootstrap
 
     @Autowired
     protected EventBootstrap eventBootstrap

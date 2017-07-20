@@ -2,12 +2,12 @@ package ru.tchallenge.service.complex.domain.task.category
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrap
+import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
 @BootstrapComponent
-class TaskCategoryBootstrap extends GenericEnumeratedBootstrap<TaskCategory> {
+class TaskCategoryBootstrap extends GenericEnumeratedBootstrapBean<TaskCategory> {
 
     @Override
     protected Collection<TaskCategory> enumeratedEntities() {

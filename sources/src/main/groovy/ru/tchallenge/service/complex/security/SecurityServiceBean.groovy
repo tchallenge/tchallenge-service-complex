@@ -6,7 +6,7 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 
-import ru.tchallenge.service.complex.common.GenericService
+import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.account.Account
 import ru.tchallenge.service.complex.domain.account.AccountMapper
@@ -22,7 +22,7 @@ import ru.tchallenge.service.complex.security.token.TokenService
 @CompileStatic
 @PackageScope
 @ServiceComponent
-class SecurityServiceBean extends GenericService implements SecurityService {
+class SecurityServiceBean extends GenericServiceBean implements SecurityService {
 
     @Autowired
     AccountRepository accountRepository

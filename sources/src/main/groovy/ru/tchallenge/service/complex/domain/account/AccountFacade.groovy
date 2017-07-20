@@ -4,14 +4,14 @@ import groovy.transform.CompileStatic
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.GenericFacade
+import ru.tchallenge.service.complex.common.GenericFacadeBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
 @CompileStatic
 @FacadeComponent
-class AccountFacade extends GenericFacade {
+class AccountFacade extends GenericFacadeBean {
 
     @Autowired
     protected AccountService accountService

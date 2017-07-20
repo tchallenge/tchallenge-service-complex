@@ -2,13 +2,12 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericValidator
-import ru.tchallenge.service.complex.common.search.GenericSearchInvoice
+import ru.tchallenge.service.complex.common.GenericValidatorBean
 import ru.tchallenge.service.complex.convention.component.ValidatorComponent
 
 @CompileStatic
 @ValidatorComponent
-class WorkbookValidator extends GenericValidator {
+class WorkbookValidator extends GenericValidatorBean {
 
     void ensureForCreation(WorkbookInvoice invoice) {
         // TODO: implement this method
