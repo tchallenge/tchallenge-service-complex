@@ -13,23 +13,25 @@ import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 @CompileStatic
 final class SearchTransformations {
 
+    static final SearchTransformations INSTANCE = new SearchTransformations()
+
     static Collection<Long> normalizeOrdinalIds(Collection<String> ids) {
-        return Foundamentals.mapCollection(ids) { String it -> it as Long }
+        Foundamentals.mapCollection(ids) { String it -> it as Long }
     }
 
     static String normalizePattern(String pattern) {
         if (!pattern || pattern.isEmpty()) {
             return null
         }
-        return ("%" + pattern + "%").toUpperCase()
+        ("%" + pattern + "%").toUpperCase()
     }
 
     static Pageable pageable(GenericSearchInvoice invoice) {
-        return new PageRequest(invoice.pageNumber - 1, invoice.pageSize)
+        new PageRequest(invoice.pageNumber - 1, invoice.pageSize)
     }
 
     static <E, T> SearchInfo<T> info(GenericSearchInvoice invoice, Page<E> page, Function<E, T> mapper) {
-        return new SearchInfo<T>(
+        new SearchInfo<T>(
                 pageCount: page.totalPages,
                 pageNumber: invoice?.pageNumber,
                 pageSize: invoice?.pageSize,
@@ -40,11 +42,4 @@ final class SearchTransformations {
     private SearchTransformations() {
 
     }
-/*
-                        .content
-                        .stream()
-                        .map(mapper)
-                        .collect(Collectors.toList()))
-
- */
 }
