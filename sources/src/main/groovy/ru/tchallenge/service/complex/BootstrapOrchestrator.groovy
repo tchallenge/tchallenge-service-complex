@@ -10,7 +10,7 @@ import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
-import ru.tchallenge.service.complex.domain.account.Account
+import ru.tchallenge.service.complex.domain.account.AccountBootstrap
 import ru.tchallenge.service.complex.domain.event.EventBootstrap
 import ru.tchallenge.service.complex.domain.task.TaskBootstrap
 
@@ -26,7 +26,7 @@ class BootstrapOrchestrator extends GenericOrchestratorBean {
     protected Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
 
     @Autowired
-    protected Bootstrap<Account, Long> accountBootstrap
+    protected AccountBootstrap accountBootstrap
 
     @Autowired
     protected EventBootstrap eventBootstrap
