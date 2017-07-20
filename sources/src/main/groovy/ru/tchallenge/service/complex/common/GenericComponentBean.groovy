@@ -10,6 +10,7 @@ import org.springframework.beans.factory.BeanCreationException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.logging.LogLevel
 
+import ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations
 import ru.tchallenge.service.complex.reliability.correlation.CorrelationContext
 import ru.tchallenge.service.complex.reliability.correlation.CorrelationInfo
 import ru.tchallenge.service.complex.reliability.logging.LogRecord
@@ -20,6 +21,14 @@ import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 abstract class GenericComponentBean {
+
+    protected static EnumeratedTransformations getEnumerateds() {
+        EnumeratedTransformations.INSTANCE
+    }
+
+    protected static Foundamentals getFoundamentals() {
+        Foundamentals.INSTANCE
+    }
 
     protected static Integer flag(Boolean value) {
         Foundamentals.flag(value)
