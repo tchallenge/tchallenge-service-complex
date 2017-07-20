@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrap
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
+import ru.tchallenge.service.complex.domain.account.certificate.AccountCertificate
 import ru.tchallenge.service.complex.domain.account.password.AccountPassword
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealm
 import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
@@ -18,144 +19,209 @@ import ru.tchallenge.service.complex.domain.employee.Employee
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRole
 import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
 import ru.tchallenge.service.complex.domain.person.Person
+import ru.tchallenge.service.complex.domain.robot.Robot
+import ru.tchallenge.service.complex.domain.robot.role.RobotRole
+import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
 import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.some
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.flag
 
 @CompileStatic
 @BootstrapComponent
 class AccountBootstrap extends GenericOrdinalBootstrap<Account> {
 
-    @Autowired
-    protected AccountRealmRepository accountRealmRepository
+    // TODO: consider breaking this bootstrap into several
 
     @Autowired
-    protected AccountStatusRepository accountStatusRepository
+    AccountRealmRepository accountRealmRepository
 
     @Autowired
-    protected AccountVerificationRepository accountVerificationRepository
+    AccountStatusRepository accountStatusRepository
 
     @Autowired
-    protected EmployeeRoleRepository employeeRoleRepository
+    AccountVerificationRepository accountVerificationRepository
 
     @Autowired
-    protected EncryptionService encryptionService
+    EmployeeRoleRepository employeeRoleRepository
+
+    @Autowired
+    RobotRoleRepository robotRoleRepository
+
+    @Autowired
+    EncryptionService encryptionService
 
     @Override
     protected Collection<Account> entities() {
         return [
+                candidateKuznetcov(),
+                candidateChistyakov(),
                 employeeIvanov(),
                 employeePetrov(),
                 employeeSidorov(),
-                candidateKuznetcov()
+                robotSystemA()
         ]
     }
 
-    private Account employeeIvanov() {
-        return new Account(
-                email: "sergei.ivanov@somemail.net",
-                login: "serge",
-                employee: new Employee(
-                        roles: roles("CANDMOD", "CANDVIEW")
-                ),
+    private Account candidateKuznetcov() {
+        new Account(
+                email: 'alex.kuznetcov@somemail.net',
+                login: 'alexalex',
+                candidate: new Candidate(),
                 person: new Person(
-                        firstname: "Сергей",
-                        lastname: "Иванов",
-                        quickname: "Сержо"
+                        quickname: 'Алекс'
                 ),
                 passwords: [
-                        activePassword("text")
+                        password('bootstrapped.password.inactive.1', false),
+                        password('bootstrapped.password')
                 ],
-                realm: realm("EMPLOYEE"),
-                status: status("APPROVED"),
-                verification: verification("PASSWORD")
+                realm: realm('CANDIDATE'),
+                status: status('APPROVED'),
+                verification: verification('PASSWORD')
+        )
+    }
+
+    private Account candidateChistyakov() {
+        new Account(
+                email: 'andrew1995@somemail.net',
+                login: 'andre',
+                candidate: new Candidate(),
+                person: new Person(
+                        firstname: 'Андрей',
+                        lastname: 'Чистяков',
+                        quickname: 'Andrew'
+                ),
+                passwords: [
+                        password('bootstrapped.password')
+                ],
+                realm: realm('CANDIDATE'),
+                status: status('APPROVED'),
+                verification: verification('PASSWORD')
+        )
+    }
+
+    private Account employeeIvanov() {
+        new Account(
+                email: 'sergei.ivanov@somemail.net',
+                login: 'serge',
+                employee: new Employee(
+                        roles: employeeRoles('CANDMOD', 'CANDVIEW')
+                ),
+                person: new Person(
+                        firstname: 'Сергей',
+                        lastname: 'Иванов',
+                        quickname: 'Сержо'
+                ),
+                passwords: [
+                        password('bootstrapped.password.inactive.1', false),
+                        password('bootstrapped.password')
+                ],
+                realm: realm('EMPLOYEE'),
+                status: status('APPROVED'),
+                verification: verification('PASSWORD')
         )
     }
 
     private Account employeePetrov() {
-        return new Account(
-                email: "ivan.petrov@anothermail.net",
-                login: "ipetrov",
+        new Account(
+                email: 'ivan.petrov@anothermail.net',
+                login: 'ipetrov',
                 employee: new Employee(
-                        roles: roles("ADMIN")
+                        roles: employeeRoles('ADMIN')
                 ),
                 person: new Person(
-                        firstname: "Иван",
-                        lastname: "Петров",
-                        quickname: "Vano"
+                        firstname: 'Иван',
+                        lastname: 'Петров',
+                        quickname: 'Vano'
                 ),
                 passwords: [
-                        activePassword("test")
+                        password('bootstrapped.password')
                 ],
-                realm: realm("EMPLOYEE"),
-                status: status("APPROVED"),
-                verification: verification("PASSWORD")
+                realm: realm('EMPLOYEE'),
+                status: status('APPROVED'),
+                verification: verification('PASSWORD')
         )
     }
 
     private Account employeeSidorov() {
-        return new Account(
-                email: "egor.sidorov@anothermail.net",
-                login: "e.sid",
+        new Account(
+                email: 'egor.sidorov@anothermail.net',
+                login: 'e.sid',
                 employee: new Employee(
-                        roles: roles("USERMOD")
+                        roles: employeeRoles('USERMOD')
                 ),
                 person: new Person(
-                        firstname: "Егор",
-                        lastname: "Сидоров",
-                        quickname: "Сид"
+                        firstname: 'Егор',
+                        lastname: 'Сидоров',
+                        quickname: 'Сид'
                 ),
                 passwords: [
-                        activePassword("test")
+                        password('bootstrapped.password')
                 ],
-                realm: realm("EMPLOYEE"),
-                status: status("APPROVED"),
-                verification: verification("PASSWORD")
+                realm: realm('EMPLOYEE'),
+                status: status('SUSPENDED'),
+                verification: verification('PASSWORD')
         )
     }
 
-    private Account candidateKuznetcov() {
-        return new Account(
-                email: "alex.kuznetcov@somemail.net",
-                login: "alexalex",
-                candidate: new Candidate(),
-                person: new Person(
-                        quickname: "Алекс"
+    private Account robotSystemA() {
+        new Account(
+                email: 'system.a.feedback@anothermail.net',
+                login: 'system.a',
+                robot: new Robot(
+                        roles: robotRoles('USERMOD')
                 ),
-                passwords: [
-                        activePassword("test")
+                certificates: [
+                        certificate('bootstrapped.certificate')
                 ],
-                realm: realm("EMPLOYEE"),
-                status: status("APPROVED"),
-                verification: verification("PASSWORD")
+                realm: realm('ROBOT'),
+                status: status('APPROVED'),
+                verification: verification('CERTIFICATE')
         )
     }
 
-    private AccountPassword activePassword(String password) {
-        return new AccountPassword(
-                active: flag(true),
-                hash: passwordHash(password)
+    private AccountCertificate certificate(String payload) {
+        certificate(payload, true)
+    }
+
+    private AccountCertificate certificate(String payload, boolean active) {
+        new AccountCertificate(
+                active: flag(active),
+                hash: hash(payload)
         )
     }
 
-    private String passwordHash(String password) {
-        return encryptionService.hash(password)
+    private AccountPassword password(String textvalue) {
+        password(textvalue, true)
+    }
+
+    private AccountPassword password(String textvalue, boolean active) {
+        new AccountPassword(
+                active: flag(active),
+                hash: hash(textvalue)
+        )
     }
 
     private AccountRealm realm(String textcode) {
-        return one(accountRealmRepository, textcode)
+        one(accountRealmRepository, textcode)
     }
 
-    private Collection<EmployeeRole> roles(String... textcodes) {
-        return some(employeeRoleRepository, textcodes)
+    private Collection<EmployeeRole> employeeRoles(String... textcodes) {
+        some(employeeRoleRepository, textcodes)
+    }
+
+    private Collection<RobotRole> robotRoles(String... textcodes) {
+        some(robotRoleRepository, textcodes)
     }
 
     private AccountStatus status(String textcode) {
-        return one(accountStatusRepository, textcode)
+        one(accountStatusRepository, textcode)
     }
 
     private AccountVerification verification(String textcode) {
-        return one(accountVerificationRepository, textcode)
+        one(accountVerificationRepository, textcode)
+    }
+
+    private String hash(String input) {
+        encryptionService.hash(input)
     }
 }
