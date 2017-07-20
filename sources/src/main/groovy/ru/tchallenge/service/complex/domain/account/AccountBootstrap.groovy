@@ -23,8 +23,6 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 import ru.tchallenge.service.complex.domain.robot.role.RobotRole
 import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.one
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.some
 
 @CompileStatic
 @BootstrapComponent
@@ -185,7 +183,7 @@ class AccountBootstrap extends GenericOrdinalBootstrapBean<Account> {
 
     private AccountCertificate certificate(String payload, boolean active) {
         new AccountCertificate(
-                active: flag(active),
+                active: foundamentals.flag(active),
                 hash: hash(payload)
         )
     }
@@ -196,29 +194,29 @@ class AccountBootstrap extends GenericOrdinalBootstrapBean<Account> {
 
     private AccountPassword password(String textvalue, boolean active) {
         new AccountPassword(
-                active: flag(active),
+                active: foundamentals.flag(active),
                 hash: hash(textvalue)
         )
     }
 
     private AccountRealm realm(String textcode) {
-        one(accountRealmRepository, textcode)
+        enumerateds.one(accountRealmRepository, textcode)
     }
 
     private Collection<EmployeeRole> employeeRoles(String... textcodes) {
-        some(employeeRoleRepository, textcodes)
+        enumerateds.some(employeeRoleRepository, textcodes)
     }
 
     private Collection<RobotRole> robotRoles(String... textcodes) {
-        some(robotRoleRepository, textcodes)
+        enumerateds.some(robotRoleRepository, textcodes)
     }
 
     private AccountStatus status(String textcode) {
-        one(accountStatusRepository, textcode)
+        enumerateds.one(accountStatusRepository, textcode)
     }
 
     private AccountVerification verification(String textcode) {
-        one(accountVerificationRepository, textcode)
+        enumerateds.one(accountVerificationRepository, textcode)
     }
 
     private String hash(String input) {
