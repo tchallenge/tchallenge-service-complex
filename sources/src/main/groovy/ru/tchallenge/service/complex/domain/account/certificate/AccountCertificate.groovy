@@ -18,6 +18,8 @@ import ru.tchallenge.service.complex.domain.account.Account
 @Table(name = "account_certificate")
 class AccountCertificate extends GenericComplementaryEntity implements TimestampedEntity {
 
+    // TODO: certificate must be reconsidered to use public/private parts
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     Account account
