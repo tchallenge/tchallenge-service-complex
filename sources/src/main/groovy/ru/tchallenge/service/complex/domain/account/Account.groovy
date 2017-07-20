@@ -1,5 +1,7 @@
 package ru.tchallenge.service.complex.domain.account
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -8,8 +10,6 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
-
-import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
@@ -25,42 +25,42 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 
 @CompileStatic
 @Entity
-@Table(name = "account")
+@Table(name = 'account')
 class Account extends GenericOrdinalEntity implements TimestampedEntity {
 
-    @Column(name = "email")
+    @Column(name = 'email')
     String email
 
-    @Column(name = "login")
+    @Column(name = 'login')
     String login
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
     Candidate candidate
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
     Employee employee
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
     Person person
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
     Robot robot
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL)
     Collection<AccountCertificate> certificates = []
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL)
     Collection<AccountPassword> passwords = []
 
     @ManyToOne
-    @JoinColumn(name = "realm_id")
+    @JoinColumn(name = 'realm_id')
     AccountRealm realm
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = 'status_id')
     AccountStatus status
 
     @ManyToOne
-    @JoinColumn(name = "verification_id")
+    @JoinColumn(name = 'verification_id')
     AccountVerification verification
 }

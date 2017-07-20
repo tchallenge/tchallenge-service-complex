@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -25,6 +26,7 @@ import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
+@PackageScope
 @BootstrapComponent
 class AccountBootstrapBean extends GenericOrdinalBootstrapBean<Account> implements AccountBootstrap {
 
@@ -50,7 +52,7 @@ class AccountBootstrapBean extends GenericOrdinalBootstrapBean<Account> implemen
 
     @Override
     protected Collection<Account> entities() {
-        return [
+        [
                 candidateKuznetcov(),
                 candidateChistyakov(),
                 employeeIvanov(),

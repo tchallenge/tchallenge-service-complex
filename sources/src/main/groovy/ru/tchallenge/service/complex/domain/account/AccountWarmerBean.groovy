@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -8,11 +9,15 @@ import ru.tchallenge.service.complex.common.GenericWarmerBean
 import ru.tchallenge.service.complex.convention.component.WarmerComponent
 
 @CompileStatic
+@PackageScope
 @WarmerComponent
-class AccountWarmer extends GenericWarmerBean {
+class AccountWarmerBean extends GenericWarmerBean {
+
+    private static final Integer PAGE_COUNT = 10
+    private static final Integer PAGE_SIZE = 10
 
     @Autowired
-    protected AccountService accountService
+    AccountService accountService
 
     @Override
     void run() {
@@ -21,9 +26,13 @@ class AccountWarmer extends GenericWarmerBean {
         accountService.allVerifications
         accountService.allEmployeeRoles
         accountService.allRobotRoles
+        PAGE_COUNT.times { int page -> searchByPage(page + 1) }
+    }
+
+    private void searchByPage(int page) {
         accountService.search(new AccountSearchInvoice(
-                pageNumber: 1,
-                pageSize: 1000
+                pageNumber: page,
+                pageSize: PAGE_SIZE
         ))
     }
 }

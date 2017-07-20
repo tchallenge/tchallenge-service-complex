@@ -16,7 +16,7 @@ interface AccountRepository extends GenericOrdinalRepository<Account> {
 
     Account findByLogin(String login)
 
-    @Query("""SELECT a FROM Account AS a
+    @Query('''SELECT a FROM Account AS a
                 
                 JOIN a.person AS p
               
@@ -52,11 +52,11 @@ interface AccountRepository extends GenericOrdinalRepository<Account> {
                             :statusTextcodes IS NULL
                         OR
                             a.status.textcode IN :statusTextcodes
-                        )""")
-    Page<Account> findPage(@Param("emailPattern") String emailPattern,
-                           @Param("loginPattern") String loginPattern,
-                           @Param("personNamePattern") String personNamePattern,
-                           @Param("realmTextcodes") Collection<String> realmTextcodes,
-                           @Param("statusTextcodes") Collection<String> statusTextcodes,
+                        )''')
+    Page<Account> findPage(@Param('emailPattern') String emailPattern,
+                           @Param('loginPattern') String loginPattern,
+                           @Param('personNamePattern') String personNamePattern,
+                           @Param('realmTextcodes') Collection<String> realmTextcodes,
+                           @Param('statusTextcodes') Collection<String> statusTextcodes,
                            Pageable pageable)
 }

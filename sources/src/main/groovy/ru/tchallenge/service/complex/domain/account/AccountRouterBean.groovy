@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,6 +18,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePut
 import ru.tchallenge.service.complex.convention.security.NoAuthentication
 
 @CompileStatic
+@PackageScope
 @RouterComponent('/accounts')
 class AccountRouterBean extends GenericRouterBean {
 
