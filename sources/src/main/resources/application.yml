@@ -47,10 +47,17 @@ tchallenge:
 
       predefined:
 
+        enabled: true
+
+        candidate:
+          enabled: true
+          login: 'ipetrov'
+          payload: 'PREDEFINED-CANDIDATE-TOKEN'
+
         employee:
           enabled: true
           login: 'ipetrov'
-          payload: 'EMPLOYEE'
+          payload: 'PREDEFINED-EMPLOYEE-TOKEN'
 
     voucher:
       expirationInMinutes: 15
