@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.tchallenge.service.complex.common.GenericBootstrapBean
 
 @CompileStatic
-abstract class GenericOrdinalBootstrapBean<E extends GenericOrdinalEntity> extends GenericBootstrapBean<E, Long> {
+abstract class GenericOrdinalBootstrapBean<E extends GenericOrdinalEntity>
+
+        extends GenericBootstrapBean<E, Long>
+
+        implements GenericOrdinalBootstrap<E> {
 
     @Autowired
     protected GenericOrdinalPersisterBean<E> persister
