@@ -1,16 +1,18 @@
 package ru.tchallenge.service.complex.common.enumerated
 
-import java.util.stream.Collectors
-
 import groovy.transform.CompileStatic
 
-import static ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals.mapCollection
+import java.util.stream.Collectors
+
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 final class EnumeratedTransformations {
 
+    static final EnumeratedTransformations INSTANCE = new EnumeratedTransformations()
+
     static Collection<EnumeratedInfo> all(GenericEnumeratedRepository repository) {
-        return repository
+        repository
                 .findAll()
                 .stream()
                 .sorted()
@@ -19,7 +21,7 @@ final class EnumeratedTransformations {
     }
 
     static EnumeratedInfo info(GenericEnumeratedEntity entity) {
-        return new EnumeratedInfo(
+        new EnumeratedInfo(
                 textcode: entity.textcode,
                 title: entity.title,
                 description: entity.description
@@ -27,33 +29,33 @@ final class EnumeratedTransformations {
     }
 
     static Collection<EnumeratedInfo> infos(Collection<? extends GenericEnumeratedEntity> entities) {
-        return mapCollection(entities) { GenericEnumeratedEntity it -> info(it) }
+        Foundamentals.mapCollection(entities) { GenericEnumeratedEntity it -> info(it) }
     }
 
     static EnumeratedInvoice invoice(String textcode) {
-        return new EnumeratedInvoice(
+        new EnumeratedInvoice(
                 textcode: textcode
         )
     }
 
     static Collection<EnumeratedInvoice> invoices(String... textcodes) {
-        return mapCollection(textcodes.toList()) { String it -> invoice(it) }
+        Foundamentals.mapCollection(textcodes.toList()) { String it -> invoice(it) }
     }
 
     static <E extends GenericEnumeratedEntity, R extends GenericEnumeratedRepository<E>> E one(R repository, EnumeratedInvoice invoice) {
-        return one(repository, invoice.textcode)
+        one(repository, invoice.textcode)
     }
 
     static <E extends GenericEnumeratedEntity, R extends GenericEnumeratedRepository<E>> E one(R repository, String textcode) {
-        return repository.findByTextcode(textcode)
+        repository.findByTextcode(textcode)
     }
 
     static <E extends GenericEnumeratedEntity, R extends GenericEnumeratedRepository<E>> Collection<E> some(R repository, Collection<EnumeratedInvoice> invoices) {
-        return mapCollection(invoices) { EnumeratedInvoice it -> one(repository, it) }
+        Foundamentals.mapCollection(invoices) { EnumeratedInvoice it -> one(repository, it) }
     }
 
     static <E extends GenericEnumeratedEntity, R extends GenericEnumeratedRepository<E>> Collection<E> some(R repository, String... textcodes) {
-        return mapCollection(textcodes.toList()) { String it -> one(repository, it) }
+        Foundamentals.mapCollection(textcodes.toList()) { String it -> one(repository, it) }
     }
 
     private EnumeratedTransformations() {
