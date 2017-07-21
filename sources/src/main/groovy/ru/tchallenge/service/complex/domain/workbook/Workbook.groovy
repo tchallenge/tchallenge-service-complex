@@ -1,5 +1,7 @@
 package ru.tchallenge.service.complex.domain.workbook
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -7,8 +9,6 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
-
-import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
@@ -21,35 +21,35 @@ import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatus
 
 @CompileStatic
 @Entity
-@Table(name = "workbook")
+@Table(name = 'workbook')
 class Workbook extends GenericOrdinalEntity implements TimestampedEntity {
 
-    @Column(name = "score_actual")
+    @Column(name = 'score_actual')
     Integer scoreActual
 
-    @Column(name = "score_maximal")
+    @Column(name = 'score_maximal')
     Integer scoreMaximal
 
-    @OneToMany(mappedBy = "workbook", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'workbook', cascade = CascadeType.ALL)
     Collection<Assignment> assignments = []
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = 'event_id')
     Event event
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = 'owner_id')
     Account owner
 
     @ManyToOne
-    @JoinColumn(name = "maturity_id")
+    @JoinColumn(name = 'maturity_id')
     Maturity maturity
 
     @ManyToOne
-    @JoinColumn(name = "specialization_id")
+    @JoinColumn(name = 'specialization_id')
     Specialization specialization
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = 'status_id')
     WorkbookStatus status
 }

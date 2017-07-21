@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 @CompileStatic
 abstract class GenericBootstrapBean<E extends GenericEntity, ID extends Serializable>
         extends GenericComponentBean
-        implements Bootstrap<E, ID> {
+        implements GenericBootstrap<E, ID> {
 
     @Autowired
     protected GenericRepository<E, ID> repository

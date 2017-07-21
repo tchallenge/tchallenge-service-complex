@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,6 +16,7 @@ import ru.tchallenge.service.complex.convention.routing.RoutePost
 import ru.tchallenge.service.complex.convention.routing.RoutePut
 
 @CompileStatic
+@PackageScope
 @RouterComponent('/workbooks')
 class WorkbookRouterBean extends GenericRouterBean {
 

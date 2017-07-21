@@ -2,44 +2,19 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
-import org.springframework.beans.factory.annotation.Autowired
-
-import ru.tchallenge.service.complex.common.GenericFacadeBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
-import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
 @CompileStatic
-@FacadeComponent
-class WorkbookFacade extends GenericFacadeBean {
+interface WorkbookFacade {
 
-    @Autowired
-    protected WorkbookService workbookService
+    WorkbookInfo create(WorkbookInvoice invoice)
 
-    @Autowired
-    protected WorkbookValidator workbookValidator
+    Collection<EnumeratedInfo> getAllStatuses()
 
-    WorkbookInfo create(WorkbookInvoice invoice) {
-        workbookValidator.ensureForCreation(invoice)
-        return workbookService.create(invoice)
-    }
+    WorkbookInfo getById(String id)
 
-    Collection<EnumeratedInfo> getAllStatuses() {
-        return workbookService.allStatuses
-    }
+    SearchInfo<WorkbookInfo> search(WorkbookSearchInvoice invoice)
 
-    WorkbookInfo getById(String id) {
-        workbookValidator.ensureForGet(id)
-        return workbookService.getById(id)
-    }
-
-    SearchInfo<WorkbookInfo> search(WorkbookSearchInvoice invoice) {
-        workbookValidator.ensureForSearch(invoice)
-        return workbookService.search(invoice)
-    }
-
-    WorkbookInfo update(WorkbookInvoice invoice) {
-        workbookValidator.ensureForUpdate(invoice)
-        return workbookService.update(invoice)
-    }
+    WorkbookInfo update(WorkbookInvoice invoice)
 }
