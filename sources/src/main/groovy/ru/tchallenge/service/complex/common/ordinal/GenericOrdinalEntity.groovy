@@ -13,6 +13,6 @@ import ru.tchallenge.service.complex.common.GenericEntity
 abstract class GenericOrdinalEntity extends GenericEntity<Long> {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     Long id
 }
