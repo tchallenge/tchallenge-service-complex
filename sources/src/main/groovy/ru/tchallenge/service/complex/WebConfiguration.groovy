@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -19,9 +20,10 @@ import ru.tchallenge.service.complex.reliability.correlation.CorrelationIntercep
 import ru.tchallenge.service.complex.security.SecurityInterceptor
 
 @CompileStatic
+@PackageScope
 @Configuration
 @EnableWebMvc
-class WebConfigurator extends WebMvcConfigurerAdapter {
+class WebConfiguration extends WebMvcConfigurerAdapter {
 
     private final static String GLOBAL_PATH_PATTERN = '/**'
 

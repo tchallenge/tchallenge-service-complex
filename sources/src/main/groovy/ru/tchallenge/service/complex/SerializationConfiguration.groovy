@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,8 +14,9 @@ import ru.tchallenge.service.complex.utility.serialization.InstantDeserializer
 import ru.tchallenge.service.complex.utility.serialization.InstantSerializer
 
 @CompileStatic
+@PackageScope
 @Configuration
-class SerializationConfigurator {
+class SerializationConfiguration {
 
     @Bean
     ObjectMapper jacksonObjectMapper() {

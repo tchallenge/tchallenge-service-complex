@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import javax.annotation.PostConstruct
 
@@ -12,8 +13,9 @@ import ru.tchallenge.service.complex.security.SecurityInterceptorConfigurer
 import ru.tchallenge.service.complex.utility.routing.RouteSignature
 
 @CompileStatic
+@PackageScope
 @Configuration
-class SecurityConfigurator {
+class SecurityConfiguration {
 
     @Autowired
     SecurityInterceptorConfigurer securityInterceptorConfigurer

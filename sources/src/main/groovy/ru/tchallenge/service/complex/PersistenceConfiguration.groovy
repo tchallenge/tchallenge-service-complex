@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
@@ -18,10 +19,11 @@ import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @CompileStatic
+@PackageScope
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-class PersistenceConfigurator {
+class PersistenceConfiguration {
 
     @Bean
     DataSource dataSourceHsql() {
@@ -41,13 +43,13 @@ class PersistenceConfigurator {
 
     @Bean
     EntityManagerFactory entityManagerFactory(DataSource dataSource, HibernateJpaVendorAdapter adapter) {
-        def factory = new LocalContainerEntityManagerFactoryBean(
+        def $factory = new LocalContainerEntityManagerFactoryBean(
                 jpaVendorAdapter: adapter,
                 packagesToScan: [Application.package.name] as String[],
                 dataSource: dataSource
         )
-        factory.afterPropertiesSet()
-        factory.object
+        $factory.afterPropertiesSet()
+        $factory.object
     }
 
     @Bean
