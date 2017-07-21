@@ -5,7 +5,7 @@ import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
-import ru.tchallenge.service.complex.common.Bootstrap
+import ru.tchallenge.service.complex.common.GenericBootstrap
 import ru.tchallenge.service.complex.common.GenericOrchestratorBean
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedEntity
 import ru.tchallenge.service.complex.common.ordinal.sequence.OrdinalSequenceBootstrap
@@ -26,7 +26,7 @@ class BootstrapOrchestratorBean extends GenericOrchestratorBean {
     OrdinalSequenceBootstrap ordinalSequenceBootstrap
 
     @Autowired
-    Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
+    Collection<GenericBootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
 
     @Autowired
     AccountBootstrap accountBootstrap
