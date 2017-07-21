@@ -25,17 +25,17 @@ abstract class GenericEntity<ID extends Serializable> implements Serializable {
     @PrePersist
     protected void onInsert() {
         if (this instanceof TimestampedEntity) {
-            def timestamped = this as TimestampedEntity
-            timestamped.createdAt = now
-            timestamped.lastModifiedAt = timestamped.createdAt
+            def $timestamped = this as TimestampedEntity
+            $timestamped.createdAt = now
+            $timestamped.lastModifiedAt = $timestamped.createdAt
         }
     }
 
     @PreUpdate
     protected void onUpdate() {
         if (this instanceof TimestampedEntity) {
-            def timestamped = this as TimestampedEntity
-            timestamped.lastModifiedAt = now
+            def $timestamped = this as TimestampedEntity
+            $timestamped.lastModifiedAt = now
         }
     }
 }
