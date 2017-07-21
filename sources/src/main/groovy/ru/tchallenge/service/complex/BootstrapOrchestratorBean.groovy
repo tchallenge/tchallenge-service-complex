@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -15,24 +16,26 @@ import ru.tchallenge.service.complex.domain.event.EventBootstrap
 import ru.tchallenge.service.complex.domain.task.TaskBootstrap
 
 @CompileStatic
+@PackageScope
+// TODO: replace BootstrapComponent with profile
 @BootstrapComponent
 @OrchestratorComponent
-class BootstrapOrchestrator extends GenericOrchestratorBean {
+class BootstrapOrchestratorBean extends GenericOrchestratorBean {
 
     @Autowired
-    protected OrdinalSequenceBootstrap ordinalSequenceBootstrap
+    OrdinalSequenceBootstrap ordinalSequenceBootstrap
 
     @Autowired
-    protected Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
+    Collection<Bootstrap<? extends GenericEnumeratedEntity, String>> enumeratedBootstraps
 
     @Autowired
-    protected AccountBootstrap accountBootstrap
+    AccountBootstrap accountBootstrap
 
     @Autowired
-    protected EventBootstrap eventBootstrap
+    EventBootstrap eventBootstrap
 
     @Autowired
-    protected TaskBootstrap taskBootstrap
+    TaskBootstrap taskBootstrap
 
     @Override
     protected void init() {
