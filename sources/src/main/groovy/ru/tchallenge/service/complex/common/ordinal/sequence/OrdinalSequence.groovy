@@ -6,6 +6,8 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.GenericEntity
 
@@ -14,19 +16,26 @@ import ru.tchallenge.service.complex.common.GenericEntity
 @Table(name = 'ordinal_sequence')
 class OrdinalSequence extends GenericEntity<String> {
 
+    @NotNull
     @Id
-    @Column(name = 'id')
+    @Column(name = 'id', nullable = false, unique = true, updatable = false)
     String id
 
-    @Column(name = 'description')
+    @NotNull
+    @Column(name = 'description', nullable = false, updatable = false)
     String description
 
+    @Min(1L)
     @Column(name = 'current_value')
     Long currentValue
 
-    @Column(name = 'initial_value')
+    @NotNull
+    @Min(1L)
+    @Column(name = 'initial_value', nullable = false, updatable = false)
     Long initialValue
 
-    @Column(name = 'step')
+    @NotNull
+    @Min(1L)
+    @Column(name = 'step', nullable = false, updatable = false)
     Integer step
 }

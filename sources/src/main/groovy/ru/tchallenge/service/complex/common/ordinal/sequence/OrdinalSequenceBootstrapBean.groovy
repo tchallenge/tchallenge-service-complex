@@ -24,6 +24,7 @@ class OrdinalSequenceBootstrapBean extends GenericBootstrapBean<OrdinalSequence,
     private static OrdinalSequence ordinalSequence(String id) {
         new OrdinalSequence(
                 id: id,
+                description: "ordinal sequence for ${id} entity",
                 initialValue: 1L,
                 step: 1
         )
