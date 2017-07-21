@@ -30,7 +30,7 @@ abstract class GenericEnumeratedEntity extends GenericEntity<String> implements 
     String description
 
     @NotNull
-    @Min(1)
+    @Min(1L)
     @Column(name = 'stance', nullable = false, unique = true, updatable = false)
     Integer stance
 
