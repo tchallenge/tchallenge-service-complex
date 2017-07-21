@@ -1,5 +1,7 @@
 package ru.tchallenge.service.complex.domain.task
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -9,8 +11,6 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
-
-import groovy.transform.CompileStatic
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.domain.task.category.TaskCategory
@@ -23,43 +23,43 @@ import ru.tchallenge.service.complex.domain.task.status.TaskStatus
 
 @CompileStatic
 @Entity
-@Table(name = "task")
+@Table(name = 'task')
 class Task extends GenericOrdinalEntity {
 
-    @Column(name = "title")
+    @Column(name = 'title')
     String title
 
-    @Column(name = "introduction")
+    @Column(name = 'introduction')
     String introduction
 
-    @Column(name = "question")
+    @Column(name = 'question')
     String question
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'task', cascade = CascadeType.ALL)
     Collection<TaskInput> inputs = []
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'task', cascade = CascadeType.ALL)
     Collection<TaskOption> options = []
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'task', cascade = CascadeType.ALL)
     Collection<TaskSnippet> snippets = []
 
     @ManyToMany
     @JoinTable(
-            name = "task_category_to_task_map",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_category_id"))
+            name = 'task_category_to_task_map',
+            joinColumns = @JoinColumn(name = 'task_id'),
+            inverseJoinColumns = @JoinColumn(name = 'task_category_id'))
     Collection<TaskCategory> categories = []
 
     @ManyToOne
-    @JoinColumn(name = "difficulty_id")
+    @JoinColumn(name = 'difficulty_id')
     TaskDifficulty difficulty
 
     @ManyToOne
-    @JoinColumn(name = "expectation_id")
+    @JoinColumn(name = 'expectation_id')
     TaskExpectation expectation
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = 'status_id')
     TaskStatus status
 }

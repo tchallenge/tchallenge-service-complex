@@ -13,19 +13,19 @@ import ru.tchallenge.service.complex.domain.task.Task
 
 @CompileStatic
 @Entity
-@Table(name = "task_option")
+@Table(name = 'task_option')
 class TaskOption extends GenericComplementaryEntity {
 
     @ManyToOne
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = 'task_id')
     Task task
 
-    @Column(name = "content")
+    @Column(name = 'content')
     String content
 
-    @Column(name = "correct")
+    @Column(name = 'correct')
     Integer correct
 
-    @Column(name = "textcode")
+    @Column(name = 'textcode')
     String textcode
 }

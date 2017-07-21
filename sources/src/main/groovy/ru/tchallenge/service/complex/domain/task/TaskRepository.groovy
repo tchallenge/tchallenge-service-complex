@@ -12,7 +12,7 @@ import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalRepository
 @CompileStatic
 interface TaskRepository extends GenericOrdinalRepository<Task> {
 
-    @Query("""SELECT t FROM Task AS t
+    @Query('''SELECT t FROM Task AS t
               
                 WHERE   (
                             :textPattern IS NULL
@@ -28,8 +28,8 @@ interface TaskRepository extends GenericOrdinalRepository<Task> {
                             :statusTextcodes IS NULL
                         OR
                             t.status.textcode IN :statusTextcodes
-                        )""")
-    Page<Task> findPage(@Param("textPattern") String textPattern,
-                        @Param("statusTextcodes") Collection<String> statusTextcodes,
+                        )''')
+    Page<Task> findPage(@Param('textPattern') String textPattern,
+                        @Param('statusTextcodes') Collection<String> statusTextcodes,
                         Pageable pageable)
 }
