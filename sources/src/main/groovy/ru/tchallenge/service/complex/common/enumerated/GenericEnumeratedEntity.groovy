@@ -14,6 +14,7 @@ import ru.tchallenge.service.complex.common.GenericEntity
 @MappedSuperclass
 abstract class GenericEnumeratedEntity extends GenericEntity<String> implements Comparable<GenericEnumeratedEntity> {
 
+    @NotNull
     @Id
     @Column(name = 'id', nullable = false, unique = true, updatable = false)
     String id
