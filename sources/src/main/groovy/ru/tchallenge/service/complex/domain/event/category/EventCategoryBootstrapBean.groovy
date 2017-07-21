@@ -1,17 +1,19 @@
 package ru.tchallenge.service.complex.domain.event.category
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
+@PackageScope
 @BootstrapComponent
-class EventCategoryBootstrap extends GenericEnumeratedBootstrapBean<EventCategory> {
+class EventCategoryBootstrapBean extends GenericEnumeratedBootstrapBean<EventCategory> {
 
     @Override
     protected Collection<EventCategory> enumeratedEntities() {
-        return [
+        [
                 new EventCategory(
                         textcode: "FORUM",
                         title: "Конференеция, публичное мероприятие"

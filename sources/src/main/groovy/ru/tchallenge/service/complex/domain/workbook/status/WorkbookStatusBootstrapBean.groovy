@@ -1,36 +1,38 @@
 package ru.tchallenge.service.complex.domain.workbook.status
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedBootstrapBean
 import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 
 @CompileStatic
+@PackageScope
 @BootstrapComponent
-class WorkbookStatusBootstrap extends GenericEnumeratedBootstrapBean<WorkbookStatus> {
+class WorkbookStatusBootstrapBean extends GenericEnumeratedBootstrapBean<WorkbookStatus> {
 
     @Override
     protected Collection<WorkbookStatus> enumeratedEntities() {
-        return [
+        [
                 new WorkbookStatus(
-                        textcode: "CREATED",
-                        title: "Создана"
+                        textcode: 'CREATED',
+                        title: 'Создана'
                 ),
                 new WorkbookStatus(
-                        textcode: "SUBMITTED",
-                        title: "Отправлена на проверку"
+                        textcode: 'SUBMITTED',
+                        title: 'Отправлена на проверку'
                 ),
                 new WorkbookStatus(
-                        textcode: "ASSESSED",
-                        title: "Проверена"
+                        textcode: 'ASSESSED',
+                        title: 'Проверена'
                 ),
                 new WorkbookStatus(
-                        textcode: "DISCARDED",
-                        title: "Отменена"
+                        textcode: 'DISCARDED',
+                        title: 'Отменена'
                 ),
                 new WorkbookStatus(
-                        textcode: "DELETED",
-                        title: "Удалена"
+                        textcode: 'DELETED',
+                        title: 'Удалена'
                 )
         ]
     }
