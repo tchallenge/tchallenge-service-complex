@@ -9,6 +9,8 @@ import ru.tchallenge.service.complex.convention.component.BootstrapComponent
 @CompileStatic
 @PackageScope
 @BootstrapComponent
+//@ConfigurationProperties
+//@PropertySource('classpath:bootstrap/account/realms.properties')
 class AccountRealmBootstrapBean extends GenericEnumeratedBootstrapBean<AccountRealm> {
 
     @Override
