@@ -1,10 +1,12 @@
 package ru.tchallenge.service.complex.common.enumerated
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.Column
 import javax.persistence.Id
 import javax.persistence.MappedSuperclass
-
-import groovy.transform.CompileStatic
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.GenericEntity
 
@@ -13,23 +15,27 @@ import ru.tchallenge.service.complex.common.GenericEntity
 abstract class GenericEnumeratedEntity extends GenericEntity<String> implements Comparable<GenericEnumeratedEntity> {
 
     @Id
-    @Column(name = "id")
+    @Column(name = 'id', nullable = false, unique = true, updatable = false)
     String id
 
-    @Column(name = "textcode")
+    @NotNull
+    @Column(name = 'textcode', nullable = false, unique = true, updatable = false)
     String textcode
 
-    @Column(name = "title")
+    @NotNull
+    @Column(name = 'title', nullable = false, updatable = false)
     String title
 
-    @Column(name = "description")
+    @Column(name = 'description', updatable = false)
     String description
 
-    @Column(name = "stance")
+    @NotNull
+    @Min(1)
+    @Column(name = 'stance', nullable = false, unique = true, updatable = false)
     Integer stance
 
     @Override
     int compareTo(GenericEnumeratedEntity another) {
-        return Integer.compare(stance, another.stance)
+        Integer.compare(stance, another.stance)
     }
 }
