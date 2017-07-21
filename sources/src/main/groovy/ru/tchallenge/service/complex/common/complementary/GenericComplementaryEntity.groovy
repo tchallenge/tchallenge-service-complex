@@ -13,7 +13,7 @@ import ru.tchallenge.service.complex.common.GenericEntity
 abstract class GenericComplementaryEntity extends GenericEntity<String> {
 
     @Id
-    @Column(name = "id")
+    @Column(name = 'id', nullable = false, unique = true, updatable = false)
     String id
 
     @Override
