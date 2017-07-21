@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.event
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -11,116 +12,112 @@ import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
 import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.all
-import static ru.tchallenge.service.complex.common.enumerated.EnumeratedTransformations.invoice
-import static ru.tchallenge.service.complex.common.search.SearchTransformations.info
-import static ru.tchallenge.service.complex.common.search.SearchTransformations.normalizePattern
-import static ru.tchallenge.service.complex.common.search.SearchTransformations.pageable
 
 @CompileStatic
+@PackageScope
 @ServiceComponent
 class EventServiceBean extends GenericServiceBean implements EventService {
 
     @Autowired
-    protected EventMapper eventMapper
+    EventMapper eventMapper
 
     @Autowired
-    protected EventPersister eventPersister
+    EventPersister eventPersister
 
     @Autowired
-    protected EventRepository eventRepository
+    EventRepository eventRepository
 
     @Autowired
-    protected EventCategoryRepository eventCategoryRepository
+    EventCategoryRepository eventCategoryRepository
 
     @Autowired
-    protected EventStatusRepository eventStatusRepository
+    EventStatusRepository eventStatusRepository
 
     @Override
     EventInfo create(EventInvoice invoice) {
-        def event = eventMapper.asEntity(invoice.with {
+        def $event = eventMapper.asEntity(invoice.with {
             id = null
             status = initialStatus()
             it
         })
-        logAsInfo("New event has been created", event)
-        return saveAndInfo(event)
+        logAsInfo('New event has been created', $event)
+        saveAndInfo($event)
     }
 
     @Override
     Collection<EnumeratedInfo> getAllCategories() {
-        return all(eventCategoryRepository)
+        enumerateds.all(eventCategoryRepository)
     }
 
     @Override
     Collection<EnumeratedInfo> getAllStatuses() {
-        return all(eventStatusRepository)
+        enumerateds.all(eventStatusRepository)
     }
 
     @Override
     EventInfo getByTextcode(String textcode) {
-        return info(eventByTextcode(textcode))
+        info(eventByTextcode(textcode))
     }
 
     @Override
     SearchInfo<EventInfo> search(EventSearchInvoice invoice) {
-        def eventPage = eventRepository.findPage(
-                normalizePattern(invoice.filterTextPattern),
+        def $page = eventRepository.findPage(
+                searches.normalizePattern(invoice.filterTextPattern),
                 invoice.filterStatusTextcodes,
-                pageable(invoice)
+                searches.pageable(invoice)
         )
-        def searchInfo = info(invoice, eventPage) {
+        def $result = searches.info(invoice, $page) {
             Event it -> info(it)
         }
-        return searchInfo
+        $result
     }
 
     @Override
     EventInfo update(EventInvoice invoice) {
-        def event = eventById(invoice.id)
-        def trimmedInvoice = invoice.with {
+        def $event = eventById(invoice.id)
+        def $trimmedInvoice = invoice.with {
             id = null
             it
         }
-        def updatedEvent = eventMapper.asEntity(event, trimmedInvoice)
-        def result = saveAndInfo(updatedEvent)
-        logAsInfo("Event has been updated", result)
-        return result
+        def $updatedEvent = eventMapper.asEntity($event, $trimmedInvoice)
+        def $result = saveAndInfo($updatedEvent)
+        logAsInfo('Event has been updated', $result)
+        $result
     }
 
     private Event eventById(String id) {
-        def event = eventRepository.findById(id as Long)
-        if (!event) {
+        def $result = eventRepository.findById(id as Long)
+        if (!$result) {
             throw unknownEvent()
         }
-        return event
+        $result
     }
 
     private Event eventByTextcode(String textcode) {
-        def event = eventRepository.findByTextcode(textcode)
-        if (!event) {
+        def $result = eventRepository.findByTextcode(textcode)
+        if (!$result) {
             throw unknownEvent()
         }
-        return event
+        $result
     }
 
     private EventInfo info(Event event) {
-        return eventMapper.asInfo(event)
+        eventMapper.asInfo(event)
     }
 
     private Event save(Event event) {
-        return eventPersister.save(event)
+        eventPersister.save(event)
     }
 
     private EventInfo saveAndInfo(Event event) {
-        return info(save(event))
+        info(save(event))
     }
 
     private static EnumeratedInvoice initialStatus() {
-        return invoice("CREATED")
+        enumerateds.invoice('CREATED')
     }
 
     private static RuntimeException unknownEvent() {
-        return new RuntimeException("referenced event does not exist")
+        new RuntimeException('referenced event does not exist')
     }
 }

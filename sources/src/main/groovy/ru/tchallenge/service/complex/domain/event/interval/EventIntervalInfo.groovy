@@ -1,8 +1,8 @@
 package ru.tchallenge.service.complex.domain.event.interval
 
-import java.time.Instant
-
 import groovy.transform.CompileStatic
+
+import java.time.Instant
 
 import ru.tchallenge.service.complex.common.GenericInfoValue
 

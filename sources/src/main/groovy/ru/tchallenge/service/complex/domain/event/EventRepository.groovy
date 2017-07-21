@@ -14,7 +14,7 @@ interface EventRepository extends GenericOrdinalRepository<Event> {
 
     Event findByTextcode(String textcode)
 
-    @Query("""SELECT e FROM Event AS e
+    @Query('''SELECT e FROM Event AS e
               
                 WHERE   (
                             :textPattern IS NULL
@@ -28,8 +28,8 @@ interface EventRepository extends GenericOrdinalRepository<Event> {
                             :statusTextcodes IS NULL
                         OR
                             e.status.textcode IN :statusTextcodes
-                        )""")
-    Page<Event> findPage(@Param("textPattern") String textPattern,
-                         @Param("statusTextcodes") Collection<String> statusTextcodes,
+                        )''')
+    Page<Event> findPage(@Param('textPattern') String textPattern,
+                         @Param('statusTextcodes') Collection<String> statusTextcodes,
                          Pageable pageable)
 }

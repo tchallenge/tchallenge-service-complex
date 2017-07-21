@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.event
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -8,19 +9,27 @@ import ru.tchallenge.service.complex.common.GenericWarmerBean
 import ru.tchallenge.service.complex.convention.component.WarmerComponent
 
 @CompileStatic
+@PackageScope
 @WarmerComponent
-class EventWarmer extends GenericWarmerBean {
+class EventWarmerBean extends GenericWarmerBean {
+
+    private static final Integer PAGE_COUNT = 10
+    private static final Integer PAGE_SIZE = 10
 
     @Autowired
-    protected EventService eventService
+    EventService eventService
 
     @Override
     void run() {
         eventService.allCategories
         eventService.allStatuses
+        PAGE_COUNT.times { int page -> searchByPage(page + 1) }
+    }
+
+    private void searchByPage(int page) {
         eventService.search(new EventSearchInvoice(
-                pageNumber: 1,
-                pageSize: 1000
+                pageNumber: page,
+                pageSize: PAGE_SIZE
         ))
     }
 }

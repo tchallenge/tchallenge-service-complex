@@ -18,32 +18,32 @@ import ru.tchallenge.service.complex.domain.event.status.EventStatus
 
 @CompileStatic
 @Entity
-@Table(name = "event")
+@Table(name = 'event')
 class Event extends GenericOrdinalEntity implements TimestampedEntity {
 
-    @Column(name = "textcode")
+    @Column(name = 'textcode')
     String textcode
 
-    @Column(name = "title")
+    @Column(name = 'title')
     String title
 
-    @Column(name = "subtitle")
+    @Column(name = 'subtitle')
     String subtitle
 
-    @Column(name = "description")
+    @Column(name = 'description')
     String description
 
-    @Column(name = "greeting")
+    @Column(name = 'greeting')
     String greeting
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'event', cascade = CascadeType.ALL)
     Collection<EventInterval> intervals = []
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = 'category_id')
     EventCategory category
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = 'status_id')
     EventStatus status
 }
