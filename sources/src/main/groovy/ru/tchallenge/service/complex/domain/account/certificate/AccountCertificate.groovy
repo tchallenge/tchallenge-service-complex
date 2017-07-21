@@ -8,6 +8,7 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
@@ -20,16 +21,20 @@ class AccountCertificate extends GenericComplementaryEntity implements Timestamp
 
     // TODO: certificate must be reconsidered to use public/private parts
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'account_id')
+    @JoinColumn(name = 'account_id', nullable = false, updatable = false)
     Account account
 
-    @Column
+    @NotNull
+    @Column(name = 'active', nullable = false)
     Integer active
 
-    @Column
+    @NotNull
+    @Column(name = 'hash', nullable = false, updatable = false)
     String hash
 
-    @Column
+    @NotNull
+    @Column(name = 'expires_at', nullable = false, updatable = false)
     Instant expiresAt
 }

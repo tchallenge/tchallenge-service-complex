@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
@@ -28,10 +29,12 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 @Table(name = 'account')
 class Account extends GenericOrdinalEntity implements TimestampedEntity {
 
-    @Column(name = 'email')
+    @NotNull
+    @Column(name = 'email', nullable = false, unique = true)
     String email
 
-    @Column(name = 'login')
+    @NotNull
+    @Column(name = 'login', nullable = false, unique = true)
     String login
 
     @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
@@ -52,15 +55,18 @@ class Account extends GenericOrdinalEntity implements TimestampedEntity {
     @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL)
     Collection<AccountPassword> passwords = []
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'realm_id')
+    @JoinColumn(name = 'realm_id', nullable = false)
     AccountRealm realm
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'status_id')
+    @JoinColumn(name = 'status_id', nullable = false)
     AccountStatus status
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'verification_id')
+    @JoinColumn(name = 'verification_id', nullable = false)
     AccountVerification verification
 }

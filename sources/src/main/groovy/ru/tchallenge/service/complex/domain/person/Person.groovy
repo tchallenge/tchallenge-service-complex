@@ -7,6 +7,7 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.domain.account.Account
@@ -16,8 +17,9 @@ import ru.tchallenge.service.complex.domain.account.Account
 @Table(name = 'person')
 class Person extends GenericOrdinalEntity {
 
+    @NotNull
     @OneToOne
-    @JoinColumn(name = 'account_id')
+    @JoinColumn(name = 'account_id', nullable = false, unique = true, updatable = false)
     Account account
 
     @Column(name = 'firstname')

@@ -3,6 +3,9 @@ package ru.tchallenge.service.complex.domain.account
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
+import java.time.Duration
+import java.time.Period
+
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalBootstrapBean
@@ -168,6 +171,7 @@ class AccountBootstrapBean extends GenericOrdinalBootstrapBean<Account> implemen
                 email: 'system.a.feedback@anothermail.net',
                 login: 'system.a',
                 robot: new Robot(
+                        title: 'System A',
                         roles: robotRoles('USERMOD')
                 ),
                 certificates: [
@@ -186,7 +190,8 @@ class AccountBootstrapBean extends GenericOrdinalBootstrapBean<Account> implemen
     private AccountCertificate certificate(String payload, boolean active) {
         new AccountCertificate(
                 active: foundamentals.flag(active),
-                hash: hash(payload)
+                hash: hash(payload),
+                expiresAt: now + Duration.ofDays(180)
         )
     }
 
@@ -197,7 +202,8 @@ class AccountBootstrapBean extends GenericOrdinalBootstrapBean<Account> implemen
     private AccountPassword password(String textvalue, boolean active) {
         new AccountPassword(
                 active: foundamentals.flag(active),
-                hash: hash(textvalue)
+                hash: hash(textvalue),
+                expiresAt: now + Duration.ofDays(180)
         )
     }
 
