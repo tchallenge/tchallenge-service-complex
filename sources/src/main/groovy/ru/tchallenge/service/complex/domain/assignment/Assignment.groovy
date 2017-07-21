@@ -7,6 +7,8 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
 import ru.tchallenge.service.complex.domain.assignment.status.AssignmentStatus
@@ -21,24 +23,32 @@ class Assignment extends GenericComplementaryEntity {
     @Column(name = 'input')
     String input
 
+    @Min(0L)
     @Column(name = 'score_actual')
     Integer scoreActual
 
-    @Column(name = 'score_maximal')
+    @NotNull
+    @Min(0L)
+    @Column(name = 'score_maximal', nullable = false, updatable = false)
     Integer scoreMaximal
 
-    @Column(name = 'stance')
+    @NotNull
+    @Min(1L)
+    @Column(name = 'stance', nullable = false, updatable = false)
     Integer stance
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'task_id')
+    @JoinColumn(name = 'task_id', nullable = false, updatable = false)
     Task task
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'workbook_id')
+    @JoinColumn(name = 'workbook_id', nullable = false, updatable = false)
     Workbook workbook
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'status_id')
+    @JoinColumn(name = 'status_id', nullable = false)
     AssignmentStatus status
 }
