@@ -6,7 +6,7 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericOrchestratorBean
-import ru.tchallenge.service.complex.common.Warmer
+import ru.tchallenge.service.complex.common.GenericWarmer
 import ru.tchallenge.service.complex.convention.component.OrchestratorComponent
 
 @CompileStatic
@@ -19,7 +19,7 @@ class WarmerOrchestratorBean extends GenericOrchestratorBean {
     BootstrapOrchestratorBean bootstrapOrchestrator
 
     @Autowired
-    Collection<? extends Warmer> warmers
+    Collection<? extends GenericWarmer> warmers
 
     @Override
     protected void init() {
