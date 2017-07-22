@@ -2,10 +2,8 @@ package ru.tchallenge.service.complex.domain.assignment
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
-
 @CompileStatic
-class AssignmentInvoice extends GenericInvoiceValue {
+class AssignmentInvoice {
 
     String id
     String input

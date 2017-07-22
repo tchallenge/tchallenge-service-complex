@@ -2,10 +2,8 @@ package ru.tchallenge.service.complex.domain.person
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
-
 @CompileStatic
-class PersonInvoice extends GenericInvoiceValue {
+class PersonInvoice {
 
     String id
     String firstname

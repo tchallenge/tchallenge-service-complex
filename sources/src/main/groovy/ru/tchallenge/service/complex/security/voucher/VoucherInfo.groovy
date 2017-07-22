@@ -7,11 +7,11 @@ import java.time.Instant
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 
-import ru.tchallenge.service.complex.common.GenericInfoValue
+import ru.tchallenge.service.complex.utility.miscellaneous.Foundamentals
 
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])
-class VoucherInfo extends GenericInfoValue {
+class VoucherInfo {
 
     String id
     String payload
@@ -20,6 +20,6 @@ class VoucherInfo extends GenericInfoValue {
 
     @JsonIgnore
     boolean isExpired() {
-        return now > expiresAt
+        return Foundamentals.now > expiresAt
     }
 }

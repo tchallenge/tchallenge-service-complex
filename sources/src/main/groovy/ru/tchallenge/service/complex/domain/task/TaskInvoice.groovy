@@ -2,14 +2,13 @@ package ru.tchallenge.service.complex.domain.task
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.domain.task.input.TaskInputInvoice
 import ru.tchallenge.service.complex.domain.task.option.TaskOptionInvoice
 import ru.tchallenge.service.complex.domain.task.snippet.TaskSnippetInvoice
 
 @CompileStatic
-class TaskInvoice extends GenericInvoiceValue {
+class TaskInvoice {
 
     String id
 

@@ -2,10 +2,8 @@ package ru.tchallenge.service.complex.domain.task.input
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
-
 @CompileStatic
-class TaskInputInvoice extends GenericInvoiceValue {
+class TaskInputInvoice {
 
     String content
     Boolean regex

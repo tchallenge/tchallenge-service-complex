@@ -1,13 +1,14 @@
 package ru.tchallenge.service.complex.domain.event
 
 import groovy.transform.CompileStatic
+import groovy.transform.Immutable
 
-import ru.tchallenge.service.complex.common.GenericInfoValue
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.domain.event.interval.EventIntervalInfo
 
 @CompileStatic
-class EventInfo extends GenericInfoValue {
+@Immutable
+class EventInfo {
 
     String id
     String textcode

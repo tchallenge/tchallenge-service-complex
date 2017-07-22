@@ -1,11 +1,11 @@
 package ru.tchallenge.service.complex.domain.task.input
 
 import groovy.transform.CompileStatic
-
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
+import groovy.transform.Immutable
 
 @CompileStatic
-class TaskInputInfo extends GenericInvoiceValue {
+@Immutable
+class TaskInputInfo {
 
     String content
     Boolean regex

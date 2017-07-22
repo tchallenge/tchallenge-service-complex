@@ -4,10 +4,8 @@ import groovy.transform.CompileStatic
 
 import java.time.Instant
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
-
 @CompileStatic
-class EventIntervalInvoice extends GenericInvoiceValue {
+class EventIntervalInvoice {
 
     Instant since
     Instant until

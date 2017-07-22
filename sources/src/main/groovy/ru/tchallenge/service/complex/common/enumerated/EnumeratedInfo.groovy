@@ -1,11 +1,11 @@
 package ru.tchallenge.service.complex.common.enumerated
 
 import groovy.transform.CompileStatic
-
-import ru.tchallenge.service.complex.common.GenericInfoValue
+import groovy.transform.Immutable
 
 @CompileStatic
-class EnumeratedInfo extends GenericInfoValue {
+@Immutable
+class EnumeratedInfo {
 
     String textcode
     String title

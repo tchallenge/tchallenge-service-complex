@@ -1,11 +1,11 @@
 package ru.tchallenge.service.complex.domain.candidate
 
 import groovy.transform.CompileStatic
-
-import ru.tchallenge.service.complex.common.GenericInfoValue
+import groovy.transform.Immutable
 
 @CompileStatic
-class CandidateInfo extends GenericInfoValue {
+@Immutable
+class CandidateInfo {
 
     String github
 }

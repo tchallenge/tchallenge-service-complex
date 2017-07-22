@@ -8,11 +8,9 @@ import java.time.Instant
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 
-import ru.tchallenge.service.complex.common.GenericInfoValue
-
 @CompileStatic
 @Immutable(knownImmutableClasses = [Instant])
-class TokenInfo extends GenericInfoValue {
+class TokenInfo {
 
     String id
     String payload
@@ -23,12 +21,12 @@ class TokenInfo extends GenericInfoValue {
 
     @JsonIgnore
     boolean isDeactivated() {
-        now > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
+        Instant.now() > lastUsedAt + Duration.ofMinutes(deactivationInMinutes)
     }
 
     @JsonIgnore
     boolean isExpired() {
-        now > expiresAt
+        Instant.now() > expiresAt
     }
 
     TokenInfo copyWithUpdatedLastUsage() {
@@ -38,7 +36,7 @@ class TokenInfo extends GenericInfoValue {
                 deactivationInMinutes: deactivationInMinutes,
                 createdAt: createdAt,
                 expiresAt: expiresAt,
-                lastUsedAt: now
+                lastUsedAt: Instant.now()
         )
     }
 }

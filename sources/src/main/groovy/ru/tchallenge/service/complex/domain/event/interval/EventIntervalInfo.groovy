@@ -1,13 +1,13 @@
 package ru.tchallenge.service.complex.domain.event.interval
 
 import groovy.transform.CompileStatic
+import groovy.transform.Immutable
 
 import java.time.Instant
 
-import ru.tchallenge.service.complex.common.GenericInfoValue
-
 @CompileStatic
-class EventIntervalInfo extends GenericInfoValue {
+@Immutable(knownImmutableClasses = [Instant])
+class EventIntervalInfo {
 
     Instant since
     Instant until

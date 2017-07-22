@@ -2,10 +2,8 @@ package ru.tchallenge.service.complex.common.search
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.GenericInvoiceValue
-
 @CompileStatic
-abstract class GenericSearchInvoice extends GenericInvoiceValue {
+abstract class GenericSearchInvoice {
 
     Boolean orderDescending = false
     Collection<String> orderProperties = []

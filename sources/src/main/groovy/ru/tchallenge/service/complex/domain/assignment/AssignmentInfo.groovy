@@ -1,13 +1,14 @@
 package ru.tchallenge.service.complex.domain.assignment
 
 import groovy.transform.CompileStatic
+import groovy.transform.Immutable
 
-import ru.tchallenge.service.complex.common.GenericInfoValue
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.domain.task.TaskInfo
 
 @CompileStatic
-class AssignmentInfo extends GenericInfoValue {
+@Immutable
+class AssignmentInfo {
 
     String id
 

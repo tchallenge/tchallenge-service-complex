@@ -1,14 +1,12 @@
 package ru.tchallenge.service.complex.common
 
+import groovy.transform.CompileStatic
+
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-import groovy.transform.CompileStatic
-
 @CompileStatic
-abstract class GenericStorageLocalBean<V extends GenericInfoValue, K extends Serializable>
-        extends GenericComponentBean
-        implements GenericStorage<V, K> {
+abstract class GenericStorageLocalBean<V, K extends Serializable> extends GenericComponentBean implements GenericStorage<V, K> {
 
     private final ConcurrentMap<K, V> items = new ConcurrentHashMap<>()
 
