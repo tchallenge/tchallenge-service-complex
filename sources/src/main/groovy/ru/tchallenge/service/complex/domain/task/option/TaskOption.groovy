@@ -1,12 +1,16 @@
 package ru.tchallenge.service.complex.domain.task.option
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
-
-import groovy.transform.CompileStatic
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
 import ru.tchallenge.service.complex.domain.task.Task
@@ -16,16 +20,23 @@ import ru.tchallenge.service.complex.domain.task.Task
 @Table(name = 'task_option')
 class TaskOption extends GenericComplementaryEntity {
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'task_id')
+    @JoinColumn(name = 'task_id', nullable = false, updatable = false)
     Task task
 
-    @Column(name = 'content')
+    @NotNull
+    @Column(name = 'content', nullable = false)
     String content
 
-    @Column(name = 'correct')
+    @NotNull
+    @Min(0L)
+    @Max(1L)
+    @Column(name = 'correct', nullable = false)
     Integer correct
 
-    @Column(name = 'textcode')
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = 'textcode', nullable = false)
     String textcode
 }

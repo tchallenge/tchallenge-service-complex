@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.domain.task.category.TaskCategory
@@ -26,13 +27,15 @@ import ru.tchallenge.service.complex.domain.task.status.TaskStatus
 @Table(name = 'task')
 class Task extends GenericOrdinalEntity {
 
-    @Column(name = 'title')
+    @NotNull
+    @Column(name = 'title', nullable = false)
     String title
 
     @Column(name = 'introduction')
     String introduction
 
-    @Column(name = 'question')
+    @NotNull
+    @Column(name = 'question', nullable = false)
     String question
 
     @OneToMany(mappedBy = 'task', cascade = CascadeType.ALL)
@@ -51,15 +54,18 @@ class Task extends GenericOrdinalEntity {
             inverseJoinColumns = @JoinColumn(name = 'task_category_id'))
     Collection<TaskCategory> categories = []
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'difficulty_id')
+    @JoinColumn(name = 'difficulty_id', nullable = false)
     TaskDifficulty difficulty
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'expectation_id')
+    @JoinColumn(name = 'expectation_id', nullable = false)
     TaskExpectation expectation
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'status_id')
+    @JoinColumn(name = 'status_id', nullable = false)
     TaskStatus status
 }

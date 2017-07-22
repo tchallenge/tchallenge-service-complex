@@ -7,6 +7,9 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
 import ru.tchallenge.service.complex.domain.task.Task
@@ -16,16 +19,23 @@ import ru.tchallenge.service.complex.domain.task.Task
 @Table(name = 'task_input')
 class TaskInput extends GenericComplementaryEntity {
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'task_id')
+    @JoinColumn(name = 'task_id', nullable = false, updatable = false)
     Task task
 
-    @Column(name = 'content')
+    @NotNull
+    @Column(name = 'content', nullable = false)
     String content
 
-    @Column(name = 'regex')
+    @NotNull
+    @Min(0L)
+    @Max(1L)
+    @Column(name = 'regex', nullable = false)
     Integer regex
 
-    @Column(name = 'stance')
+    @NotNull
+    @Min(1L)
+    @Column(name = 'stance', nullable = false)
     Integer stance
 }
