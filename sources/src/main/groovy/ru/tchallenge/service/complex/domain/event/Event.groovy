@@ -10,6 +10,8 @@ import javax.persistence.Table
 
 import groovy.transform.CompileStatic
 
+import javax.validation.constraints.NotNull
+
 import ru.tchallenge.service.complex.common.ordinal.GenericOrdinalEntity
 import ru.tchallenge.service.complex.common.timestamp.TimestampedEntity
 import ru.tchallenge.service.complex.domain.event.category.EventCategory
@@ -21,9 +23,11 @@ import ru.tchallenge.service.complex.domain.event.status.EventStatus
 @Table(name = 'event')
 class Event extends GenericOrdinalEntity implements TimestampedEntity {
 
-    @Column(name = 'textcode')
+    @NotNull
+    @Column(name = 'textcode', nullable = false, unique = true)
     String textcode
 
+    @NotNull
     @Column(name = 'title')
     String title
 
@@ -33,17 +37,20 @@ class Event extends GenericOrdinalEntity implements TimestampedEntity {
     @Column(name = 'description')
     String description
 
-    @Column(name = 'greeting')
+    @NotNull
+    @Column(name = 'greeting', nullable = false)
     String greeting
 
     @OneToMany(mappedBy = 'event', cascade = CascadeType.ALL)
     Collection<EventInterval> intervals = []
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'category_id')
+    @JoinColumn(name = 'category_id', nullable = false)
     EventCategory category
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'status_id')
+    @JoinColumn(name = 'status_id', nullable = false)
     EventStatus status
 }

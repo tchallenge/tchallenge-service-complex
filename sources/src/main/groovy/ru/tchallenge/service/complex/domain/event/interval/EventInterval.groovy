@@ -8,6 +8,7 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 import ru.tchallenge.service.complex.common.complementary.GenericComplementaryEntity
 import ru.tchallenge.service.complex.domain.event.Event
@@ -17,13 +18,16 @@ import ru.tchallenge.service.complex.domain.event.Event
 @Table(name = 'event_interval')
 class EventInterval extends GenericComplementaryEntity {
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = 'event_id')
+    @JoinColumn(name = 'event_id', nullable = false, updatable = false)
     Event event
 
-    @Column
+    @NotNull
+    @Column(name = 'since', nullable = false)
     Instant since
 
-    @Column
+    @NotNull
+    @Column(name = 'until', nullable = false)
     Instant until
 }
