@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Component
-@Scope(scopeName = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public @interface ContextComponent {
+@Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)
+public @interface RequestContextComponent {
 
 }
