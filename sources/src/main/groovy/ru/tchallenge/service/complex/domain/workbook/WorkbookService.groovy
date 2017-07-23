@@ -2,15 +2,12 @@ package ru.tchallenge.service.complex.domain.workbook
 
 import groovy.transform.CompileStatic
 
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 
 @CompileStatic
 interface WorkbookService {
 
     WorkbookInfo create(WorkbookInvoice invoice)
-
-    Collection<EnumeratedInfo> getAllStatuses()
 
     WorkbookInfo getById(String id)
 

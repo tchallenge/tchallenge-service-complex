@@ -21,11 +21,6 @@ class AccountWarmerBean extends GenericWarmerBean {
 
     @Override
     void run() {
-        accountService.allRealms
-        accountService.allStatuses
-        accountService.allVerifications
-        accountService.allEmployeeRoles
-        accountService.allRobotRoles
         PAGE_COUNT.times { int page -> searchByPage(page + 1) }
     }
 

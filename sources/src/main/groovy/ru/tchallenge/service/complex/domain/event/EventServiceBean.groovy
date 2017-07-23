@@ -6,12 +6,9 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericServiceBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
-import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
 
 @CompileStatic
 @PackageScope
@@ -27,12 +24,6 @@ class EventServiceBean extends GenericServiceBean implements EventService {
     @Autowired
     EventRepository eventRepository
 
-    @Autowired
-    EventCategoryRepository eventCategoryRepository
-
-    @Autowired
-    EventStatusRepository eventStatusRepository
-
     @Override
     EventInfo create(EventInvoice invoice) {
         def $event = eventMapper.asEntity(invoice.with {
@@ -42,16 +33,6 @@ class EventServiceBean extends GenericServiceBean implements EventService {
         })
         logAsInfo('New event has been created', $event)
         saveAndInfo($event)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllCategories() {
-        enumerateds.all(eventCategoryRepository)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        enumerateds.all(eventStatusRepository)
     }
 
     @Override

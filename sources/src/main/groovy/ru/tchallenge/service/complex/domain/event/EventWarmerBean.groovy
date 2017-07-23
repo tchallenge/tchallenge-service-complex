@@ -21,8 +21,6 @@ class EventWarmerBean extends GenericWarmerBean {
 
     @Override
     void run() {
-        eventService.allCategories
-        eventService.allStatuses
         PAGE_COUNT.times { int page -> searchByPage(page + 1) }
     }
 

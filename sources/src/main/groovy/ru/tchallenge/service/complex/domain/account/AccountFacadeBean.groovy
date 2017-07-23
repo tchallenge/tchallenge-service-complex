@@ -6,7 +6,6 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericFacadeBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
@@ -27,26 +26,6 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
 
     AccountInfo createAsClaim(AccountInvoice invoice) {
         accountService.createAsClaim(invoice)
-    }
-
-    Collection<EnumeratedInfo> getAllRealms() {
-        accountService.allRealms
-    }
-
-    Collection<EnumeratedInfo> getAllStatuses() {
-        accountService.allStatuses
-    }
-
-    Collection<EnumeratedInfo> getAllVerifications() {
-        accountService.allVerifications
-    }
-
-    Collection<EnumeratedInfo> getAllEmployeeRoles() {
-        accountService.allEmployeeRoles
-    }
-
-    Collection<EnumeratedInfo> getAllRobotRoles() {
-        accountService.allRobotRoles
     }
 
     AccountInfo getById(String id) {

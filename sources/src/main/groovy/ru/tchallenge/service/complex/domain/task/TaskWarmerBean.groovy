@@ -21,11 +21,6 @@ class TaskWarmerBean extends GenericWarmerBean implements TaskWarmer {
 
     @Override
     void run() {
-        taskService.allCategories
-        taskService.allDifficulties
-        taskService.allExpectations
-        taskService.allSnippetStyles
-        taskService.allStatuses
         PAGE_COUNT.times { int page -> searchByPage(page + 1) }
     }
 

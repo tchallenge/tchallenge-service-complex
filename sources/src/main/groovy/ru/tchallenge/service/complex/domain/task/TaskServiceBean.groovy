@@ -7,15 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericServiceBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.domain.task.category.TaskCategoryRepository
-import ru.tchallenge.service.complex.domain.task.difficulty.TaskDifficultyRepository
-import ru.tchallenge.service.complex.domain.task.expectation.TaskExpectationRepository
-import ru.tchallenge.service.complex.domain.task.snippet.style.TaskSnippetStyleRepository
-import ru.tchallenge.service.complex.domain.task.status.TaskStatusRepository
 
 @CompileStatic
 @PackageScope
@@ -31,21 +25,6 @@ class TaskServiceBean extends GenericServiceBean implements TaskService {
     @Autowired
     TaskRepository taskRepository
 
-    @Autowired
-    TaskCategoryRepository taskCategoryRepository
-
-    @Autowired
-    TaskDifficultyRepository taskDifficultyRepository
-
-    @Autowired
-    TaskExpectationRepository taskExpectationRepository
-
-    @Autowired
-    TaskSnippetStyleRepository taskSnippetStyleRepository
-
-    @Autowired
-    TaskStatusRepository taskStatusRepository
-
     @Override
     TaskInfo create(TaskInvoice invoice) {
         def $task = taskMapper.asEntity(invoice.with {
@@ -54,31 +33,6 @@ class TaskServiceBean extends GenericServiceBean implements TaskService {
             it
         })
         saveAndInfo($task)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllCategories() {
-        enumerateds.all(taskCategoryRepository)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllDifficulties() {
-        enumerateds.all(taskDifficultyRepository)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllExpectations() {
-        enumerateds.all(taskExpectationRepository)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllSnippetStyles() {
-        enumerateds.all(taskSnippetStyleRepository)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        enumerateds.all(taskStatusRepository)
     }
 
     @Override

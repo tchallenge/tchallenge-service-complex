@@ -6,7 +6,6 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericFacadeBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
@@ -21,11 +20,6 @@ class WorkbookFacadeBean extends GenericFacadeBean implements WorkbookFacade {
     @Override
     WorkbookInfo create(WorkbookInvoice invoice) {
         workbookService.create(invoice)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        workbookService.allStatuses
     }
 
     @Override

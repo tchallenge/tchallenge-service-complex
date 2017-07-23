@@ -6,7 +6,6 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericFacadeBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
@@ -24,16 +23,6 @@ class EventFacadeBean extends GenericFacadeBean implements EventFacade {
             throw unauthorized()
         }
         eventService.create(invoice)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllCategories() {
-        eventService.allCategories
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        eventService.allStatuses
     }
 
     @Override

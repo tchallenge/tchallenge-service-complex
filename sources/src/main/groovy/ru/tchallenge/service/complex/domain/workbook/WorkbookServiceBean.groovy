@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericServiceBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusRepository
 
 @CompileStatic
 @PackageScope
@@ -27,9 +25,6 @@ class WorkbookServiceBean extends GenericServiceBean implements WorkbookService 
     @Autowired
     WorkbookRepository workbookRepository
 
-    @Autowired
-    WorkbookStatusRepository workbookStatusRepository
-
     @Override
     WorkbookInfo create(WorkbookInvoice invoice) {
         def $workbook = workbookMapper.asEntity(invoice.with {
@@ -38,11 +33,6 @@ class WorkbookServiceBean extends GenericServiceBean implements WorkbookService 
             it
         })
         saveAndInfo($workbook)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        enumerateds.all(workbookStatusRepository)
     }
 
     @Override

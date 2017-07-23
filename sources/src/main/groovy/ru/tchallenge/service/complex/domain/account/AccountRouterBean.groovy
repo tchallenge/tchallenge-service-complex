@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 import ru.tchallenge.service.complex.common.GenericRouterBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
@@ -34,31 +33,6 @@ class AccountRouterBean extends GenericRouterBean {
     @RoutePost('/claims')
     AccountInfo createAsClaim(@RequestBody AccountInvoice invoice) {
         accountFacade.createAsClaim(invoice)
-    }
-
-    @RouteGet('/realms')
-    Collection<EnumeratedInfo> getAllRealms() {
-        accountFacade.allRealms
-    }
-
-    @RouteGet('/statuses')
-    Collection<EnumeratedInfo> getAllStatuses() {
-        accountFacade.allStatuses
-    }
-
-    @RouteGet('/verifications')
-    Collection<EnumeratedInfo> getAllVerifications() {
-        accountFacade.allVerifications
-    }
-
-    @RouteGet('/employees/roles')
-    Collection<EnumeratedInfo> getAllEmployeeRoles() {
-        accountFacade.allEmployeeRoles
-    }
-
-    @RouteGet('/robots/roles')
-    Collection<EnumeratedInfo> getAllRobotRoles() {
-        accountFacade.allRobotRoles
     }
 
     @RouteGet('/{id}')

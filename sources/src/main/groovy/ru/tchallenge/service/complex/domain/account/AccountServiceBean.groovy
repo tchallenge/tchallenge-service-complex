@@ -7,15 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 
 import ru.tchallenge.service.complex.common.GenericServiceBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
-import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
-import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
-import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
@@ -33,19 +28,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
     AccountRepository accountRepository
 
     @Autowired
-    AccountRealmRepository accountRealmRepository
-
-    @Autowired
     AccountStatusRepository accountStatusRepository
-
-    @Autowired
-    AccountVerificationRepository accountVerificationRepository
-
-    @Autowired
-    EmployeeRoleRepository employeeRoleRepository
-
-    @Autowired
-    RobotRoleRepository robotRoleRepository
 
     @Autowired
     EncryptionService encryptionService
@@ -70,26 +53,6 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
             it
         })
         saveAndInfo($account)
-    }
-
-    Collection<EnumeratedInfo> getAllRealms() {
-        enumerateds.all(accountRealmRepository)
-    }
-
-    Collection<EnumeratedInfo> getAllStatuses() {
-        enumerateds.all(accountStatusRepository)
-    }
-
-    Collection<EnumeratedInfo> getAllVerifications() {
-        enumerateds.all(accountVerificationRepository)
-    }
-
-    Collection<EnumeratedInfo> getAllEmployeeRoles() {
-        enumerateds.all(employeeRoleRepository)
-    }
-
-    Collection<EnumeratedInfo> getAllRobotRoles() {
-        enumerateds.all(robotRoleRepository)
     }
 
     AccountInfo getById(String id) {

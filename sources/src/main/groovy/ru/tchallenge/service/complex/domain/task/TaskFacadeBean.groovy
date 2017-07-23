@@ -6,7 +6,6 @@ import groovy.transform.PackageScope
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericFacadeBean
-import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.FacadeComponent
 
@@ -24,31 +23,6 @@ class TaskFacadeBean extends GenericFacadeBean implements TaskFacade {
             throw unauthorized()
         }
         taskService.create(invoice)
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllCategories() {
-        taskService.allCategories
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllDifficulties() {
-        taskService.allDifficulties
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllExpectations() {
-        taskService.allExpectations
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllSnippetStyles() {
-        taskService.allSnippetStyles
-    }
-
-    @Override
-    Collection<EnumeratedInfo> getAllStatuses() {
-        taskService.allStatuses
     }
 
     @Override

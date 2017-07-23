@@ -27,16 +27,6 @@ class EventRouterBean extends GenericRouterBean {
         eventFacade.create(invoice)
     }
 
-    @RouteGet('/categories')
-    Collection<EnumeratedInfo> getAllCategories() {
-        eventFacade.allCategories
-    }
-
-    @RouteGet('/statuses')
-    Collection<EnumeratedInfo> getAllStatuses() {
-        eventFacade.allStatuses
-    }
-
     @NoAuthentication
     @RouteGet('/{textcode}')
     EventInfo getByTextcode(@PathVariable('textcode') String textcode) {
