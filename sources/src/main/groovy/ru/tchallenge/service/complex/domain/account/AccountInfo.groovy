@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.domain.account
 
 import groovy.transform.CompileStatic
+import groovy.transform.Immutable
 
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInfo
 import ru.tchallenge.service.complex.common.timestamp.TimestampedValue
@@ -10,6 +11,7 @@ import ru.tchallenge.service.complex.domain.person.PersonInfo
 import ru.tchallenge.service.complex.domain.robot.RobotInfo
 
 @CompileStatic
+@Immutable
 class AccountInfo implements TimestampedValue {
 
     String id
