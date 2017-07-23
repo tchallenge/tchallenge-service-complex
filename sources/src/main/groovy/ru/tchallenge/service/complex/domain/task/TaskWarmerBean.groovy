@@ -11,7 +11,7 @@ import ru.tchallenge.service.complex.convention.component.WarmerComponent
 @CompileStatic
 @PackageScope
 @WarmerComponent
-class TaskWarmerBean extends GenericWarmerBean {
+class TaskWarmerBean extends GenericWarmerBean implements TaskWarmer {
 
     private static final Integer PAGE_COUNT = 10
     private static final Integer PAGE_SIZE = 10
