@@ -73,7 +73,7 @@ class TokenFacadeBean extends GenericFacadeBean implements TokenFacade {
         if (!$account) {
             throw illegalCredentials(login)
         }
-        if ($account.verification.textcode != "PASSWORD") {
+        if ($account.verification.textcode != 'PASSWORD') {
             throw illegalCredentials(login)
         }
         def $accountPassword = $account.passwords.last()
