@@ -31,7 +31,9 @@ import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusReposi
 class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedService {
 
     // TODO: implement automatic discovery of enumerateds
-    // TODO: change this service to some storage component
+
+    @Autowired
+    EnumeratedContextConfigurer enumeratedContextConfigurer
 
     @Autowired
     AccountRealmRepository accountRealmRepository
@@ -81,8 +83,6 @@ class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedServ
     @Autowired
     WorkbookStatusRepository workbookStatusRepository
 
-    private final Map<String, EnumeratedAggregationInfo> aggregations = [:]
-
     @Override
     Collection<EnumeratedAggregationInfo> getAll() {
         aggregations.values()
@@ -97,31 +97,37 @@ class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedServ
         $result
     }
 
-    @Override
-    protected void init() {
-        super.init()
-        store('account.realm', accountRealmRepository)
-        store('account.status', accountStatusRepository)
-        store('account.verification', accountVerificationRepository)
-        store('assignment.status', assignmentStatusRepository)
-        store('employee.role', employeeRoleRepository)
-        store('event.category', eventCategoryRepository)
-        store('event.status', eventStatusRepository)
-        store('maturity', maturityRepository)
-        store('robot.role', robotRoleRepository)
-        store('specialization', specializationRepository)
-        store('task.category', taskCategoryRepository)
-        store('task.difficulty', taskDifficultyRepository)
-        store('task.snippet.style', taskSnippetStyleRepository)
-        store('task.status', taskStatusRepository)
-        store('workbook.status', workbookStatusRepository)
+    private Map<String, EnumeratedAggregationInfo> getAggregations() {
+        def $result = enumeratedContextConfigurer.aggregations
+        if (!$result) {
+            $result = [:]
+            store($result, 'account.realm', accountRealmRepository)
+            store($result, 'account.status', accountStatusRepository)
+            store($result, 'account.verification', accountVerificationRepository)
+            store($result, 'assignment.status', assignmentStatusRepository)
+            store($result, 'employee.role', employeeRoleRepository)
+            store($result, 'event.category', eventCategoryRepository)
+            store($result, 'event.status', eventStatusRepository)
+            store($result, 'maturity', maturityRepository)
+            store($result, 'robot.role', robotRoleRepository)
+            store($result, 'specialization', specializationRepository)
+            store($result, 'task.category', taskCategoryRepository)
+            store($result, 'task.difficulty', taskDifficultyRepository)
+            store($result, 'task.snippet.style', taskSnippetStyleRepository)
+            store($result, 'task.status', taskStatusRepository)
+            store($result, 'workbook.status', workbookStatusRepository)
+            enumeratedContextConfigurer.setAggregations($result)
+        }
+        $result
     }
 
-    private void store(String type, GenericEnumeratedRepository repository) {
+    private static void store(Map<String, EnumeratedAggregationInfo> storage,
+                              String type,
+                              GenericEnumeratedRepository repository) {
         def $aggregation = new EnumeratedAggregationInfo(
                 items: enumerateds.all(repository),
                 type: type
         )
-        aggregations.put(type, $aggregation)
+        storage.put(type, $aggregation)
     }
 }
