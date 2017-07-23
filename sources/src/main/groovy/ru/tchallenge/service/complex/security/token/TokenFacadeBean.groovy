@@ -63,7 +63,7 @@ class TokenFacadeBean extends GenericFacadeBean implements TokenFacade {
 
     private TokenInfo getToken() {
         authenticationContext
-                .authentication
+                .value
                 .orElseThrow { unauthorized() }
                 .token
     }

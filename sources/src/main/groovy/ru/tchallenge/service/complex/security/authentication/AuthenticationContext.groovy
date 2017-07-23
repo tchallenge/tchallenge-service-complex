@@ -2,8 +2,9 @@ package ru.tchallenge.service.complex.security.authentication
 
 import groovy.transform.CompileStatic
 
-@CompileStatic
-interface AuthenticationContext {
+import ru.tchallenge.service.complex.common.GenericContext
 
-    Optional<AuthenticationInfo> getAuthentication()
+@CompileStatic
+interface AuthenticationContext extends GenericContext<AuthenticationInfo> {
+
 }

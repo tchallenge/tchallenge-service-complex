@@ -2,8 +2,9 @@ package ru.tchallenge.service.complex.domain.shared.enumerated
 
 import groovy.transform.CompileStatic
 
-@CompileStatic
-interface EnumeratedContext {
+import ru.tchallenge.service.complex.common.GenericContext
 
-    Map<String, EnumeratedAggregationInfo> getAggregations()
+@CompileStatic
+interface EnumeratedContext extends GenericContext<Map<String, EnumeratedAggregationInfo>> {
+
 }

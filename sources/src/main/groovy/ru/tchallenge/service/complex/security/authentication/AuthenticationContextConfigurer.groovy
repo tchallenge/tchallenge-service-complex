@@ -2,8 +2,9 @@ package ru.tchallenge.service.complex.security.authentication
 
 import groovy.transform.CompileStatic
 
-@CompileStatic
-interface AuthenticationContextConfigurer extends AuthenticationContext {
+import ru.tchallenge.service.complex.common.GenericContextConfigurer
 
-    void setAuthentication(AuthenticationInfo authentication)
+@CompileStatic
+interface AuthenticationContextConfigurer extends AuthenticationContext, GenericContextConfigurer<AuthenticationInfo> {
+
 }

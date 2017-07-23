@@ -70,7 +70,7 @@ abstract class GenericComponentBean {
 
     protected Optional<AuthenticationInfo> getAuthentication() {
         try {
-            authenticationContext.authentication
+            authenticationContext.value
         } catch (BeanCreationException exception) {
             logCaughtThrowable('No authentication is available', exception)
             Optional.empty()
@@ -79,7 +79,7 @@ abstract class GenericComponentBean {
 
     protected Optional<CorrelationInfo> getCorrelation() {
         try {
-            correlationContext.correlation
+            correlationContext.value
         } catch (BeanCreationException exception) {
             logCaughtThrowable('No correlation is available', exception)
             Optional.empty()

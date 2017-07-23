@@ -2,8 +2,9 @@ package ru.tchallenge.service.complex.reliability.correlation
 
 import groovy.transform.CompileStatic
 
-@CompileStatic
-interface CorrelationContext {
+import ru.tchallenge.service.complex.common.GenericContext
 
-    Optional<CorrelationInfo> getCorrelation()
+@CompileStatic
+interface CorrelationContext extends GenericContext<CorrelationInfo> {
+
 }

@@ -41,7 +41,7 @@ class SecurityInterceptorConfigurerBean extends GenericInterceptorBean implement
         if (!authentication) {
             throw unauthenticated()
         }
-        authenticationContextConfigurer.setAuthentication(authentication)
+        authenticationContextConfigurer.setValue(authentication)
         logAsInfo('Client has been authenticated', authentication)
     }
 

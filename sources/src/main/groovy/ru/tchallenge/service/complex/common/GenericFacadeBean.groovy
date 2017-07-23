@@ -17,7 +17,7 @@ abstract class GenericFacadeBean extends GenericComponentBean {
 
     protected AccountInfo authenticated() {
         def result = authenticationContext
-                .authentication
+                .value
                 .orElseThrow { unauthenticated() }
                 .account
         if (!result) {

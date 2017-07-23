@@ -3,6 +3,7 @@ package ru.tchallenge.service.complex.common
 import groovy.transform.CompileStatic
 
 @CompileStatic
-abstract class GenericContextBean extends GenericComponentBean {
+interface GenericContextConfigurer<T> extends GenericContext<T> {
 
+    void setValue(T value)
 }

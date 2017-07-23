@@ -98,9 +98,10 @@ class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedServ
     }
 
     private Map<String, EnumeratedAggregationInfo> getAggregations() {
-        def $result = enumeratedContextConfigurer.aggregations
-        if (!$result) {
-            $result = [:]
+        def $result
+        def $optionalResult = enumeratedContextConfigurer.value
+        if (!$optionalResult.present) {
+            $result = [:] as Map<String, EnumeratedAggregationInfo>
             store($result, 'account.realm', accountRealmRepository)
             store($result, 'account.status', accountStatusRepository)
             store($result, 'account.verification', accountVerificationRepository)
@@ -116,7 +117,9 @@ class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedServ
             store($result, 'task.snippet.style', taskSnippetStyleRepository)
             store($result, 'task.status', taskStatusRepository)
             store($result, 'workbook.status', workbookStatusRepository)
-            enumeratedContextConfigurer.setAggregations($result)
+            enumeratedContextConfigurer.setValue($result)
+        } else {
+            $result = $optionalResult.get()
         }
         $result
     }
