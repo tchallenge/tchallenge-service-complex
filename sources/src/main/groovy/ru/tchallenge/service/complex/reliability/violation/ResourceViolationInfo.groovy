@@ -3,6 +3,8 @@ package ru.tchallenge.service.complex.reliability.violation
 import groovy.transform.CompileStatic
 import groovy.transform.Immutable
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 @CompileStatic
 @Immutable(knownImmutableClasses = [Object])
 class ResourceViolationInfo implements ViolationInfo {
@@ -21,6 +23,7 @@ class ResourceViolationInfo implements ViolationInfo {
     }
 
     @Delegate
+    @JsonIgnore
     BaseViolationInfo base
 
     String identifierName
