@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.reliability.exception
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import org.springframework.boot.logging.LogLevel
 import org.springframework.http.HttpStatus
@@ -12,6 +13,7 @@ import ru.tchallenge.service.complex.reliability.logging.LogRecord
 import ru.tchallenge.service.complex.reliability.violation.DeserializationViolationInfo
 
 @CompileStatic
+@PackageScope
 @ControllerAdvice
 class DeserializationExceptionHandlerBean extends BaseExceptionHandlerBean {
 

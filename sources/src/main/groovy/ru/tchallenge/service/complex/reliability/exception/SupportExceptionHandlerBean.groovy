@@ -1,6 +1,7 @@
 package ru.tchallenge.service.complex.reliability.exception
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 
 import javax.servlet.http.HttpServletRequest
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import ru.tchallenge.service.complex.reliability.logging.LogRecord
 
 @CompileStatic
+@PackageScope
 @ControllerAdvice
 class SupportExceptionHandlerBean extends BaseExceptionHandlerBean {
 
