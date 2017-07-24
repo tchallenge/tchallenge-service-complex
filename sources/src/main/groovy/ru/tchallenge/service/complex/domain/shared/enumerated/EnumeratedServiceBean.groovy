@@ -3,85 +3,26 @@ package ru.tchallenge.service.complex.domain.shared.enumerated
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
+import java.lang.annotation.Annotation
+
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.common.enumerated.GenericEnumeratedRepository
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
-import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
-import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
-import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
-import ru.tchallenge.service.complex.domain.assignment.status.AssignmentStatusRepository
-import ru.tchallenge.service.complex.domain.employee.role.EmployeeRoleRepository
-import ru.tchallenge.service.complex.domain.event.category.EventCategoryRepository
-import ru.tchallenge.service.complex.domain.event.status.EventStatusRepository
-import ru.tchallenge.service.complex.domain.maturity.MaturityRepository
-import ru.tchallenge.service.complex.domain.robot.role.RobotRoleRepository
-import ru.tchallenge.service.complex.domain.specialization.SpecializationRepository
-import ru.tchallenge.service.complex.domain.task.category.TaskCategoryRepository
-import ru.tchallenge.service.complex.domain.task.difficulty.TaskDifficultyRepository
-import ru.tchallenge.service.complex.domain.task.expectation.TaskExpectationRepository
-import ru.tchallenge.service.complex.domain.task.snippet.style.TaskSnippetStyleRepository
-import ru.tchallenge.service.complex.domain.task.status.TaskStatusRepository
-import ru.tchallenge.service.complex.domain.workbook.status.WorkbookStatusRepository
 
 @CompileStatic
 @PackageScope
 @ServiceComponent
 class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedService {
 
-    // TODO: implement automatic discovery of enumerateds
+    // TODO: refactor the code to make it more clear (especially reflection calls)
 
     @Autowired
     EnumeratedContextConfigurer enumeratedContextConfigurer
 
     @Autowired
-    AccountRealmRepository accountRealmRepository
-
-    @Autowired
-    AccountStatusRepository accountStatusRepository
-
-    @Autowired
-    AccountVerificationRepository accountVerificationRepository
-
-    @Autowired
-    AssignmentStatusRepository assignmentStatusRepository
-
-    @Autowired
-    EmployeeRoleRepository employeeRoleRepository
-
-    @Autowired
-    EventCategoryRepository eventCategoryRepository
-
-    @Autowired
-    EventStatusRepository eventStatusRepository
-
-    @Autowired
-    MaturityRepository maturityRepository
-
-    @Autowired
-    RobotRoleRepository robotRoleRepository
-
-    @Autowired
-    SpecializationRepository specializationRepository
-
-    @Autowired
-    TaskCategoryRepository taskCategoryRepository
-
-    @Autowired
-    TaskDifficultyRepository taskDifficultyRepository
-
-    @Autowired
-    TaskExpectationRepository taskExpectationRepository
-
-    @Autowired
-    TaskSnippetStyleRepository taskSnippetStyleRepository
-
-    @Autowired
-    TaskStatusRepository taskStatusRepository
-
-    @Autowired
-    WorkbookStatusRepository workbookStatusRepository
+    Collection<GenericEnumeratedRepository> enumeratedRepositories
 
     @Override
     Collection<EnumeratedAggregationInfo> getAll() {
@@ -100,37 +41,50 @@ class EnumeratedServiceBean extends GenericServiceBean implements EnumeratedServ
     private Map<String, EnumeratedAggregationInfo> getAggregations() {
         def $result
         def $optionalResult = enumeratedContextConfigurer.value
-        if (!$optionalResult.present) {
-            $result = [:] as Map<String, EnumeratedAggregationInfo>
-            store($result, 'account.realm', accountRealmRepository)
-            store($result, 'account.status', accountStatusRepository)
-            store($result, 'account.verification', accountVerificationRepository)
-            store($result, 'assignment.status', assignmentStatusRepository)
-            store($result, 'employee.role', employeeRoleRepository)
-            store($result, 'event.category', eventCategoryRepository)
-            store($result, 'event.status', eventStatusRepository)
-            store($result, 'maturity', maturityRepository)
-            store($result, 'robot.role', robotRoleRepository)
-            store($result, 'specialization', specializationRepository)
-            store($result, 'task.category', taskCategoryRepository)
-            store($result, 'task.difficulty', taskDifficultyRepository)
-            store($result, 'task.snippet.style', taskSnippetStyleRepository)
-            store($result, 'task.status', taskStatusRepository)
-            store($result, 'workbook.status', workbookStatusRepository)
-            enumeratedContextConfigurer.setValue($result)
-        } else {
+        if ($optionalResult.present) {
             $result = $optionalResult.get()
+        } else {
+            $result = createMappedAggregations()
+            enumeratedContextConfigurer.setValue($result)
         }
         $result
     }
 
-    private static void store(Map<String, EnumeratedAggregationInfo> storage,
-                              String type,
-                              GenericEnumeratedRepository repository) {
-        def $aggregation = new EnumeratedAggregationInfo(
+    private Map<String, EnumeratedAggregationInfo> createMappedAggregations() {
+        Map<String, EnumeratedAggregationInfo> $result = [:]
+        for (EnumeratedAggregationInfo $aggregation : createAggregations()) {
+            def $type = $aggregation.type
+            if ($type) {
+                $result.put($type, $aggregation)
+            } else {
+                logAsWarn('Enumerated aggregation discovered without any type', $aggregation)
+            }
+        }
+        $result
+    }
+
+    private Collection<EnumeratedAggregationInfo> createAggregations() {
+        foundamentals.mapCollection(enumeratedRepositories, this.&createAggregation)
+    }
+
+    private static EnumeratedAggregationInfo createAggregation(GenericEnumeratedRepository repository) {
+        new EnumeratedAggregationInfo(
                 items: enumerateds.all(repository),
-                type: type
+                type: getEnumeratedType(repository)
         )
-        storage.put(type, $aggregation)
+    }
+
+    private static String getEnumeratedType(GenericEnumeratedRepository repository) {
+        def $annotation = null
+        def $interfaces = repository.class.interfaces
+        for (def $interface : $interfaces) {
+            $annotation = $interface.annotations.find { Annotation it ->
+                it.annotationType() == EnumeratedAggregationSource
+            }
+            if ($annotation) {
+                break
+            }
+        }
+        $annotation?.invokeMethod('value', null) as String
     }
 }
