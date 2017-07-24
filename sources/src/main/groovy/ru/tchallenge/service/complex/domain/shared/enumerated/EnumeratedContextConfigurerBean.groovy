@@ -9,6 +9,8 @@ import ru.tchallenge.service.complex.convention.component.ApplicationContextComp
 @CompileStatic
 @PackageScope
 @ApplicationContextComponent
-class EnumeratedContextConfigurerBean extends GenericContextConfigurerBean<EnumeratedAggregationInfo> implements EnumeratedContextConfigurer {
+class EnumeratedContextConfigurerBean
+        extends GenericContextConfigurerBean<Map<String, EnumeratedAggregationInfo>>
+        implements EnumeratedContextConfigurer {
 
 }
