@@ -28,7 +28,7 @@ class Event extends GenericOrdinalEntity implements TimestampedEntity {
     String textcode
 
     @NotNull
-    @Column(name = 'title')
+    @Column(name = 'title', nullable = false)
     String title
 
     @Column(name = 'subtitle')
