@@ -6,8 +6,10 @@ import javax.validation.groups.Default
 
 import org.springframework.validation.Errors
 
+import ru.tchallenge.service.complex.common.GenericComponentBean
+
 @CompileStatic
-abstract class GenericInvoiceValidatorBean<T> implements GenericInvoiceValidator {
+abstract class GenericInvoiceValidatorBean<T> extends GenericComponentBean implements GenericInvoiceValidator {
 
     @Override
     boolean supports(Class<?> type) {
