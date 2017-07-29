@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
@@ -12,6 +13,9 @@ import ru.tchallenge.service.complex.convention.component.RouterComponent
 import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePatch
 import ru.tchallenge.service.complex.convention.routing.RoutePost
+import ru.tchallenge.service.complex.validation.groups.Create
+import ru.tchallenge.service.complex.validation.groups.UpdateCommon
+import ru.tchallenge.service.complex.validation.groups.UpdateStatus
 
 @CompileStatic
 @PackageScope
@@ -22,7 +26,7 @@ class SampleRouterBean extends GenericRouterBean {
     SampleService sampleService
 
     @RoutePost
-    SampleInfo create(@RequestBody SampleRawInvoice invoice) {
+    SampleInfo create(@Validated(Create) @RequestBody SampleInvoice invoice) {
         sampleService.create(invoice)
     }
 
@@ -32,7 +36,12 @@ class SampleRouterBean extends GenericRouterBean {
     }
 
     @RoutePatch('/{id}')
-    SampleInfo update(@RequestBody SampleRawInvoice invoice) {
+    SampleInfo update(@Validated(UpdateCommon) @RequestBody SampleInvoice invoice) {
         sampleService.update(invoice)
+    }
+
+    @RoutePatch('/{id}/status')
+    SampleInfo updateStatus(@Validated(UpdateStatus) @RequestBody SampleInvoice invoice) {
+        sampleService.updateStatus(invoice)
     }
 }

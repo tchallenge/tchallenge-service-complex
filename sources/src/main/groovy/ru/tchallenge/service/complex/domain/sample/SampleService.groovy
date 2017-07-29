@@ -5,9 +5,11 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface SampleService {
 
-    SampleInfo create(SampleRawInvoice  invoice)
+    SampleInfo create(SampleInvoice invoice)
 
     SampleInfo getById(String id)
 
-    SampleInfo update(SampleRawInvoice invoice)
+    SampleInfo update(SampleInvoice invoice)
+
+    SampleInfo updateStatus(SampleInvoice invoice)
 }

@@ -12,17 +12,35 @@ import ru.tchallenge.service.complex.convention.component.ServiceComponent
 class SampleServiceBean extends GenericServiceBean implements SampleService {
 
     @Override
-    SampleInfo create(SampleRawInvoice  invoice) {
-        throw new UnsupportedOperationException()
+    SampleInfo create(SampleInvoice invoice) {
+        new SampleInfo(
+                title: invoice.title,
+                description: invoice.description
+        )
     }
 
     @Override
     SampleInfo getById(String id) {
-        throw new UnsupportedOperationException()
+        new SampleInfo(
+                id: id
+        )
     }
 
     @Override
-    SampleInfo update(SampleRawInvoice  invoice) {
-        throw new UnsupportedOperationException()
+    SampleInfo update(SampleInvoice invoice) {
+        new SampleInfo(
+                id: invoice.id,
+                title: invoice.title,
+                description: invoice.description
+        )
+    }
+
+    @Override
+    SampleInfo updateStatus(SampleInvoice invoice) {
+        new SampleInfo(
+                id: invoice.id,
+                title: invoice.title,
+                description: invoice.description
+        )
     }
 }
