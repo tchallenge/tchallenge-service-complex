@@ -7,19 +7,14 @@ import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Target
 import javax.validation.Constraint
 import javax.validation.Payload
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Size
 
 @Documented
-@Required
-@Size(min = 4, max = 16)
-@Pattern(regexp = '[0-9A-Za-z\\-]+')
-@Constraint(validatedBy = [])
+@Constraint(validatedBy = TimeIntervalValidator)
 @Retention(RetentionPolicy.RUNTIME)
-@Target([ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER])
-@interface Textcode {
+@Target([ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE])
+@interface TimeInterval {
 
-    String message() default ''
+    String message() default 'value of Since must be earlier that value of Until'
 
     Class<?>[] groups() default []
 

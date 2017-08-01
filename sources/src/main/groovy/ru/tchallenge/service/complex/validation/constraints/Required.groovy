@@ -7,19 +7,18 @@ import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Target
 import javax.validation.Constraint
 import javax.validation.Payload
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Size
+import javax.validation.ReportAsSingleViolation
+import javax.validation.constraints.NotNull
 
 @Documented
-@Required
-@Size(min = 4, max = 16)
-@Pattern(regexp = '[0-9A-Za-z\\-]+')
+@NotNull
+@ReportAsSingleViolation
 @Constraint(validatedBy = [])
 @Retention(RetentionPolicy.RUNTIME)
 @Target([ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER])
-@interface Textcode {
+@interface Required {
 
-    String message() default ''
+    String message() default '{javax.validation.constraints.NotNull.message}'
 
     Class<?>[] groups() default []
 

@@ -12,12 +12,12 @@ import javax.validation.constraints.Size
 
 @Documented
 @Required
-@Size(min = 4, max = 16)
-@Pattern(regexp = '[0-9A-Za-z\\-]+')
+@Size(min = 1)
+@Pattern(regexp = '[0-9]+')
 @Constraint(validatedBy = [])
 @Retention(RetentionPolicy.RUNTIME)
 @Target([ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER])
-@interface Textcode {
+@interface OrdinalId {
 
     String message() default ''
 
