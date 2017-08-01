@@ -31,52 +31,9 @@ class EventServiceBean extends GenericServiceBean implements EventService {
 
     @Override
     EventInfo create(EventInvoice invoice) {
-
-        // NOTE: textcode validation
-        def $textcode = invoice.textcode
-        if (!$textcode) {
-            throw missing('textcode')
-        }
-        def $min = 1
-        def $max = 16
-        if ($textcode.length() < $min || $textcode.length() > $max) {
-            throw illegalLength('textcode', $textcode, $min, $max)
-        }
-        def $alphanumericPattern = '.*'
-        if (!matches($textcode, $alphanumericPattern)) {
-            throw notMatchPatternOfAlphanumeric('textcode', $textcode)
-        }
-
-        // NOTE: title validation
-        if (!invoice.title) {
-            throw missing('title')
-        }
-        if ($textcode.length() < 1 || $textcode.length() > 16) {
-            throw missing('textcode')
-        }
-
-        // other checks connected to title (f.e. length)...
-        if (!invoice.greeting) {
-            throw missing('greeting')
-        }
-        // other checks connected to greeting (f.e. length)...
-        if (!invoice.intervals) {
-            throw missing('intervals')
-        }
-        if (!invoice.intervals.empty) {
-            throw missing('intervals')
-        }
-        def $intervalIndex = 0
-        for (def $interval : invoice.intervals) {
-            if (!$interval.since) {
-                throw missing("intervals[${$intervalIndex}].since")
-            }
-            if (!$interval.until) {
-                throw missing("intervals[${$intervalIndex}].until")
-            }
-            if ($interval.since >= $interval.until) {
-                throw missing("intervals[${$intervalIndex}].until")
-            }
+        def $existingEvent = eventRepository.findByTextcode(invoice.textcode)
+        if ($existingEvent) {
+            throw new RuntimeException("event with textcode ${invoice.textcode} already exists")
         }
         def $normalizedInvoice = invoice.with {
             id = null
@@ -84,7 +41,6 @@ class EventServiceBean extends GenericServiceBean implements EventService {
             it
         }
         def $event = eventMapper.asEntity($normalizedInvoice)
-        // TODO: implement pre-persist validation
         def $result = saveAndInfo($event)
         logAsInfo('New event has been created', $event)
         $result
@@ -154,26 +110,6 @@ class EventServiceBean extends GenericServiceBean implements EventService {
     private ViolationException missing(String path) {
         def $violation = ContractViolationInfo.missing(path)
         new ContractViolationException(this.class, $violation)
-    }
-
-    private ViolationException illegalLength(String path, Object value, int min, int max) {
-        throw new UnsupportedOperationException()
-    }
-
-    private ViolationException illegalNumberOfItems(String path, int number, int min, int max) {
-        throw new UnsupportedOperationException()
-    }
-
-    private ViolationException notMatchPattern(String path, Object value, String pattern) {
-        throw new UnsupportedOperationException()
-    }
-
-    private ViolationException notMatchPatternOfAlphanumeric(String path, Object value) {
-        throw new UnsupportedOperationException()
-    }
-
-    private boolean matches(String value, String pattern) {
-        throw new UnsupportedOperationException()
     }
 
     private ViolationException eventNotFound(String identifierName, Object identifierValue) {
