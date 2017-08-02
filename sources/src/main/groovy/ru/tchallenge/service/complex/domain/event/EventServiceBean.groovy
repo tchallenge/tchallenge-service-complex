@@ -14,6 +14,8 @@ import ru.tchallenge.service.complex.reliability.exception.ResourceViolationExce
 import ru.tchallenge.service.complex.reliability.exception.ViolationException
 import ru.tchallenge.service.complex.reliability.violation.ContractViolationInfo
 import ru.tchallenge.service.complex.reliability.violation.ResourceViolationInfo
+import ru.tchallenge.service.complex.utility.mail.Mail
+import ru.tchallenge.service.complex.utility.mail.MailService
 
 @CompileStatic
 @PackageScope
@@ -29,6 +31,9 @@ class EventServiceBean extends GenericServiceBean implements EventService {
     @Autowired
     EventRepository eventRepository
 
+    @Autowired
+    MailService mailService
+
     @Override
     EventInfo create(EventInvoice invoice) {
         def $existingEvent = eventRepository.findByTextcode(invoice.textcode)
@@ -42,7 +47,14 @@ class EventServiceBean extends GenericServiceBean implements EventService {
         }
         def $event = eventMapper.asEntity($normalizedInvoice)
         def $result = saveAndInfo($event)
-        logAsInfo('New event has been created', $event)
+        logAsInfo('New event has been created', $result)
+        def $mail = new Mail(
+                attachments: [],
+                content: $result.description,
+                subject: 'Создано новое событие',
+                target: 'ilya.gubarev@gmail.com'
+        )
+        mailService.sendAsync($mail)
         $result
     }
 
