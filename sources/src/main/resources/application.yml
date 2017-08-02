@@ -28,6 +28,12 @@ spring:
 
 tchallenge:
 
+  mail:
+
+    content-type: 'text/html;charset=utf-8'
+    encoding: 'utf-8'
+    origin: 'info@t-challenge.ru'
+
   security:
 
     certificate:
