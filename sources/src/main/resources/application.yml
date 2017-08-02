@@ -33,6 +33,11 @@ tchallenge:
     content-type: 'text/html;charset=utf-8'
     encoding: 'utf-8'
     origin: 'info@t-challenge.ru'
+    template:
+      cache:
+        enabled: false
+      prefix: '/'
+      suffix: '.hbs'
 
   security:
 
