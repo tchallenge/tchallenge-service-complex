@@ -49,10 +49,10 @@ class EventServiceBean extends GenericServiceBean implements EventService {
         def $result = saveAndInfo($event)
         logAsInfo('New event has been created', $result)
         def $mail = new Mail(
-                attachments: [],
-                content: $result.description,
+                payload: $result,
                 subject: 'Создано новое событие',
-                target: 'ilya.gubarev@gmail.com'
+                target: 'ilya.gubarev@gmail.com',
+                template: 'mail/template/event/created'
         )
         mailService.sendAsync($mail)
         $result
