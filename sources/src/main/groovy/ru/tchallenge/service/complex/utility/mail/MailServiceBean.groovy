@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper
 import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
 import ru.tchallenge.service.complex.utility.batch.BatchService
+import ru.tchallenge.service.complex.utility.template.TemplateService
 
 @CompileStatic
 @PackageScope
@@ -32,6 +33,9 @@ class MailServiceBean extends GenericServiceBean implements MailService {
     @Autowired
     JavaMailSender mailSender
 
+    @Autowired
+    TemplateService templateService
+
     @Override
     void sendAsync(Mail mail) {
         batchService.executeAsync({ send(mail) })
@@ -40,7 +44,8 @@ class MailServiceBean extends GenericServiceBean implements MailService {
     private void send(Mail mail) {
         def $message = mailSender.createMimeMessage()
         def $helper = new MimeMessageHelper($message, false, encoding)
-        $message.setContent(mail.content, contentType)
+        def $content = templateService.render(mail.template, mail.payload)
+        $message.setContent($content, contentType)
         $helper.setTo(mail.target)
         $helper.setSubject(mail.subject)
         $helper.setFrom(origin)

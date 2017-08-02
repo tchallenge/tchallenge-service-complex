@@ -4,11 +4,11 @@ import groovy.transform.CompileStatic
 import groovy.transform.Immutable
 
 @CompileStatic
-@Immutable
+@Immutable(knownImmutableClasses = [Object])
 class Mail {
 
-    Collection<MailAttachment> attachments
-    String content
+    Object payload
     String subject
     String target
+    String template
 }
