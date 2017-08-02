@@ -34,20 +34,16 @@ class MailServiceBean extends GenericServiceBean implements MailService {
 
     @Override
     void sendAsync(Mail mail) {
-        batchService.executeAsync(task(mail))
+        batchService.executeAsync({ send(mail) })
     }
 
-    private Runnable task(Mail mail) {
-        new Runnable() {
-            void run() {
-                def $message = mailSender.createMimeMessage()
-                def $helper = new MimeMessageHelper($message, false, encoding)
-                $message.setContent(mail.content, contentType)
-                $helper.setTo(mail.target)
-                $helper.setSubject(mail.subject)
-                $helper.setFrom(origin)
-                mailSender.send($message)
-            }
-        }
+    private void send(Mail mail) {
+        def $message = mailSender.createMimeMessage()
+        def $helper = new MimeMessageHelper($message, false, encoding)
+        $message.setContent(mail.content, contentType)
+        $helper.setTo(mail.target)
+        $helper.setSubject(mail.subject)
+        $helper.setFrom(origin)
+        mailSender.send($message)
     }
 }
