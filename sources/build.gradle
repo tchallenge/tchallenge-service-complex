@@ -26,9 +26,6 @@ version '1.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-sourceSets.main.java.srcDirs = []
-sourceSets.main.groovy.srcDirs += ['src/main/java']
-
 bootRun {
 
     systemProperties = System.properties as Map<String, ?>
