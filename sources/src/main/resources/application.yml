@@ -36,8 +36,6 @@ tchallenge:
     template:
       cache:
         enabled: false
-      prefix: '/'
-      suffix: '.hbs'
 
   security:
 

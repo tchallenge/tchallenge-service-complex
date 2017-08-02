@@ -24,12 +24,6 @@ class TemplateConfigurationBean extends GenericComponentBean {
     @Value('${tchallenge.mail.template.cache.enabled}')
     Boolean cacheEnabled
 
-    @Value('${tchallenge.mail.template.prefix}')
-    String prefix
-
-    @Value('${tchallenge.mail.template.suffix}')
-    String suffix
-
     @Bean
     Map<String, Template> templateCache() {
         new ConcurrentHashMap<String, Template>()
@@ -37,7 +31,7 @@ class TemplateConfigurationBean extends GenericComponentBean {
 
     @Bean
     TemplateLoader templateLoader() {
-        new ClassPathTemplateLoader(prefix, suffix)
+        new ClassPathTemplateLoader()
     }
 
     @Bean
