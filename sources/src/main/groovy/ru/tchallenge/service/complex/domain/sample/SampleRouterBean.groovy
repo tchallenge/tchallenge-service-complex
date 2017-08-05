@@ -14,8 +14,8 @@ import ru.tchallenge.service.complex.convention.routing.RouteGet
 import ru.tchallenge.service.complex.convention.routing.RoutePatch
 import ru.tchallenge.service.complex.convention.routing.RoutePost
 import ru.tchallenge.service.complex.validation.groups.Create
-import ru.tchallenge.service.complex.validation.groups.UpdateCommon
-import ru.tchallenge.service.complex.validation.groups.UpdateStatus
+import ru.tchallenge.service.complex.validation.groups.Edit
+import ru.tchallenge.service.complex.validation.groups.Status
 
 @CompileStatic
 @PackageScope
@@ -36,12 +36,12 @@ class SampleRouterBean extends GenericRouterBean {
     }
 
     @RoutePatch('/{id}')
-    SampleInfo update(@Validated(UpdateCommon) @RequestBody SampleInvoice invoice) {
+    SampleInfo update(@Validated(Edit) @RequestBody SampleInvoice invoice) {
         sampleService.update(invoice)
     }
 
     @RoutePatch('/{id}/status')
-    SampleInfo updateStatus(@Validated(UpdateStatus) @RequestBody SampleInvoice invoice) {
+    SampleInfo updateStatus(@Validated(Status) @RequestBody SampleInvoice invoice) {
         sampleService.updateStatus(invoice)
     }
 }

@@ -13,40 +13,40 @@ import ru.tchallenge.service.complex.validation.constraints.OrdinalId
 import ru.tchallenge.service.complex.validation.constraints.Required
 import ru.tchallenge.service.complex.validation.constraints.Textcode
 import ru.tchallenge.service.complex.validation.groups.Create
-import ru.tchallenge.service.complex.validation.groups.Update
-import ru.tchallenge.service.complex.validation.groups.UpdateCommon
-import ru.tchallenge.service.complex.validation.groups.UpdateStatus
+import ru.tchallenge.service.complex.validation.groups.Edit
+import ru.tchallenge.service.complex.validation.groups.Identify
+import ru.tchallenge.service.complex.validation.groups.Status
 
 @CompileStatic
 class EventInvoice {
 
-    @OrdinalId(groups = Update)
+    @OrdinalId(groups = Identify)
     String id
 
-    @Textcode(groups = [Create, UpdateCommon])
+    @Textcode(groups = [Create, Edit])
     String textcode
 
-    @Caption(groups = [Create, UpdateCommon])
+    @Caption(groups = [Create, Edit])
     String title
 
-    @Caption(groups = [Create, UpdateCommon])
+    @Caption(groups = [Create, Edit])
     String subtitle
 
-    @OptionalShortText(groups = [Create, UpdateCommon])
+    @OptionalShortText(groups = [Create, Edit])
     String description
 
-    @OptionalShortText(groups = [Create, UpdateCommon])
+    @OptionalShortText(groups = [Create, Edit])
     String greeting
 
     @Valid
-    @Filled(groups = [Create, UpdateCommon])
+    @Filled(groups = [Create, Edit])
     Collection<EventIntervalInvoice> intervals
 
     @Valid
-    @Required(groups = [Create, UpdateCommon])
+    @Required(groups = [Create, Edit])
     EnumeratedInvoice category
 
     @Valid
-    @Required(groups = UpdateStatus)
+    @Required(groups = Status)
     EnumeratedInvoice status
 }
