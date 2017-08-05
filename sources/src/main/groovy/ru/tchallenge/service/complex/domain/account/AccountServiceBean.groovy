@@ -33,6 +33,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
     @Autowired
     EncryptionService encryptionService
 
+    @Override
     AccountInfo create(AccountInvoice invoice) {
         def $account = accountMapper.asEntity(invoice.with {
             id = null
@@ -43,6 +44,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
         saveAndInfo($account)
     }
 
+    @Override
     AccountInfo createAsClaim(AccountInvoice invoice) {
         def $account = accountMapper.asEntity(invoice.with {
             id = null
@@ -55,10 +57,12 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
         saveAndInfo($account)
     }
 
+    @Override
     AccountInfo getById(String id) {
         info(account(id))
     }
 
+    @Override
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
         Page<Account> $page = accountRepository.findPage(
                 searches.normalizePattern(invoice.filterEmailPattern),
@@ -71,6 +75,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
         searches.info(invoice, $page) { Account account -> info(account) }
     }
 
+    @Override
     SearchInfo<AccountInfo> searchOnlyCandidates(AccountSearchInvoice invoice) {
         search(invoice.with {
             filterRealmTextcodes = ['CANDIDATE']
@@ -78,6 +83,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
         })
     }
 
+    @Override
     AccountInfo update(AccountInvoice invoice) {
         def $account = account(invoice.id)
         def $trimmedInvoice = invoice.with {
@@ -92,6 +98,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
         saveAndInfo($mergedAccount)
     }
 
+    @Override
     AccountInfo updateStatus(AccountInvoice invoice) {
         def $account = account(invoice.id).with {
             status = enumerateds.one(accountStatusRepository, invoice.status)

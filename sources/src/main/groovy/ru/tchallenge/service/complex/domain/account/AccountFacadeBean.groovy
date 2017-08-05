@@ -17,6 +17,7 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
     @Autowired
     AccountService accountService
 
+    @Override
     AccountInfo create(AccountInvoice invoice) {
         if (!authenticatedUsermod()) {
             throw unauthorized()
@@ -24,10 +25,12 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
         accountService.create(invoice)
     }
 
+    @Override
     AccountInfo createAsClaim(AccountInvoice invoice) {
         accountService.createAsClaim(invoice)
     }
 
+    @Override
     AccountInfo getById(String id) {
         if (!authenticatedUsermodOrSelfReference(id)) {
             throw unauthorized()
@@ -35,6 +38,7 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
         accountService.getById(id)
     }
 
+    @Override
     SearchInfo<AccountInfo> search(AccountSearchInvoice invoice) {
         if (!authenticatedUsermodOrCandidateViewer()) {
             throw unauthorized()
@@ -45,6 +49,7 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
         accountService.searchOnlyCandidates(invoice)
     }
 
+    @Override
     AccountInfo update(AccountInvoice invoice) {
         if (!authenticatedUsermodOrSelfReference(invoice.id)) {
             throw unauthorized()
@@ -52,6 +57,7 @@ class AccountFacadeBean extends GenericFacadeBean implements AccountFacade {
         accountService.update(invoice)
     }
 
+    @Override
     AccountInfo updateStatus(AccountInvoice invoice) {
         if (!authenticatedUsermod()) {
             throw unauthorized()

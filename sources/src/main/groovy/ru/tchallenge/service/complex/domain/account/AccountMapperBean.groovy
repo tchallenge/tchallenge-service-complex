@@ -49,10 +49,12 @@ class AccountMapperBean extends GenericMapperBean implements AccountMapper {
     @Autowired
     AccountVerificationRepository accountVerificationRepository
 
+    @Override
     Account asEntity(AccountInvoice invoice) {
         asEntity(null, invoice)
     }
 
+    @Override
     Account asEntity(Account entity, AccountInvoice invoice) {
         entity = entity ?: new Account()
         entity.with {
@@ -70,6 +72,7 @@ class AccountMapperBean extends GenericMapperBean implements AccountMapper {
         }
     }
 
+    @Override
     AccountInfo asInfo(Account account) {
         new AccountInfo(
                 id: account.id as String,
