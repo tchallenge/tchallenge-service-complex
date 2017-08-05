@@ -1,9 +1,12 @@
 package ru.tchallenge.service.complex.common.enumerated
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+import ru.tchallenge.service.complex.validation.constraints.Textcode
+
+@TypeChecked
 class EnumeratedInvoice {
 
+    @Textcode
     String textcode
 }
