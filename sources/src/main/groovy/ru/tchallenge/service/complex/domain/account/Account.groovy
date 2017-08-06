@@ -37,22 +37,22 @@ class Account extends GenericOrdinalEntity implements TimestampedEntity {
     @Column(name = 'login', nullable = false, unique = true)
     String login
 
-    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Candidate candidate
 
-    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Employee employee
 
-    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Person person
 
-    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Robot robot
 
-    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Collection<AccountCertificate> certificates = []
 
-    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = 'account', cascade = CascadeType.ALL, orphanRemoval = true)
     Collection<AccountPassword> passwords = []
 
     @NotNull
