@@ -1,12 +1,13 @@
 package ru.tchallenge.service.complex.domain.person
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+@TypeChecked
 class PersonInvoice {
 
-    String id
     String firstname
+
     String lastname
+
     String quickname
 }

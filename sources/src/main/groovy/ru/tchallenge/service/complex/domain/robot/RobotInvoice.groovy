@@ -1,12 +1,14 @@
 package ru.tchallenge.service.complex.domain.robot
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
+
+import javax.validation.Valid
 
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 
-@CompileStatic
+@TypeChecked
 class RobotInvoice {
 
-    String id
+    @Valid
     Collection<EnumeratedInvoice> roles
 }

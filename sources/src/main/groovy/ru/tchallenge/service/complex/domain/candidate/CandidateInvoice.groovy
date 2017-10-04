@@ -1,10 +1,12 @@
 package ru.tchallenge.service.complex.domain.candidate
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+import ru.tchallenge.service.complex.validation.constraints.Url
+
+@TypeChecked
 class CandidateInvoice {
 
-    String id
+    @Url
     String github
 }
