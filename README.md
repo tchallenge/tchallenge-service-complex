@@ -1,1 +1,1 @@
-# T-Challenge: Aggregated Service Application
+# T-Challenge: Complex Service

@@ -20,7 +20,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
-group 'ru.tchallenge.service.complex'
+group 'ru.tchallenge'
 version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

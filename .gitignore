@@ -4,16 +4,22 @@
 *.war
 
 # Gradle
-sources/.gradle/
-sources/build/
-sources/out/
+autotest/.gradle/
+autotest/build/
+autotest/out/
+source/.gradle/
+source/build/
+source/out/
 
 # Gradle Wrapper
-!sources/gradle/wrapper/gradle-wrapper.jar
+!autotest/gradle/wrapper/gradle-wrapper.jar
+!source/gradle/wrapper/gradle-wrapper.jar
 
 # IDE
-sources/.idea/
-sources/**/*.iml
+autotest/.idea/
+autotest/**/*.iml
+source/.idea/
+source/**/*.iml
 
 # Miscellaneous
 *.lock
