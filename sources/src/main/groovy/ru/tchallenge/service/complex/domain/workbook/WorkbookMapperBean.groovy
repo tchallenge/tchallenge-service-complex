@@ -50,7 +50,8 @@ class WorkbookMapperBean extends GenericMapperBean implements WorkbookMapper {
         $result.with {
             id = invoice.id as Long ?: id
             event = invoice.event ? eventMapper.asEntity(event, invoice.event) : event
-            it.owner = invoice.owner ? accountMapper.asEntity(it.owner, invoice.owner) : it.owner
+            // TODO: set owner
+            // it.owner = invoice.owner ? accountMapper.asEntity(it.owner, invoice.owner) : it.owner
             maturity = invoice.maturity ? enumerateds.one(maturityRepository, invoice.maturity) : maturity
             specialization = invoice.specialization ? enumerateds.one(specializationRepository, invoice.specialization) : specialization
             status = invoice.status ? enumerateds.one(workbookStatusRepository, invoice.status) : status
