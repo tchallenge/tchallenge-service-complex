@@ -1,11 +1,9 @@
 package ru.tchallenge.service.complex.domain.robot
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+@TypeChecked
 interface RobotMapper {
-
-    Robot asEntity(Robot entity, RobotInvoice invoice)
 
     RobotInfo asInfo(Robot entity)
 }

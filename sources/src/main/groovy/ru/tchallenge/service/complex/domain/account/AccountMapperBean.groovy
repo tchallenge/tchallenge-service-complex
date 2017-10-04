@@ -1,15 +1,12 @@
 package ru.tchallenge.service.complex.domain.account
 
-import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import groovy.transform.TypeChecked
 
 import org.springframework.beans.factory.annotation.Autowired
 
 import ru.tchallenge.service.complex.common.GenericMapperBean
 import ru.tchallenge.service.complex.convention.component.MapperComponent
-import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
-import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
-import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
 import ru.tchallenge.service.complex.domain.candidate.Candidate
 import ru.tchallenge.service.complex.domain.candidate.CandidateInfo
 import ru.tchallenge.service.complex.domain.candidate.CandidateMapper
@@ -23,7 +20,7 @@ import ru.tchallenge.service.complex.domain.robot.Robot
 import ru.tchallenge.service.complex.domain.robot.RobotInfo
 import ru.tchallenge.service.complex.domain.robot.RobotMapper
 
-@CompileStatic
+@TypeChecked
 @PackageScope
 @MapperComponent
 class AccountMapperBean extends GenericMapperBean implements AccountMapper {
@@ -39,38 +36,6 @@ class AccountMapperBean extends GenericMapperBean implements AccountMapper {
 
     @Autowired
     RobotMapper robotMapper
-
-    @Autowired
-    AccountRealmRepository accountRealmRepository
-
-    @Autowired
-    AccountStatusRepository accountStatusRepository
-
-    @Autowired
-    AccountVerificationRepository accountVerificationRepository
-
-    @Override
-    Account asEntity(AccountInvoice invoice) {
-        asEntity(null, invoice)
-    }
-
-    @Override
-    Account asEntity(Account entity, AccountInvoice invoice) {
-        entity = entity ?: new Account()
-        entity.with {
-            id = invoice.id as Long ?: id
-            email = invoice.email ?: email
-            login = invoice.login ?: login
-            candidate = invoice.candidate ? candidateMapper.asEntity(candidate, invoice.candidate) : candidate
-            employee = invoice.employee ? employeeMapper.asEntity(employee, invoice.employee) : employee
-            person = invoice.person ? personMapper.asEntity(person, invoice.person) : person
-            robot = invoice.robot ? robotMapper.asEntity(robot, invoice.robot) : robot
-            realm = invoice.realm ? enumerateds.one(accountRealmRepository, invoice.realm) : realm
-            status = invoice.status ? enumerateds.one(accountStatusRepository, invoice.status) : status
-            verification = invoice.verification ? enumerateds.one(accountVerificationRepository, invoice.verification) : verification
-            it
-        }
-    }
 
     @Override
     AccountInfo asInfo(Account account) {

@@ -10,7 +10,13 @@ import ru.tchallenge.service.complex.common.GenericServiceBean
 import ru.tchallenge.service.complex.common.enumerated.EnumeratedInvoice
 import ru.tchallenge.service.complex.common.search.SearchInfo
 import ru.tchallenge.service.complex.convention.component.ServiceComponent
+import ru.tchallenge.service.complex.domain.account.realm.AccountRealmRepository
 import ru.tchallenge.service.complex.domain.account.status.AccountStatusRepository
+import ru.tchallenge.service.complex.domain.account.verification.AccountVerificationRepository
+import ru.tchallenge.service.complex.domain.candidate.Candidate
+import ru.tchallenge.service.complex.domain.employee.Employee
+import ru.tchallenge.service.complex.domain.person.Person
+import ru.tchallenge.service.complex.domain.robot.Robot
 import ru.tchallenge.service.complex.utility.encryption.EncryptionService
 
 @CompileStatic
@@ -28,24 +34,82 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
     AccountRepository accountRepository
 
     @Autowired
+    AccountRealmRepository accountRealmRepository
+
+    @Autowired
     AccountStatusRepository accountStatusRepository
+
+    @Autowired
+    AccountVerificationRepository accountVerificationRepository
 
     @Autowired
     EncryptionService encryptionService
 
     @Override
     AccountInfo create(AccountInvoice invoice) {
-        def $account = accountMapper.asEntity(invoice.with {
-            id = null
-            status = initialStatusByRealm(invoice.realm)
-            verification = verificationByRealm(invoice.realm)
-            it
-        })
-        saveAndInfo($account)
+        Account account = new Account()
+        ensureUniqueness(account, invoice)
+        mergeOnCreate(account, invoice)
+        saveAndInfo(account)
+    }
+
+    private void mergeOnCreate(Account account, AccountInvoice invoice) {
+        account.with {
+            it.email = invoice.email
+            it.login = invoice.login
+            it.candidate = invoice.candidate ? new Candidate() : null
+            it.employee = invoice.employee ? new Employee() : null
+            it.person = invoice.person ? new Person() : null
+            it.robot = invoice.robot ? new Robot() : null
+            it.passwords = []
+            it.certificates = []
+            it.realm = enumerateds.one(accountRealmRepository, invoice.realm)
+            it.status = enumerateds.one(accountStatusRepository, initialStatusByRealm(invoice.realm))
+            it.verification = enumerateds.one(accountVerificationRepository, verificationByRealm(invoice.realm))
+        }
+    }
+
+    private void mergeOnUpdate(Account account, AccountInvoice invoice) {
+        account.with {
+            it.email = invoice.email
+            it.login = invoice.login
+            it.candidate = null // invoice.candidate
+            it.employee = null // invoice.employee
+            it.person = null // invoice.person
+            it.robot = null // invoice.robot
+            it.passwords = []
+            it.certificates = []
+            it.realm = enumerateds.one(accountRealmRepository, invoice.realm)
+            it.status = enumerateds.one(accountStatusRepository, initialStatusByRealm(invoice.realm))
+            it.verification = enumerateds.one(accountVerificationRepository, verificationByRealm(invoice.realm))
+        }
+    }
+
+    private void mergeOnStatus(Account account, AccountInvoice invoice) {
+        account.with {
+            it.status = enumerateds.one(accountStatusRepository, initialStatusByRealm(invoice.realm))
+        }
+    }
+
+    private void ensureUniqueness(Account account, AccountInvoice invoice) {
+        Account foundByEmail = accountRepository.findByEmail(invoice.email)
+        if (foundByEmail && foundByEmail.id != account.id) {
+            throw new RuntimeException('account already exists')
+        }
+        Account foundByLogin = accountRepository.findByLogin(invoice.login)
+        if (foundByLogin && foundByLogin.id != account.id) {
+            throw new RuntimeException('account already exists')
+        }
+    }
+
+    private AccountInfo mergeAndInfo(Account account, AccountInvoice invoice) {
+        // TODO: merge invoice into account
+        saveAndInfo(account)
     }
 
     @Override
     AccountInfo createAsClaim(AccountInvoice invoice) {
+        /*
         def $account = accountMapper.asEntity(invoice.with {
             id = null
             employee?.roles = []
@@ -54,7 +118,9 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
             verification = verificationByRealm(invoice.realm)
             it
         })
-        saveAndInfo($account)
+        */
+        Account account = null
+        saveAndInfo(account)
     }
 
     @Override
@@ -85,6 +151,7 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
 
     @Override
     AccountInfo update(AccountInvoice invoice) {
+        /*
         def $account = account(invoice.id)
         def $trimmedInvoice = invoice.with {
             id = null
@@ -95,7 +162,9 @@ class AccountServiceBean extends GenericServiceBean implements AccountService {
             it
         }
         def $mergedAccount = accountMapper.asEntity($account, $trimmedInvoice)
-        saveAndInfo($mergedAccount)
+        */
+        Account account = null
+        saveAndInfo(account)
     }
 
     @Override

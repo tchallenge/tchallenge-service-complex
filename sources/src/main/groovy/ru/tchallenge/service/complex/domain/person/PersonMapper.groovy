@@ -1,11 +1,9 @@
 package ru.tchallenge.service.complex.domain.person
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+@TypeChecked
 interface PersonMapper {
-
-    Person asEntity(Person entity, PersonInvoice invoice)
 
     PersonInfo asInfo(Person entity)
 }

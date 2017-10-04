@@ -1,11 +1,9 @@
 package ru.tchallenge.service.complex.domain.employee
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+@TypeChecked
 interface EmployeeMapper {
-
-    Employee asEntity(Employee entity, EmployeeInvoice invoice)
 
     EmployeeInfo asInfo(Employee entity)
 }

@@ -1,11 +1,9 @@
 package ru.tchallenge.service.complex.domain.candidate
 
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
-@CompileStatic
+@TypeChecked
 interface CandidateMapper {
-
-    Candidate asEntity(Candidate entity, CandidateInvoice invoice)
 
     CandidateInfo asInfo(Candidate entity)
 }
